@@ -1,0 +1,8 @@
+{
+    "name": "clxcommunications/sdk-xms",
+    "description": "Library for CLX Communications HTTP REST Messaging API",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^5.4 || ^7.0"
+    }
+}
