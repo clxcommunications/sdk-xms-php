@@ -2,7 +2,19 @@
     "name": "clxcommunications/sdk-xms",
     "description": "Library for CLX Communications HTTP REST Messaging API",
     "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {"Clx\\Xms\\": "src/"}
+    },
     "require": {
-        "php": "^5.4 || ^7.0"
+        "php": "^5.4 || ^7.0",
+        "sebastian/version": "^2.0"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.0",
+        "phpunit/phpunit": "^5.5"
+    },
+    "scripts": {
+        "test": "phpunit --bootstrap vendor/autoload.php tests",
+        "phpdoc": "phpdoc -d src --visibility=public"
     }
 }
