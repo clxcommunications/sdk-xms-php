@@ -301,6 +301,18 @@ class Deserialize
         return $result;
     }
 
+    /**
+     * Reads a JSON blob containing a list of tags.
+     *
+     * @param string $json a JSON formatted text
+     *
+     * @return string[] a list of tags
+     */
+    public static function readTags($json)
+    {
+        return (array) Deserialize::_readJson($json);
+    }
+
 }
 
 ?>

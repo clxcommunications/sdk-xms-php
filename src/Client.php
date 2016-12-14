@@ -227,6 +227,19 @@ class Client
         );
     }
 
+    /**
+     * Fetches the tags associated with the given batch.
+     *
+     * @param string $batchId the batch identifier
+     *
+     * @return string[] a list of tags
+     */
+    public function fetchBatchTags(string $batchId)
+    {
+        $result = $this->_get($this->_url("/batches/$batchId/tags"));
+        return Deserialize::readTags($result);
+    }
+
     public function fetchGroup(string $groupId)
     {
         $result = $this->_get($this->_url('/groups/' . $groupId));
@@ -255,6 +268,19 @@ class Client
                 return Deserialize::readGroupsPage($result);
             }
         );
+    }
+
+    /**
+     * Fetches the tags associated with the given group.
+     *
+     * @param string $groupId the group identifier
+     *
+     * @return string[] a list of tags
+     */
+    public function fetchGroupTags(string $groupId)
+    {
+        $result = $this->_get($this->_url("/groups/$groupId/tags"));
+        return Deserialize::readTags($result);
     }
 
 }

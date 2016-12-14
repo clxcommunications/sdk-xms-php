@@ -257,6 +257,15 @@ EOD;
         $this->assertEquals('4cldmgEdAcBfcHW3', $result->content[0]->groupId);
     }
 
+    public function testReadTags()
+    {
+        $json = '["tag1", "таг2"]';
+
+        $result = X\Deserialize::readTags($json);
+
+        $this->assertSame(["tag1", "таг2"], $result);
+    }
+
 }
 
 ?>
