@@ -228,6 +228,79 @@ class Deserialize
         return $result;
     }
 
+    private static function _readAutoUpdateFromFields(&$fields)
+    {
+        $result = new GroupAutoUpdate();
+        $result->recipient = $fields->to;
+
+        if (isset($fields->add) && isset($fields->add->first_word)) {
+            $result->addFirstWord = $fields->add->first_word;
+        }
+
+        if (isset($fields->add) && isset($fields->add->second_word)) {
+            $result->addSecondWord = $fields->add->second_word;
+        }
+
+        if (isset($fields->remove) && isset($fields->remove->first_word)) {
+            $result->removeFirstWord = $fields->remove->first_word;
+        }
+
+        if (isset($fields->remove) && isset($fields->remove->second_word)) {
+            $result->removeSecondWord = $fields->remove->second_word;
+        }
+
+        return $result;
+    }
+
+    private static function _readGroupResponseFromFields(&$fields)
+    {
+        $result = new GroupResponse();
+        $result->childGroups = $fields->child_groups;
+        $result->groupId = $fields->id;
+        $result->name = $fields->name;
+        $result->size = $fields->size;
+
+        if (isset($fields->auto_update)) {
+            $result->autoUpdate = Deserialize::_readAutoUpdateFromFields(
+                $fields->auto_update
+            );
+        }
+
+        if (isset($fields->created_at)) {
+            $result->createdAt = Deserialize::_readDateTime($fields->created_at);
+        }
+
+        if (isset($fields->modified_at)) {
+            $result->modifiedAt = Deserialize::_readDateTime($fields->modified_at);
+        }
+
+        return $result;
+    }
+
+    public static function readGroupResponse($json)
+    {
+        $fields = Deserialize::_readJson($json);
+        return Deserialize::_readGroupResponseFromFields($fields);
+    }
+
+    public static function readGroupsPage($json)
+    {
+        $fields = Deserialize::_readJson($json);
+
+        $result = new Page();
+        $result->page = $fields->page;
+        $result->size = $fields->page_size;
+        $result->totalSize = $fields->count;
+        $result->content = array_map(
+            function ($s) {
+                return Deserialize::_readGroupResponseFromFields($s);
+            },
+            $fields->groups
+        );
+
+        return $result;
+    }
+
 }
 
 ?>

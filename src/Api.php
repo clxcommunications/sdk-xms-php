@@ -398,6 +398,124 @@ class BatchFilter
 }
 
 /**
+ * Filter to use when listing groups.
+ */
+class GroupFilter
+{
+
+    /**
+     * The maximum number of groups to retrieve per page.
+     *
+     * @var int page size
+     */
+    public $pageSize;
+
+    /**
+     * Fetch only groups having or or more of these tags.
+     *
+     * @var string[] tags
+     */
+    public $tags;
+
+}
+
+/**
+ * A description of automatic group updates.
+ *
+ * An automatic update is triggered by a mobile originated message to
+ * a given number containing special keywords.
+ *
+ * The possible actions are to add or remove the sending number to or
+ * from the group, respectively.
+ */
+class GroupAutoUpdate
+{
+
+    /**
+     * The recipient of the mobile originated message.
+     *
+     * @var string a short code or long number
+     */
+    public $recipient;
+
+    /**
+     * Add the sender to the group.
+     *
+     * @var string a keyword
+     */
+    public $addFirstWord;
+
+    /**
+     * Add the sender to the group.
+     *
+     * @var string a keyword
+     */
+    public $addSecondWord;
+
+    public $removeFirstWord;
+
+    public $removeSecondWord;
+
+}
+
+class GroupResponse
+{
+
+    /**
+     * The unique group identifier.
+     *
+     * @var string group identifier
+     */
+    public $groupId;
+
+    /**
+     * The group name.
+     *
+     * @var string group name
+     */
+    public $name;
+
+    /**
+     * The number of members of this group.
+     *
+     * @var int number of group members
+     */
+    public $size;
+
+    /**
+     * A list of groups that in turn belong to this group.
+     *
+     * @var string[] group identifiers of the child groups
+     */
+    public $childGroups;
+
+    /**
+     * Describes how this group should be auto updated.
+     *
+     * If no auto updating should be performed for the group then this
+     * value is `null`.
+     *
+     * @var GroupAutoUpdate the auto update definition
+     */
+    public $autoUpdate;
+
+    /**
+     * The time at which this group was created.
+     *
+     * @var \DateTime the time of creation
+     */
+    public $createdAt;
+
+    /**
+     * The time when this group was last modified.
+     *
+     * @var \DateTime the time of modification
+     */
+    public $modifiedAt;
+
+}
+
+/**
  * A page of elements.
  *
  * The element type depends on the type of page that has been

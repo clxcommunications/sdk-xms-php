@@ -181,6 +181,82 @@ EOD;
         $this->assertObjectNotHasAttribute('type', $result);
     }
 
+    public function testReadGroupResponse()
+    {
+        $json = <<<'EOD'
+{
+    "auto_update": {
+        "to": "12345",
+        "add": {
+            "first_word": "hello"
+        },
+        "remove": {
+            "first_word": "goodbye"
+        }
+    },
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-10T12:38:19.162Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $result = X\Deserialize::readGroupResponse($json);
+
+        $this->assertEquals('12345', $result->autoUpdate->recipient);
+        $this->assertEquals('hello', $result->autoUpdate->addFirstWord);
+        $this->assertNull($result->autoUpdate->addSecondWord);
+        $this->assertEquals('goodbye', $result->autoUpdate->removeFirstWord);
+        $this->assertNull($result->autoUpdate->removeSecondWord);
+        $this->assertCount(0, $result->childGroups);
+        $this->assertEquals(
+            new \DateTime('2016-12-08T12:38:19.962Z'),
+            $result->createdAt
+        );
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals(
+            new \DateTime('2016-12-10T12:38:19.162Z'),
+            $result->modifiedAt
+        );
+        $this->assertEquals('rah-test', $result->name);
+        $this->assertEquals(1, $result->size);
+    }
+
+    public function testReadGroupsPage()
+    {
+        $json = <<<'EOD'
+{
+  "count": 8,
+  "page": 2,
+  "groups": [
+    {
+      "id": "4cldmgEdAcBfcHW3",
+      "name": "rah-test",
+      "size": 1,
+      "created_at": "2016-12-08T12:38:19.962Z",
+      "modified_at": "2016-12-08T12:38:19.962Z",
+      "child_groups": [],
+      "auto_update": {
+        "to": "12345"
+      }
+    }
+  ],
+  "page_size": 1
+}
+EOD;
+
+        $result = X\Deserialize::readGroupsPage($json);
+
+        $this->assertEquals(1, $result->size);
+        $this->assertEquals(2, $result->page);
+        $this->assertEquals(8, $result->totalSize);
+        $this->assertCount(1, $result->content);
+        $this->assertInstanceOf(X\GroupResponse::class, $result->content[0]);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->content[0]->groupId);
+    }
+
 }
 
 ?>

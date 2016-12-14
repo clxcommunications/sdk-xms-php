@@ -227,6 +227,36 @@ class Client
         );
     }
 
+    public function fetchGroup(string $groupId)
+    {
+        $result = $this->_get($this->_url('/groups/' . $groupId));
+        return Deserialize::readGroupResult($result);
+    }
+
+    public function fetchGroups(GroupFilter $filter = null)
+    {
+        return new Pages(
+            function ($page) use ($filter) {
+                $params = ["page=$page"];
+
+                if (!is_null($filter)) {
+                    if (isset($filter->pageSize)) {
+                        array_push($params, 'page_size=' . $filter->pageSize);
+                    }
+
+                    if (isset($filter->tags)) {
+                        $val = urlencode(join(',', $filter->tags));
+                        array_push($params, 'tags=' . $val);
+                    }
+                }
+
+                $q = join('&', $params);
+                $result = $this->_get($this->_url('/groups?' . $q));
+                return Deserialize::readGroupsPage($result);
+            }
+        );
+    }
+
 }
 
 ?>
