@@ -12,8 +12,9 @@
 namespace Clx\Xms;
 
 /**
- * A collection of known delivery report types. These values are known
- * to be valid in MtSmsBatch#deliveryReport.
+ * A collection of known delivery report types.
+ *
+ * These values are known to be valid in MtSmsBatch::$deliveryReport.
  */
 class ReportType
 {
@@ -27,6 +28,8 @@ class ReportType
 
 /**
  * A collection of known delivery statuses.
+ *
+ * Note, new statuses may be introduced to the XMS API.
  */
 class DeliveryStatus
 {
@@ -76,28 +79,61 @@ class DeliveryStatus
 }
 
 /**
- * Base class for all SMS batch classes. Holds fields that are common
- * to both create and result classes.
+ * Base class for all SMS batch classes.
+ *
+ * Holds fields that are common to both the create and response
+ * classes.
  */
 class MtSmsBatch
 {
 
+    /**
+     * The batch recipients
+     *
+     * @var string[] one or more MSISDNs
+     */
     public $recipients;
 
+    /**
+     * The batch sender.
+     *
+     * @var string a short code or long number
+     */
     public $sender;
 
+    /**
+     * The type of delivery report to use for this batch.
+     *
+     * @var ReportType the report type
+     */
     public $deliveryReport;
 
+    /**
+     * The time at which this batch should be sent.
+     *
+     * @var \DateTime the send date and time
+     */
     public $sendAt;
 
+    /**
+     * The time at which this batch should expire.
+     *
+     * @var \DateTime the expiry date and time
+     */
     public $expireAt;
 
+    /**
+     * The URL to which callbacks should be sent.
+     *
+     * @var string a valid URL
+     */
     public $callbackUrl;
 
     /**
-     * Prevent introduction of new fields. Typically this would happen when a
-     * misspelling a real field. Will always throw an
-     * `\InvalidArgumentException`.
+     * Prevent introduction of new fields.
+     *
+     * Typically this would happen when a misspelling a real field.
+     * Will always throw an `\InvalidArgumentException`.
      *
      * @param string $name  the field name
      * @param string $value the value
@@ -113,10 +149,11 @@ class MtSmsBatch
 }
 
 /**
- * Describes parameters available during batch creation. We can create
- * two kinds of batches, textual and binary, described in the child
- * classes MtTextSmsBatchCreate and MtBinarySmsBatchCreate,
- * respectively.
+ * Describes parameters available during batch creation.
+ *
+ * We can create two kinds of batches, textual and binary, described
+ * in the child classes `MtTextSmsBatchCreate` and
+ * `MtBinarySmsBatchCreate`, respectively.
  */
 class MtSmsBatchCreate extends MtSmsBatch
 {
@@ -132,11 +169,44 @@ class MtTextSmsBatchCreate extends MtSmsBatchCreate
 {
 
     /**
-     * The message text. May be a message template.
+     * The message body or template.
+     *
+     * @var string the textual batch message.
      */
     public $body;
 
-    public $parameters = array();
+    /**
+     * The template parameters.
+     *
+     * This property is only relevant is the `$body` property is a
+     * template. This is expected to be an associative array mapping
+     * parameter keys to associative arrays themselves mapping
+     * recipient numbers to substitution strings.
+     *
+     * More concretely we may have for the parameterized message
+     * "Hello, ${name}!" have
+     *
+     * ```php
+     * $parameters = [
+     *     'name' => [
+     *         '123456789' => 'Mary',
+     *         '987654321' => 'Joe',
+     *         'default' => 'valued customer'
+     *     ]
+     * ];
+     * ```
+     *
+     * And the recipient with MSISDN "123456789" would then receive
+     * the message "Hello, Mary!".
+     *
+     * Note the use of "default" to indicate the substitution for
+     * recipients not explicitly given. For example, the recipient
+     * "555555555" would receive the message "Hello, valued
+     * customer!".
+     *
+     * @var [] the template parameter definition
+     */
+    public $parameters;
 
 }
 
@@ -144,12 +214,16 @@ class MtBinarySmsBatchCreate extends MtSmsBatchCreate
 {
 
     /**
-     * The binary SMS body.
+     * The body of this binary message.
+     *
+     * @var string a binary string
      */
     public $body;
 
     /**
-     * The SMS user data header.
+     * The User Data Header of this binary message.
+     *
+     * @var string a binary string
      */
     public $udh;
 
@@ -168,24 +242,59 @@ class MtSmsBatchResponse extends MtSmsBatch
 
 }
 
+/**
+ * A textual batch as returned by the XMS endpoint.
+ *
+ * This differs from the batch creation definition by the addition of,
+ * for example, the batch identifier and the creation time.
+ */
 class MtTextSmsBatchResponse extends MtSmsBatchResponse
 {
 
+    /**
+     * The message body or template.
+     *
+     * @var string the textual batch message.
+     */
     public $body;
 
+    /**
+     * The template parameters.
+     *
+     * @see MtTextSmsBatchCreate::$parameters For an in-depth
+     *     description.
+     *
+     * @var [] the template parameter definition
+     */
     public $parameters;
 
 }
 
+/**
+ * A binary SMS batch as returned by XMS.
+ */
 class MtBinarySmsBatchResponse extends MtSmsBatchResponse
 {
 
+    /**
+     * The body of this binary message.
+     *
+     * @var string a binary string
+     */
     public $body;
 
+    /**
+     * The User Data Header of this binary message.
+     *
+     * @var string a binary string
+     */
     public $udh;
 
 }
 
+/**
+ * Aggregated statistics for a given batch.
+ */
 class BatchDeliveryReportStatus
 {
 
@@ -212,28 +321,78 @@ class BatchDeliveryReportStatus
 
 }
 
+/**
+ * A batch delivery report.
+ */
 class BatchDeliveryReport
 {
 
+    /**
+     * Identifier of the batch that this report covers.
+     *
+     * @var string batch identifier
+     */
     public $batchId;
 
+    /**
+     * The total number of messages sent as part of this batch.
+     *
+     * @var int the batch size
+     */
     public $totalMessageCount;
 
+    /**
+     * The batch status buckets.
+     *
+     * This array describes the aggregated status for the batch where
+     * each array element contains information about messages having a
+     * certain delivery status and delivery code.
+     *
+     * @var BatchDeliveryReportStatus[] status buckets
+     */
     public $statuses;
 
 }
 
+/**
+ * Filter to use when listing batches.
+ */
 class BatchFilter
 {
 
+    /**
+     * The maximum number of batches to retrieve per page.
+     *
+     * @var int page size
+     */
     public $pageSize;
 
+    /**
+     * Fetch only batches having one of these senders.
+     *
+     * @var string[] list of short codes and long numbers
+     */
     public $senders;
 
+    /**
+     * Fetch only batches having one or more of these tags.
+     *
+     * @var string[] list of tags
+     */
     public $tags;
 
+    /**
+     * Fetch only batches sent at or after this date.
+     *
+     * @var \DateTime start date filter
+     */
     public $startDate;
 
+    /**
+     * Fetch only batches sent before this date.
+     *
+     * @var \DateTime end date filter
+     */
     public $endDate;
 
 }
