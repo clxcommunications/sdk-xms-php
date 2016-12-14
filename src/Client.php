@@ -208,6 +208,16 @@ class Client
                         $val = urlencode(join(',', $filter->tags));
                         array_push($params, 'tags=' . $val);
                     }
+
+                    if (isset($filter->startDate)) {
+                        $val = $filter->startDate->format('Y-m-d');
+                        array_push($params, 'start_date=' . $val);
+                    }
+
+                    if (isset($filter->endDate)) {
+                        $val = $filter->endDate->format('Y-m-d');
+                        array_push($params, 'end_date=' . $val);
+                    }
                 }
 
                 $q = join('&', $params);
