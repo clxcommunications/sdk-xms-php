@@ -62,6 +62,7 @@ class Serialize
     public static function textBatch(MtTextSmsBatchCreate $batch_create)
     {
         $fields = array(
+            'type' => 'mt_text',
             'body' => $batch_create->body
         );
 
@@ -77,6 +78,7 @@ class Serialize
     public static function binaryBatch(MtBinarySmsBatchCreate $batch_create)
     {
         $fields = array(
+            'type' => 'mt_binary',
             'body' => base64_encode($batch_create->body),
             'udh' => bin2hex($batch_create->udh)
         );
