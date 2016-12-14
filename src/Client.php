@@ -188,29 +188,33 @@ class Client
         return Deserialize::readBatchDeliveryReport($result);
     }
 
-    public function fetchBatches(int $page, BatchFilter $filter = null)
+    public function fetchBatches(BatchFilter $filter = null)
     {
-        $params = ["page=$page"];
+        return new Pages(
+            function ($page) use ($filter) {
+                $params = ["page=$page"];
 
-        if (!is_null($filter)) {
-            if (isset($filter->pageSize)) {
-                array_push($params, 'page_size=' . $filter->pageSize);
+                if (!is_null($filter)) {
+                    if (isset($filter->pageSize)) {
+                        array_push($params, 'page_size=' . $filter->pageSize);
+                    }
+
+                    if (isset($filter->senders)) {
+                        $val = urlencode(join(',', $filter->senders));
+                        array_push($params, 'from=' . $val);
+                    }
+
+                    if (isset($filter->tags)) {
+                        $val = urlencode(join(',', $filter->tags));
+                        array_push($params, 'tags=' . $val);
+                    }
+                }
+
+                $q = join('&', $params);
+                $result = $this->_get($this->_url('/batches?' . $q));
+                return Deserialize::readBatchesPage($result);
             }
-
-            if (isset($filter->senders)) {
-                $val = urlencode(join(',', $filter->senders));
-                array_push($params, 'from=' . $val);
-            }
-
-            if (isset($filter->tags)) {
-                $val = urlencode(join(',', $filter->tags));
-                array_push($params, 'tags=' . $val);
-            }
-        }
-
-        $q = join('&', $params);
-        $result = $this->_get($this->_url('/batches?' . $q));
-        return Deserialize::readBatchesPage($result);
+        );
     }
 
 }

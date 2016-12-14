@@ -263,4 +263,152 @@ class Page implements \IteratorAggregate
 
 }
 
+/**
+ * A paged result.
+ *
+ * It is possible to, e.g., fetch individual pages or iterate over all
+ * pages.
+ *
+ * @api
+ */
+class Pages implements \IteratorAggregate
+{
+
+    private $_worker;
+
+    /**
+     * Creates a new pages object with the given page fetcher. This is
+     * mainly intended for internal use.
+     *
+     * @param callable $worker a page fetcher
+     *
+     * @return Pages
+     */
+    public function __construct(callable $worker)
+    {
+        $this->_worker = $worker;
+    }
+
+    /**
+     * Downloads a specific page.
+     *
+     * @param int $page number of the page to fetch
+     *
+     * @return Page a page
+     *
+     * @api
+     */
+    public function get(int $page)
+    {
+        return call_user_func($this->_worker, $page);
+    }
+
+    /**
+     * Returns an iterator over these pages.
+     *
+     * @return \Iterator an iterator
+     *
+     * @api
+     */
+    public function getIterator()
+    {
+        return new PagesIterator($this);
+    }
+
+}
+
+/**
+ * An iterator over a paged result.
+ *
+ * The key is the page number and the value corresponds to the content
+ * of the pages.
+ *
+ * @api
+ */
+class PagesIterator implements \Iterator
+{
+    private $_pages;
+
+    private $_curPage = null;
+
+    private $_position = 0;
+
+    /**
+     * Creates a new pages iterator for the given object.
+     *
+     * @param Pages $pages the pages to iterate over
+     *
+     * @return PagesIterator an iterator
+     */
+    public function __construct(Pages $pages)
+    {
+        $this->_pages = $pages;
+    }
+
+    /**
+     * Rewinds the iterator.
+     *
+     * @return void
+     *
+     * @api
+     */
+    function rewind()
+    {
+        $this->_curPage = null;
+        $this->_position = 0;
+    }
+
+    /**
+     * Returns the current page.
+     *
+     * @return Page the current page
+     *
+     * @api
+     */
+    function current()
+    {
+        if (!isset($this->_curPage) || $this->_curPage->page != $this->_position) {
+            $this->_curPage = $this->_pages->get($this->_position);
+        }
+        return $this->_curPage;
+    }
+
+    /**
+     * Returns the current page number.
+     *
+     * @return int the current page number
+     *
+     * @api
+     */
+    function key()
+    {
+        return $this->_position;
+    }
+
+    /**
+     * Steps this iterator to the next page.
+     *
+     * @return void
+     *
+     * @api
+     */
+    function next()
+    {
+        ++$this->_position;
+    }
+
+    /**
+     * Whether this iterator is currently valid.
+     *
+     * @return bool `true` if valid, `false` otherwise
+     *
+     * @api
+     */
+    function valid()
+    {
+        return $this->_position == 0 || $this->_curPage->size > 0;
+    }
+
+}
+
 ?>
