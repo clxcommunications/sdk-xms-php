@@ -170,22 +170,22 @@ class Client
      */
     public function createTextBatch(MtTextSmsBatchCreate $batch)
     {
-        $json = Serialize::writeTextBatch($batch);
+        $json = Serialize::textBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
-        return Deserialize::readBatchResponse($result);
+        return Deserialize::batchResponse($result);
     }
 
     public function createBinaryBatch(MtBinarySmsBatchCreate $batch)
     {
-        $json = Serialize::writeBinaryBatch($batch);
+        $json = Serialize::binaryBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
-        return Deserialize::readBatchResponse($result);
+        return Deserialize::batchResponse($result);
     }
 
     public function fetchBatch(string $batchId)
     {
         $result = $this->_get($this->_url('/batches/' . $batchId));
-        return Deserialize::readBatchDeliveryReport($result);
+        return Deserialize::batchDeliveryReport($result);
     }
 
     public function fetchBatches(BatchFilter $filter = null)
@@ -222,7 +222,7 @@ class Client
 
                 $q = join('&', $params);
                 $result = $this->_get($this->_url('/batches?' . $q));
-                return Deserialize::readBatchesPage($result);
+                return Deserialize::batchesPage($result);
             }
         );
     }
@@ -237,13 +237,13 @@ class Client
     public function fetchBatchTags(string $batchId)
     {
         $result = $this->_get($this->_url("/batches/$batchId/tags"));
-        return Deserialize::readTags($result);
+        return Deserialize::tags($result);
     }
 
     public function fetchGroup(string $groupId)
     {
         $result = $this->_get($this->_url('/groups/' . $groupId));
-        return Deserialize::readGroupResult($result);
+        return Deserialize::groupResult($result);
     }
 
     public function fetchGroups(GroupFilter $filter = null)
@@ -265,7 +265,7 @@ class Client
 
                 $q = join('&', $params);
                 $result = $this->_get($this->_url('/groups?' . $q));
-                return Deserialize::readGroupsPage($result);
+                return Deserialize::groupsPage($result);
             }
         );
     }
@@ -280,7 +280,7 @@ class Client
     public function fetchGroupTags(string $groupId)
     {
         $result = $this->_get($this->_url("/groups/$groupId/tags"));
-        return Deserialize::readTags($result);
+        return Deserialize::tags($result);
     }
 
 }

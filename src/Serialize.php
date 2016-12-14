@@ -23,7 +23,7 @@ class Serialize
      *
      * @return string a date time in ISO-8601 format
      */
-    private static function _writeDateTime($dt)
+    private static function _dateTime($dt)
     {
         return $dt->format(\DateTime::ATOM);
     }
@@ -43,11 +43,11 @@ class Serialize
         }
 
         if (isset($batch->sendAt)) {
-            $fields['send_at'] = Serialize::_writeDateTime($batch->sendAt);
+            $fields['send_at'] = Serialize::_dateTime($batch->sendAt);
         }
 
         if (isset($batch->expireAt)) {
-            $fields['expire_at'] = Serialize::_writeDateTime($batch->expireAt);
+            $fields['expire_at'] = Serialize::_dateTime($batch->expireAt);
         }
 
         if (isset($batch->tags)) {
@@ -59,7 +59,7 @@ class Serialize
         }
     }
 
-    public static function writeTextBatch(MtTextSmsBatchCreate $batch_create)
+    public static function textBatch(MtTextSmsBatchCreate $batch_create)
     {
         $fields = array(
             'body' => $batch_create->body
@@ -74,7 +74,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function writeBinaryBatch(MtBinarySmsBatchCreate $batch_create)
+    public static function binaryBatch(MtBinarySmsBatchCreate $batch_create)
     {
         $fields = array(
             'body' => base64_encode($batch_create->body),

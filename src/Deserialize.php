@@ -28,7 +28,7 @@ class Deserialize
      *
      * @return object an object as returned by `json_decode`
      */
-    private static function _readJson(&$json)
+    private static function _fromJson(&$json)
     {
         $fields = json_decode($json);
 
@@ -47,7 +47,7 @@ class Deserialize
      *
      * @return DateTime a date time
      */
-    private static function _readDateTime($str)
+    private static function _dateTime($str)
     {
         return new \DateTime($str);
     }
@@ -61,7 +61,7 @@ class Deserialize
      *
      * @return void
      */
-    private static function _readBatchResponseHelper(
+    private static function _batchResponseHelper(
         \stdClass &$fields, MtSmsBatchResponse &$object
     ) {
         $object->batchId = $fields->id;
@@ -74,19 +74,19 @@ class Deserialize
         }
 
         if (isset($fields->send_at)) {
-            $object->sendAt = Deserialize::_readDateTime($fields->send_at);
+            $object->sendAt = Deserialize::_dateTime($fields->send_at);
         }
 
         if (isset($fields->expire_at)) {
-            $object->expireAt = Deserialize::_readDateTime($fields->expire_at);
+            $object->expireAt = Deserialize::_dateTime($fields->expire_at);
         }
 
         if (isset($fields->created_at)) {
-            $object->createdAt = Deserialize::_readDateTime($fields->created_at);
+            $object->createdAt = Deserialize::_dateTime($fields->created_at);
         }
 
         if (isset($fields->modified_at)) {
-            $object->modifiedAt = Deserialize::_readDateTime($fields->modified_at);
+            $object->modifiedAt = Deserialize::_dateTime($fields->modified_at);
         }
 
         if (isset($fields->callback_url)) {
@@ -122,7 +122,7 @@ class Deserialize
      *
      * @return MtSmsBatchResponse the parsed result
      */
-    private static function _readBatchResponseFromFields(&$fields)
+    private static function _batchResponseFromFields(&$fields)
     {
         if ($fields->type == 'mt_text') {
             $result = new MtTextSmsBatchResponse();
@@ -144,7 +144,7 @@ class Deserialize
         }
 
         // Read the common fields.
-        Deserialize::_readBatchResponseHelper($fields, $result);
+        Deserialize::_batchResponseHelper($fields, $result);
 
         return $result;
     }
@@ -160,10 +160,10 @@ class Deserialize
      *
      * @return MtSmsBatchResponse the parsed result
      */
-    public static function readBatchResponse($json)
+    public static function batchResponse($json)
     {
-        $fields = Deserialize::_readJson($json);
-        return Deserialize::_readBatchResponseFromFields($fields);
+        $fields = Deserialize::_fromJson($json);
+        return Deserialize::_batchResponseFromFields($fields);
     }
 
     /**
@@ -173,9 +173,9 @@ class Deserialize
      *
      * @return Page the parsed page
      */
-    public static function readBatchesPage($json)
+    public static function batchesPage($json)
     {
-        $fields = Deserialize::_readJson($json);
+        $fields = Deserialize::_fromJson($json);
 
         $result = new Page();
         $result->page = $fields->page;
@@ -183,7 +183,7 @@ class Deserialize
         $result->totalSize = $fields->count;
         $result->content = array_map(
             function ($s) {
-                return Deserialize::_readBatchResponseFromFields($s);
+                return Deserialize::_batchResponseFromFields($s);
             },
             $fields->batches
         );
@@ -198,9 +198,9 @@ class Deserialize
      *
      * @return BatchDeliveryReport the parsed batch delivery report
      */
-    public static function readBatchDeliveryReport($json)
+    public static function batchDeliveryReport($json)
     {
-        $fields = Deserialize::_readJson($json);
+        $fields = Deserialize::_fromJson($json);
 
         if ($fields->type != 'delivery_report_sms') {
             throw new UnexpectedResponseException(
@@ -228,7 +228,7 @@ class Deserialize
         return $result;
     }
 
-    private static function _readAutoUpdateFromFields(&$fields)
+    private static function _autoUpdateFromFields(&$fields)
     {
         $result = new GroupAutoUpdate();
         $result->recipient = $fields->to;
@@ -252,7 +252,7 @@ class Deserialize
         return $result;
     }
 
-    private static function _readGroupResponseFromFields(&$fields)
+    private static function _groupResponseFromFields(&$fields)
     {
         $result = new GroupResponse();
         $result->childGroups = $fields->child_groups;
@@ -261,31 +261,31 @@ class Deserialize
         $result->size = $fields->size;
 
         if (isset($fields->auto_update)) {
-            $result->autoUpdate = Deserialize::_readAutoUpdateFromFields(
+            $result->autoUpdate = Deserialize::_autoUpdateFromFields(
                 $fields->auto_update
             );
         }
 
         if (isset($fields->created_at)) {
-            $result->createdAt = Deserialize::_readDateTime($fields->created_at);
+            $result->createdAt = Deserialize::_dateTime($fields->created_at);
         }
 
         if (isset($fields->modified_at)) {
-            $result->modifiedAt = Deserialize::_readDateTime($fields->modified_at);
+            $result->modifiedAt = Deserialize::_dateTime($fields->modified_at);
         }
 
         return $result;
     }
 
-    public static function readGroupResponse($json)
+    public static function groupResponse($json)
     {
-        $fields = Deserialize::_readJson($json);
-        return Deserialize::_readGroupResponseFromFields($fields);
+        $fields = Deserialize::_fromJson($json);
+        return Deserialize::_groupResponseFromFields($fields);
     }
 
-    public static function readGroupsPage($json)
+    public static function groupsPage($json)
     {
-        $fields = Deserialize::_readJson($json);
+        $fields = Deserialize::_fromJson($json);
 
         $result = new Page();
         $result->page = $fields->page;
@@ -293,7 +293,7 @@ class Deserialize
         $result->totalSize = $fields->count;
         $result->content = array_map(
             function ($s) {
-                return Deserialize::_readGroupResponseFromFields($s);
+                return Deserialize::_groupResponseFromFields($s);
             },
             $fields->groups
         );
@@ -308,9 +308,9 @@ class Deserialize
      *
      * @return string[] a list of tags
      */
-    public static function readTags($json)
+    public static function tags($json)
     {
-        return (array) Deserialize::_readJson($json);
+        return (array) Deserialize::_fromJson($json);
     }
 
 }

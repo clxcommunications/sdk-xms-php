@@ -25,7 +25,7 @@ class DeserializeTest extends PHPUnit\Framework\TestCase
 }
 EOD;
 
-        $result = X\Deserialize::readBatchResponse($json);
+        $result = X\Deserialize::batchResponse($json);
 
         $this->assertInstanceOf(X\MtTextSmsBatchResponse::class, $result);
         $this->assertEquals('Hello', $result->body);
@@ -115,7 +115,7 @@ EOD;
 }
 EOD;
 
-        $result = X\Deserialize::readBatchesPage($json);
+        $result = X\Deserialize::batchesPage($json);
 
         $this->assertEquals(3, $result->size);
         $this->assertEquals(0, $result->page);
@@ -159,7 +159,7 @@ EOD;
 }
 EOD;
 
-        $result = X\Deserialize::readBatchDeliveryReport($json);
+        $result = X\Deserialize::batchDeliveryReport($json);
 
         $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
         $this->assertEquals(2, $result->totalMessageCount);
@@ -203,7 +203,7 @@ EOD;
 }
 EOD;
 
-        $result = X\Deserialize::readGroupResponse($json);
+        $result = X\Deserialize::groupResponse($json);
 
         $this->assertEquals('12345', $result->autoUpdate->recipient);
         $this->assertEquals('hello', $result->autoUpdate->addFirstWord);
@@ -247,7 +247,7 @@ EOD;
 }
 EOD;
 
-        $result = X\Deserialize::readGroupsPage($json);
+        $result = X\Deserialize::groupsPage($json);
 
         $this->assertEquals(1, $result->size);
         $this->assertEquals(2, $result->page);
@@ -261,7 +261,7 @@ EOD;
     {
         $json = '["tag1", "таг2"]';
 
-        $result = X\Deserialize::readTags($json);
+        $result = X\Deserialize::tags($json);
 
         $this->assertSame(["tag1", "таг2"], $result);
     }
