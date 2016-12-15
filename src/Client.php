@@ -16,6 +16,37 @@ require_once "Deserialize.php";
 require_once "Serialize.php";
 
 /**
+ * Holder of the library version.
+ */
+class Version
+{
+
+    /**
+     * The version string for this library.
+     *
+     * @var string version string
+     */
+    private static $_version;
+
+    /**
+     * Returns the library version.
+     *
+     * @return string a version string
+     */
+    public static function version()
+    {
+        if (self::$_version == null) {
+            // Note! Need to bump this value after tagging a release.
+            $v = new \SebastianBergmann\Version("1.0", __DIR__);
+            self::$_version = $v->getVersion();
+        }
+
+        return self::$_version;
+    }
+
+}
+
+/**
  * Client used to communicate with the XMS server.
  *
  * @api
@@ -28,9 +59,12 @@ class Client
      */
     const DEFAULT_ENDPOINT = "http://localhost:8000/xms";
 
-    private static $_version;
-
-    private static $_userAgent;
+    /**
+     * The user agent string that is included in each request.
+     *
+     * @var string the user agent string
+     */
+    private $_userAgent;
 
     /**
      * An initialized cURL handle.
@@ -82,6 +116,8 @@ class Client
         $this->_service_plan_id = $service_plan_id;
         $this->_token = $token;
         $this->_endpoint = $endpoint;
+        $this->_userAgent = 'cURL/' . curl_version()['version']
+                          . ' PHP/' . PHP_VERSION;
 
         if (!($this->_curl_handle = curl_init())) {
             throw new HttpCallException("failed to initialize cURL");
@@ -110,21 +146,12 @@ class Client
 
     private function _curlHelper(&$url, $hasBody)
     {
-        if (!isset(self::$_version)) {
-            self::$_version = new \SebastianBergmann\Version("1.0", __DIR__);
-        }
-
-        if (!isset(self::$_userAgent)) {
-            self::$_userAgent = 'cURL/' . curl_version()['version']
-                              . ' PHP/' . PHP_VERSION;
-        }
-
         $headers = [
             'Accept: application/json',
             'Accept-Encoding: gzip, deflate',
             'Connection: keep-alive',
             'Authorization: Bearer ' . $this->_token,
-            'X-CLX-SDK-Version: ' . self::$_version->getVersion()
+            'X-CLX-SDK-Version: ' . Version::version()
         ];
 
         if ($hasBody) {
@@ -134,7 +161,7 @@ class Client
         curl_setopt($this->_curl_handle, CURLOPT_URL, $url);
         curl_setopt($this->_curl_handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($this->_curl_handle, CURLOPT_USERAGENT, self::$_userAgent);
+        curl_setopt($this->_curl_handle, CURLOPT_USERAGENT, $this->_userAgent);
 
         $result = curl_exec($this->_curl_handle);
 
