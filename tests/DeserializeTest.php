@@ -5,6 +5,18 @@ use Clx\Xms as X;
 class DeserializeTest extends PHPUnit\Framework\TestCase
 {
 
+    public function testReadInvalidJson()
+    {
+        $json = "{this is invalid JSON}";
+
+        try {
+            X\Deserialize::batchResponse($json);
+            $this->assertTrue(false, "expected exception");
+        } catch (X\InvalidJsonException $ex) {
+            // Expected.
+        }
+    }
+
     public function testReadBatchResponseText()
     {
         $json = <<<'EOD'

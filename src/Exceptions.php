@@ -139,6 +139,12 @@ class UnauthorizedException extends \Exception implements ApiException
 
 }
 
+class InvalidJsonException
+    extends \InvalidArgumentException
+    implements ApiException
+{
+}
+
 class HttpCallException
     extends \UnexpectedValueException
     implements ApiException

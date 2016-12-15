@@ -33,7 +33,7 @@ class Deserialize
         $fields = json_decode($json);
 
         if (is_null($fields)) {
-            throw new UnexpectedResponseException(json_last_error_msg());
+            throw new InvalidJsonException(json_last_error_msg());
         }
 
         return $fields;
