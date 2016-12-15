@@ -211,7 +211,7 @@ class Deserialize
     {
         $fields = Deserialize::_fromJson($json);
 
-        if ($fields->type != 'delivery_report_sms') {
+        if (!isset($fields->type) || $fields->type != 'delivery_report_sms') {
             throw new UnexpectedResponseException(
                 "Expected delivery report", $json
             );
