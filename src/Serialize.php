@@ -88,6 +88,48 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    public static function group(GroupCreate $group)
+    {
+        $fields = [];
+
+        if (isset($group->name)) {
+            $fields['name'] = $group->name;
+        }
+
+        if (isset($group->members)) {
+            $fields['members'] = $group->members;
+        }
+
+        if (isset($group->childGroups)) {
+            $fields['child_groups'] = $group->childGroups;
+        }
+
+        if (isset($group->autoUpdate)) {
+            $gau = $group->autoUpdate;
+            $fau = [ 'to' => $gau->recipient ];
+
+            if (isset($gau->addFirstWord)) {
+                $fau['add']['first_word'] = $gau->addFirstWord;
+            }
+
+            if (isset($gau->addSecondWord)) {
+                $fau['add']['second_word'] = $gau->addSecondWord;
+            }
+
+            if (isset($gau->removeFirstWord)) {
+                $fau['remove']['first_word'] = $gau->removeFirstWord;
+            }
+
+            if (isset($gau->removeSecondWord)) {
+                $fau['remove']['second_word'] = $gau->removeSecondWord;
+            }
+
+            $fields['auto_update'] = $fau;
+        }
+
+        return Serialize::_toJson($fields);
+    }
+
 }
 
 ?>

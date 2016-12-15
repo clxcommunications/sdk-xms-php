@@ -85,6 +85,39 @@ EOD;
         $this->assertJsonStringEqualsJsonString($expected, $actual);
     }
 
+    public function testGroupCreate()
+    {
+        $group = new X\GroupCreate();
+        $group->name = 'test name';
+        $group->members = ['123456789', '987654321'];
+        $group->childGroups = ['group1', 'group2'];
+        $group->autoUpdate = new X\GroupAutoUpdate(
+            '12345', ['ADD'], ['REMOVE', 'ME']
+        );
+
+        $actual = X\Serialize::group($group);
+
+        $expected = <<<'EOD'
+{
+    "auto_update": {
+        "to": "12345",
+        "add": {
+            "first_word": "ADD"
+        },
+        "remove": {
+            "first_word": "REMOVE",
+            "second_word": "ME"
+        }
+    },
+    "members": ["123456789", "987654321"],
+    "child_groups": ["group1", "group2"],
+    "name": "test name"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
 }
 
 ?>
