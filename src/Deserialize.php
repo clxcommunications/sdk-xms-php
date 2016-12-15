@@ -230,8 +230,7 @@ class Deserialize
 
     private static function _autoUpdateFromFields(&$fields)
     {
-        $result = new GroupAutoUpdate();
-        $result->recipient = $fields->to;
+        $result = new GroupAutoUpdate($fields->to);
 
         if (isset($fields->add) && isset($fields->add->first_word)) {
             $result->addFirstWord = $fields->add->first_word;
