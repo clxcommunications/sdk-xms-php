@@ -72,7 +72,8 @@ class Client
      * TODO: Consider making this variable static because PHP will
      * treat it as thread-local. As a result, this class would become
      * thread safe. But presumably could not have multiple instances
-     * in one thread?
+     * in one thread? Actually, that is probably not a problem since
+     * the handle wouldn't be used simultaneously in the same thread.
      */
     private $_curl_handle;
 
