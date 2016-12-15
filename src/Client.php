@@ -145,6 +145,14 @@ class Client
         return $this->_endpoint . '/v1' . $sub_path;
     }
 
+    /**
+     * Helper method that asks cURL to do an HTTP request.
+     *
+     * @param string $url     the URL that should receive the request
+     * @param bool   $hasBody whether the request includes a body
+     *
+     * @return string the request result body
+     */
     private function _curlHelper(&$url, $hasBody)
     {
         $headers = [
@@ -155,6 +163,10 @@ class Client
             'X-CLX-SDK-Version: ' . Version::version()
         ];
 
+        /*
+         * If this is a request that has a body then we need to
+         * include the content type, which in our case always is JSON.
+         */
         if ($hasBody) {
             array_push($headers, 'Content-Type: application/json');
         }
