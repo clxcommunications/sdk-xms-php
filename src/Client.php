@@ -182,6 +182,26 @@ class Client
             throw new HttpCallException(curl_error($this->_curlHandle));
         }
 
+        $httpCode = curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
+
+        switch ($httpCode) {
+        case 200:               // OK
+        case 201:               // Created
+            break;
+        case 400:               // Bad Request
+        case 403:               // Forbidden
+            $e = Deserialize::error($result);
+            throw new XmsErrorException($e->code, $e->text);
+        case 404:               // Not Found
+            throw new NotFoundException($url);
+        case 401:               // Unauthorized
+            throw new UnauthorizedException(
+                $this->_servicePlanId, $this->_token
+            );
+        default:                // Everything else
+            throw new UnexpectedResponseException($httpCode, $result);
+        }
+
         return $result;
     }
 
