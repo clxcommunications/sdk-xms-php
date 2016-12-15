@@ -25,7 +25,9 @@ class SerializeTest extends PHPUnit\Framework\TestCase
             'default' => 'you'
         ];
         $batch->deliveryReport = X\ReportType::NONE;
+        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
         $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
+        $batch->callbackUrl = "http://localhost/callback";
 
         $actual = X\Serialize::textBatch($batch);
 
@@ -33,6 +35,7 @@ class SerializeTest extends PHPUnit\Framework\TestCase
 {
     "body": "Hello, ${name}!",
     "delivery_report": "none",
+    "send_at": "2016-12-01T11:03:13+00:00",
     "expire_at": "2016-12-04T11:03:13+00:00",
     "from": "12345",
     "to": [
@@ -46,6 +49,7 @@ class SerializeTest extends PHPUnit\Framework\TestCase
             "default": "you"
         }
     },
+    "callback_url": "http://localhost/callback",
     "type": "mt_text"
 }
 EOD;
@@ -92,7 +96,7 @@ EOD;
         $group->members = ['123456789', '987654321'];
         $group->childGroups = ['group1', 'group2'];
         $group->autoUpdate = new X\GroupAutoUpdate(
-            '12345', ['ADD'], ['REMOVE', 'ME']
+            '12345', ['ADD', 'plz'], ['REMOVE', 'ME']
         );
 
         $actual = X\Serialize::group($group);
@@ -102,7 +106,8 @@ EOD;
     "auto_update": {
         "to": "12345",
         "add": {
-            "first_word": "ADD"
+            "first_word": "ADD",
+            "second_word": "plz"
         },
         "remove": {
             "first_word": "REMOVE",
