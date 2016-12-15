@@ -33,7 +33,10 @@ class Deserialize
         $fields = json_decode($json);
 
         if (is_null($fields)) {
-            throw new InvalidJsonException(json_last_error_msg());
+            throw new UnexpectedResponseException(
+                json_last_error_msg(),
+                $json
+            );
         }
 
         return $fields;
@@ -122,11 +125,12 @@ class Deserialize
      * Helper that creates and populates a batch result object. The
      * result is populated from the result of `json_decode`.
      *
+     * @param string $json   the JSON formatted string
      * @param object $fields the `json_decode` containing the result
      *
      * @return MtSmsBatchResponse the parsed result
      */
-    private static function _batchResponseFromFields(&$fields)
+    private static function _batchResponseFromFields(&$json, &$fields)
     {
         if ($fields->type == 'mt_text') {
             $result = new MtTextSmsBatchResponse();
@@ -143,7 +147,8 @@ class Deserialize
             $result->body = base64_decode($fields->body);
         } else {
             throw new UnexpectedResponseException(
-                "Received unexpected response: " . $json
+                "Received unexpected batch type " . $fields->type,
+                $json
             );
         }
 
@@ -167,7 +172,7 @@ class Deserialize
     public static function batchResponse($json)
     {
         $fields = Deserialize::_fromJson($json);
-        return Deserialize::_batchResponseFromFields($fields);
+        return Deserialize::_batchResponseFromFields($json, $fields);
     }
 
     /**
@@ -187,7 +192,7 @@ class Deserialize
         $result->totalSize = $fields->count;
         $result->content = array_map(
             function ($s) {
-                return Deserialize::_batchResponseFromFields($s);
+                return Deserialize::_batchResponseFromFields($json, $s);
             },
             $fields->batches
         );
@@ -208,7 +213,7 @@ class Deserialize
 
         if ($fields->type != 'delivery_report_sms') {
             throw new UnexpectedResponseException(
-                "Expected delivery report, got: " . $json
+                "Expected delivery report", $json
             );
         }
 

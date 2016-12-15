@@ -139,12 +139,6 @@ class UnauthorizedException extends \Exception implements ApiException
 
 }
 
-class InvalidJsonException
-    extends \InvalidArgumentException
-    implements ApiException
-{
-}
-
 class HttpCallException
     extends \UnexpectedValueException
     implements ApiException
@@ -159,36 +153,23 @@ class UnexpectedResponseException
     implements ApiException
 {
 
-    private $_httpStatus;
-
     private $_httpBody;
 
     /**
      * Creates a new unexpected response exception.
      *
-     * @param int    $status the HTTP status of the response
-     * @param string $body   the HTTP response body
+     * @param string $message the error message
+     * @param string $body    the HTTP response body
      */
-    public function __construct(int $status, string $body)
+    public function __construct(string $message, string $body)
     {
-        parent::__construct("Received unexpected response with status '$status'");
+        parent::__construct($message);
 
-        $this->_httpStatus = $status;
         $this->_httpBody = $body;
     }
 
     /**
-     * Returns the HTTP status code of the response.
-     *
-     * @return int an HTTP status code
-     */
-    public function getHttpStatus()
-    {
-        return $this->_httpStatus;
-    }
-
-    /**
-     * Returns the HTTP response body of the response
+     * Returns the HTTP response body of the unexpected response.
      *
      * @return string the HTTP response body
      */

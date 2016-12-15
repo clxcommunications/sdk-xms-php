@@ -12,8 +12,8 @@ class DeserializeTest extends PHPUnit\Framework\TestCase
         try {
             X\Deserialize::batchResponse($json);
             $this->assertTrue(false, "expected exception");
-        } catch (X\InvalidJsonException $ex) {
-            // Expected.
+        } catch (X\UnexpectedResponseException $ex) {
+            $this->assertEquals($json, $ex->getHttpBody());
         }
     }
 

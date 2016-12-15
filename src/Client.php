@@ -182,9 +182,9 @@ class Client
             throw new HttpCallException(curl_error($this->_curlHandle));
         }
 
-        $httpCode = curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
+        $httpStatus = curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
 
-        switch ($httpCode) {
+        switch ($httpStatus) {
         case 200:               // OK
         case 201:               // Created
             break;
@@ -199,7 +199,9 @@ class Client
                 $this->_servicePlanId, $this->_token
             );
         default:                // Everything else
-            throw new UnexpectedResponseException($httpCode, $result);
+            throw new UnexpectedResponseException(
+                "Unexpected HTTP status $httpStatus", $result
+            );
         }
 
         return $result;

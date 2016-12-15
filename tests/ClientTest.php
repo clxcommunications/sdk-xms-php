@@ -143,7 +143,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
             $client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\UnexpectedResponseException $ex) {
-            $this->assertEquals(500, $ex->getHttpStatus());
             $this->assertEquals('{}', $ex->getHttpBody());
         }
     }
