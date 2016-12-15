@@ -10,6 +10,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     use HttpMockTrait;
 
+    private $_client;
 
     public static function setUpBeforeClass()
     {
@@ -24,6 +25,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->setUpHttpMock();
+        $this->_client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
     }
 
     public function tearDown()
@@ -33,8 +35,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public function testHandles400BadRequest()
     {
-        $client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
-
         $this->http->mock
             ->when()
             ->methodIs('GET')
@@ -46,7 +46,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->setUp();
 
         try {
-            $client->fetchBatch('batchid');
+            $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\XmsErrorException $ex) {
             $this->assertEquals('yes_this_is_code', $ex->getErrorCode());
@@ -56,8 +56,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public function testHandles403Forbidden()
     {
-        $client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
-
         $this->http->mock
             ->when()
             ->methodIs('GET')
@@ -69,7 +67,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->setUp();
 
         try {
-            $client->fetchBatch('batchid');
+            $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\XmsErrorException $ex) {
             $this->assertEquals('yes_this_is_code', $ex->getErrorCode());
@@ -79,8 +77,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public function testHandles404NotFound()
     {
-        $client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
-
         $this->http->mock
             ->when()
             ->methodIs('GET')
@@ -92,7 +88,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->setUp();
 
         try {
-            $client->fetchBatch('batchid');
+            $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\NotFoundException $ex) {
             $this->assertEquals(
@@ -104,8 +100,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public function testHandles401Unauthorized()
     {
-        $client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
-
         $this->http->mock
             ->when()
             ->methodIs('GET')
@@ -117,7 +111,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->setUp();
 
         try {
-            $client->fetchBatch('batchid');
+            $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\UnauthorizedException $ex) {
             $this->assertEquals('foo', $ex->getServicePlanId());
@@ -127,8 +121,6 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public function testHandles500InternalServerError()
     {
-        $client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
-
         $this->http->mock
             ->when()
             ->methodIs('GET')
@@ -140,7 +132,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->setUp();
 
         try {
-            $client->fetchBatch('batchid');
+            $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
         } catch (X\UnexpectedResponseException $ex) {
             $this->assertEquals('{}', $ex->getHttpBody());
