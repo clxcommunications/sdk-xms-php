@@ -14,7 +14,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass()
     {
-        static::setUpHttpMockBeforeClass(26592, 'localhost');
+        static::setUpHttpMockBeforeClass(26542, 'localhost');
     }
 
     public static function tearDownAfterClass()
@@ -25,12 +25,31 @@ class ClientTest extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->setUpHttpMock();
-        $this->_client = new X\Client('foo', 'bar', "http://localhost:26592/xms");
+        $this->_client = new X\Client('foo', 'bar', "http://localhost:26542/xms");
     }
 
     public function tearDown()
     {
         $this->tearDownHttpMock();
+    }
+
+    public function testDestruct()
+    {
+        /* Unset the client variable and see if any fatal error
+         * occurs, e.g., a exception. */
+        unset($this->_client);
+    }
+
+    public function testUnansweredRequest()
+    {
+        $client = new X\Client('foo', 'bar', "http://localhost:26541/xms");
+
+        try {
+            $tags = $client->fetchBatch('BATCHID');
+            $this->assertTrue(false, 'expected exception');
+        } catch (X\HttpCallException $ex) {
+            // This is good.
+        }
     }
 
     public function testHandles400BadRequest()
@@ -92,7 +111,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
             $this->assertTrue(false, "expected exception");
         } catch (X\NotFoundException $ex) {
             $this->assertEquals(
-                'http://localhost:26592/xms/v1/batches/batchid',
+                'http://localhost:26542/xms/v1/batches/batchid',
                 $ex->getUrl()
             );
         }
@@ -357,7 +376,11 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches?page=0')
+            ->pathIs(
+                '/xms/v1/batches?page=0&page_size=10'
+                . '&from=12345%2C98765&tags=tag1%2Ctag2'
+                . '&start_date=2016-12-01&end_date=2016-12-02'
+            )
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -366,7 +389,11 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches?page=1')
+            ->pathIs(
+                '/xms/v1/batches?page=1&page_size=10'
+                . '&from=12345%2C98765&tags=tag1%2Ctag2'
+                . '&start_date=2016-12-01&end_date=2016-12-02'
+            )
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -374,7 +401,14 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $pages = $this->_client->fetchBatches();
+        $filter = new X\BatchFilter();
+        $filter->pageSize = 10;
+        $filter->senders = ['12345', '98765'];
+        $filter->tags = ['tag1', 'tag2'];
+        $filter->startDate = new \DateTime('2016-12-01');
+        $filter->endDate = new \DateTime('2016-12-02');
+
+        $pages = $this->_client->fetchBatches($filter);
 
         $page = $pages->get(0);
         $this->assertInstanceOf(X\Page::class, $page);
@@ -387,6 +421,149 @@ EOD;
         $this->assertEquals(0, $page->size);
         $this->assertEquals(7, $page->totalSize);
         $this->assertEquals([], $page->content);
+    }
+
+    public function testFetchBatchTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/batches/BATCHID/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('["tag1", "tag2"]')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->fetchBatchTags('BATCHID');
+
+        $this->assertEquals(['tag1', 'tag2'], $tags);
+    }
+
+    public function testFetchGroup()
+    {
+        $responseBody = <<<'EOD'
+{
+    "auto_update": {
+        "to": "12345",
+        "add": {
+        },
+        "remove": {
+        }
+    },
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-10T12:38:19.162Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/groups/4cldmgEdAcBfcHW3')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $group = $this->_client->fetchGroup('4cldmgEdAcBfcHW3');
+
+        $this->assertEquals('4cldmgEdAcBfcHW3', $group->groupId);
+    }
+
+    public function testFetchGroups()
+    {
+        $responseBody1 = <<<'EOD'
+{
+  "count": 8,
+  "page": 0,
+  "groups": [
+    {
+      "id": "4cldmgEdAcBfcHW3",
+      "name": "rah-test",
+      "size": 1,
+      "created_at": "2016-12-08T12:38:19.962Z",
+      "modified_at": "2016-12-08T12:38:19.962Z",
+      "child_groups": [],
+      "auto_update": {
+        "to": "12345"
+      }
+    }
+  ],
+  "page_size": 1
+}
+EOD;
+
+        $responseBody2 = <<<'EOD'
+{
+    "groups": [],
+    "count": 8,
+    "page": 1,
+    "page_size": 0
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/groups?page=0&page_size=10&tags=tag1%2Ctag2')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody1)
+            ->end();
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/groups?page=1&page_size=10&tags=tag1%2Ctag2')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody2)
+            ->end();
+        $this->http->setUp();
+
+        $filter = new X\GroupFilter();
+        $filter->pageSize = 10;
+        $filter->tags = ['tag1', 'tag2'];
+
+        $pages = $this->_client->fetchGroups($filter);
+
+        $page = $pages->get(0);
+        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertEquals(1, $page->size);
+        $this->assertEquals(8, $page->totalSize);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $page->content[0]->groupId);
+
+        $page = $pages->get(1);
+        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertEquals(0, $page->size);
+        $this->assertEquals(8, $page->totalSize);
+        $this->assertEquals([], $page->content);
+    }
+
+    public function testFetchGroupTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/groups/groupid/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('["tag1", "tag2"]')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->fetchGroupTags('groupid');
+
+        $this->assertEquals(['tag1', 'tag2'], $tags);
     }
 
 }
