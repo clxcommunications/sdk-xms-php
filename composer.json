@@ -11,7 +11,8 @@
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "^2.0",
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "^5.5",
+        "internations/http-mock": "^0.7"
     },
     "scripts": {
         "test": "phpunit --bootstrap vendor/autoload.php tests",
