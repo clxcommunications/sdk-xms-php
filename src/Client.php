@@ -75,12 +75,12 @@ class Client
      * in one thread? Actually, that is probably not a problem since
      * the handle wouldn't be used simultaneously in the same thread.
      */
-    private $_curl_handle;
+    private $_curlHandle;
 
     /**
      * The user service plan identifier.
      */
-    private $_service_plan_id;
+    private $_servicePlanId;
 
     /**
      * The user authentication token.
@@ -114,22 +114,22 @@ class Client
         string $token,
         string $endpoint = Client::DEFAULT_ENDPOINT
     ) {
-        $this->_service_plan_id = $service_plan_id;
+        $this->_servicePlanId = $service_plan_id;
         $this->_token = $token;
         $this->_endpoint = $endpoint;
         $this->_userAgent = 'cURL/' . curl_version()['version']
                           . ' PHP/' . PHP_VERSION;
 
-        if (!($this->_curl_handle = curl_init())) {
+        if (!($this->_curlHandle = curl_init())) {
             throw new HttpCallException("failed to initialize cURL");
         }
     }
 
     public function __destruct()
     {
-        if ($this->_curl_handle) {
-            curl_close($this->_curl_handle);
-            $this->_curl_handle = null;
+        if ($this->_curlHandle) {
+            curl_close($this->_curlHandle);
+            $this->_curlHandle = null;
         }
     }
 
@@ -159,15 +159,15 @@ class Client
             array_push($headers, 'Content-Type: application/json');
         }
 
-        curl_setopt($this->_curl_handle, CURLOPT_URL, $url);
-        curl_setopt($this->_curl_handle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($this->_curl_handle, CURLOPT_USERAGENT, $this->_userAgent);
+        curl_setopt($this->_curlHandle, CURLOPT_URL, $url);
+        curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($this->_curlHandle, CURLOPT_USERAGENT, $this->_userAgent);
 
-        $result = curl_exec($this->_curl_handle);
+        $result = curl_exec($this->_curlHandle);
 
         if ($result === false) {
-            throw new HttpCallException(curl_error($this->_curl_handle));
+            throw new HttpCallException(curl_error($this->_curlHandle));
         }
 
         return $result;
@@ -180,8 +180,8 @@ class Client
 
     private function _post($url, &$json)
     {
-        curl_setopt($this->_curl_handle, CURLOPT_POST, true);
-        curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($this->_curlHandle, CURLOPT_POST, true);
+        curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $json);
 
         return $this->_curlHelper($url, true);
     }
