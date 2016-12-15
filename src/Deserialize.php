@@ -106,12 +106,16 @@ class Deserialize
      */
     private static function _convertParameters(&$params)
     {
-        return array_map(
-            function ($param) {
-                return (array) $param;
-            },
-            (array) $params
-        );
+        $res = [];
+
+        foreach ($params as $param => $substitutions) {
+            $res["$param"] = [];
+            foreach ($substitutions as $key => $value) {
+                $res["$param"]["$key"] = "$value";
+            }
+        }
+
+        return $res;
     }
 
     /**
