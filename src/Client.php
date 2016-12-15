@@ -247,7 +247,7 @@ class Client
     public function fetchBatch(string $batchId)
     {
         $result = $this->_get($this->_url('/batches/' . $batchId));
-        return Deserialize::batchDeliveryReport($result);
+        return Deserialize::batchResponse($result);
     }
 
     public function fetchBatches(BatchFilter $filter = null)
