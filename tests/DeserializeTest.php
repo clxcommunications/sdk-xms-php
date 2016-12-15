@@ -266,6 +266,21 @@ EOD;
         $this->assertSame(["tag1", "таг2"], $result);
     }
 
+    public function testReadError()
+    {
+        $json = <<<'EOD'
+{
+    "code": "yes_this_is_code",
+    "text": "This is a text"
+}
+EOD;
+
+        $result = X\Deserialize::error($json);
+
+        $this->assertEquals('yes_this_is_code', $result->code);
+        $this->assertEquals('This is a text', $result->text);
+    }
+
 }
 
 ?>

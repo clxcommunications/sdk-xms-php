@@ -312,6 +312,24 @@ class Deserialize
         return (array) Deserialize::_fromJson($json);
     }
 
+    /**
+     * Reads a JSON blob containing an error response.
+     *
+     * @param string $json a JSON formatted text
+     *
+     * @return Error the decoded error
+     */
+    public static function error($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+
+        $result = new Error();
+        $result->code = $fields->code;
+        $result->text = $fields->text;
+
+        return $result;
+    }
+
 }
 
 ?>
