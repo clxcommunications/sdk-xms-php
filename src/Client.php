@@ -305,7 +305,7 @@ class Client
     public function fetchGroup(string $groupId)
     {
         $result = $this->_get($this->_url('/groups/' . $groupId));
-        return Deserialize::groupResult($result);
+        return Deserialize::groupResponse($result);
     }
 
     public function fetchGroups(GroupFilter $filter = null)
