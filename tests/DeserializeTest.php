@@ -371,11 +371,11 @@ EOD;
 
     public function testReadTags()
     {
-        $json = '["tag1", "таг2"]';
+        $json = '{ "tags": ["tag1", "таг2"] }';
 
         $result = X\Deserialize::tags($json);
 
-        $this->assertSame(["tag1", "таг2"], $result);
+        $this->assertEquals(["tag1", "таг2"], $result);
     }
 
     public function testReadError()

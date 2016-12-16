@@ -315,7 +315,8 @@ class Deserialize
      */
     public static function tags($json)
     {
-        return (array) Deserialize::_fromJson($json);
+        $fields = Deserialize::_fromJson($json);
+        return (array) $fields->tags;
     }
 
     /**

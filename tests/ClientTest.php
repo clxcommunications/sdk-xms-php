@@ -540,7 +540,7 @@ EOD;
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
-            ->body('["tag1", "tag2"]')
+            ->body('{"tags":["tag1", "tag2"]}')
             ->end();
         $this->http->setUp();
 
@@ -665,7 +665,7 @@ EOD;
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
-            ->body('["tag1", "tag2"]')
+            ->body('{"tags":["tag1", "tag2"]}')
             ->end();
         $this->http->setUp();
 
