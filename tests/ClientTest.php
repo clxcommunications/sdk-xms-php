@@ -264,6 +264,113 @@ EOD;
         );
     }
 
+    public function testReplaceTextBatch()
+    {
+        $responseBody = <<<'EOD'
+{
+  "type" : "mt_text",
+  "body" : "hello",
+  "id" : "5Z8QsIRsk86f-jHB",
+  "to" : [ "987654321", "123456789" ],
+  "from" : "12345",
+  "expire_at" : "2016-12-17T08:15:29.969Z",
+  "created_at" : "2016-12-14T08:15:29.969Z",
+  "modified_at" : "2016-12-14T08:15:29.969Z",
+  "canceled" : false
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/batches/BatchID')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $batch = new XA\MtTextSmsBatchCreate();
+        $batch->body = 'hello';
+        $batch->recipients = ['987654321', '123456789'];
+        $batch->sender = '12345';
+
+        $result = $this->_client->replaceTextBatch('BatchID', $batch);
+
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+
+        $expectedRequestBody = <<<'EOD'
+{
+    "type": "mt_text",
+    "body": "hello",
+    "from": "12345",
+    "to": ["987654321", "123456789"]
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString(
+            $expectedRequestBody,
+            (string) $this->http->requests->latest()->getBody()
+        );
+    }
+
+    public function testReplaceBinaryBatch()
+    {
+        $responseBody = <<<'EOD'
+{
+  "type" : "mt_binary",
+  "udh" : "fffefd",
+  "body" : "AAECAw==",
+  "id" : "5Z8QsIRsk86f-jHB",
+  "to" : [ "987654321", "123456789" ],
+  "from" : "12345",
+  "expire_at" : "2016-12-17T08:15:29.969Z",
+  "created_at" : "2016-12-14T08:15:29.969Z",
+  "modified_at" : "2016-12-14T08:15:29.969Z",
+  "canceled" : false
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/batches/5Z8QsIRsk86f-jHB')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $batch = new XA\MtBinarySmsBatchCreate();
+        $batch->body = "\x00\x01\x02\x03";
+        $batch->udh = "\xff\xfe\xfd";
+        $batch->recipients = ['987654321', '123456789'];
+        $batch->sender = '12345';
+
+        $result = $this->_client->replaceBinaryBatch(
+            '5Z8QsIRsk86f-jHB', $batch
+        );
+
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+
+        $expectedRequestBody = <<<'EOD'
+{
+  "type" : "mt_binary",
+  "udh" : "fffefd",
+  "body" : "AAECAw==",
+  "to" : [ "987654321", "123456789" ],
+  "from" : "12345"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString(
+            $expectedRequestBody,
+            (string) $this->http->requests->latest()->getBody()
+        );
+    }
+
     public function testFetchBinaryBatch()
     {
         $responseBody = <<<'EOD'

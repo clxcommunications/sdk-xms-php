@@ -185,6 +185,14 @@ class Client
         return $this->_curlHelper($url, true);
     }
 
+    private function _put($url, &$json)
+    {
+        curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $json);
+
+        return $this->_curlHelper($url, true);
+    }
+
     /**
      * Creates a new text batch. The text batch will be created as
      * described in the given object.
@@ -206,6 +214,43 @@ class Client
     {
         $json = Serialize::binaryBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
+        return Deserialize::batchResponse($result);
+    }
+
+    /**
+     * Replaces the batch with the given ID with the given text batch.
+     *
+     * @param string                   $batchId identifier of the batch
+     * @param Api\MtTextSmsBatchCreate $batch   the replacement batch
+     *
+     * @return Api\MtTextSmsBatchResponse the resulting batch
+     *
+     * @api
+     */
+    public function replaceTextBatch(
+        string $batchId, Api\MtTextSmsBatchCreate $batch
+    ) {
+        $json = Serialize::textBatch($batch);
+        $result = $this->_put($this->_url("/batches/$batchId"), $json);
+        return Deserialize::batchResponse($result);
+    }
+
+    /**
+     * Replaces the batch with the given ID with the given binary
+     * batch.
+     *
+     * @param string                     $batchId identifier of the batch
+     * @param Api\MtBinarySmsBatchCreate $batch   the replacement batch
+     *
+     * @return Api\MtBinarySmsBatchResponse the resulting batch
+     *
+     * @api
+     */
+    public function replaceBinaryBatch(
+        string $batchId, Api\MtBinarySmsBatchCreate $batch
+    ) {
+        $json = Serialize::binaryBatch($batch);
+        $result = $this->_put($this->_url("/batches/$batchId"), $json);
         return Deserialize::batchResponse($result);
     }
 
