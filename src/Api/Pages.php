@@ -20,8 +20,6 @@ class Pages implements \IteratorAggregate
      * mainly intended for internal use.
      *
      * @param callable $worker a page fetcher
-     *
-     * @return Pages
      */
     public function __construct(callable $worker)
     {

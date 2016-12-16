@@ -69,8 +69,6 @@ class Client
      * @param string $token           the authentication token
      * @param string $endpoint        the XMS endpoint URL
      *
-     * @return Client a new XMS client
-     *
      * @api
      */
     public function __construct(

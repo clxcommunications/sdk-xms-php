@@ -22,8 +22,6 @@ class PagesIterator implements \Iterator
      * Creates a new pages iterator for the given object.
      *
      * @param Pages $pages the pages to iterate over
-     *
-     * @return PagesIterator an iterator
      */
     public function __construct(Pages $pages)
     {
