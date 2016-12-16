@@ -345,6 +345,20 @@ class Client
     }
 
     /**
+     * Creates the given group.
+     *
+     * @param Api\GroupCreate $group group description
+     *
+     * @return Api\GroupResponse the created group
+     */
+    public function createGroup(Api\GroupCreate $group)
+    {
+        $json = Serialize::group($group);
+        $result = $this->_post($this->_url('/groups'), $json);
+        return Deserialize::groupResponse($result);
+    }
+
+    /**
      * Replaces the tags of the given group.
      *
      * @param string   $groupId identifier of the group

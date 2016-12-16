@@ -549,6 +549,61 @@ EOD;
         $this->assertEquals(['tag1', 'tag2'], $tags);
     }
 
+    public function testCreateGroup()
+    {
+        $responseBody = <<<'EOD'
+{
+    "auto_update": {
+        "to": "12345",
+        "add": {
+            "first_word": "hello"
+        },
+        "remove": {
+            "first_word": "goodbye"
+        }
+    },
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-08T12:38:19.962Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $group = new XA\GroupCreate();
+        $group->members = ['123456789', '987654321'];
+        $group->name = 'my group';
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/groups')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->createGroup($group);
+
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+
+
+        $expectedRequestBody = <<<'EOD'
+{
+    "name": "my group",
+    "members": ["123456789", "987654321"]
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString(
+            $expectedRequestBody,
+            (string) $this->http->requests->latest()->getBody()
+        );
+    }
+
     public function testFetchGroup()
     {
         $responseBody = <<<'EOD'
