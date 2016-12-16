@@ -93,8 +93,6 @@ class GroupAutoUpdate
      * @param string[] $addWordPair    pair containing the `add` keywords
      * @param string[] $removeWordPair pair containing the `remove` keywords
      *
-     * @return GroupAutoUpdate the constructed object
-     *
      * @throws \DomainException if recipient is `null`
      */
     public function __construct(
@@ -102,10 +100,6 @@ class GroupAutoUpdate
         array $addWordPair = [null, null],
         array $removeWordPair = [null, null]
     ) {
-        if ($recipient === null) {
-            throw new DomainException('recipient is null');
-        }
-
         $this->recipient = $recipient;
 
         $this->addFirstWord = isset($addWordPair[0])
