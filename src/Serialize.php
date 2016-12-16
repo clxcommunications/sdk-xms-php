@@ -128,6 +128,18 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    /**
+     * Serializes the given tags to a JSON string.
+     *
+     * @param string[] $tags a list of tags
+     *
+     * @return string a JSON formatted text
+     */
+    public static function tags(array $tags)
+    {
+        return Serialize::_toJson([ 'tags' => $tags ]);
+    }
+
 }
 
 ?>

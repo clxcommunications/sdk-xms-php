@@ -124,6 +124,14 @@ EOD;
         $this->assertJsonStringEqualsJsonString($expected, $actual);
     }
 
+    public function testTags()
+    {
+        $actual = X\Serialize::tags(["tag1", "tag2"]);
+        $expected = '{ "tags": ["tag1", "tag2"] }';
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
 }
 
 ?>
