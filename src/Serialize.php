@@ -140,6 +140,24 @@ class Serialize
         return Serialize::_toJson([ 'tags' => $tags ]);
     }
 
+    /**
+     * Serializes the given tag updates to a JSON string.
+     *
+     * @param string[] $tagsToAdd    list of tags
+     * @param string[] $tagsToRemove list of tags
+     *
+     * @return string a JSON formatted text
+     */
+    public static function tagsUpdate(array $tagsToAdd, array $tagsToRemove)
+    {
+        $fields = [
+            'add' => $tagsToAdd,
+            'remove' => $tagsToRemove
+        ];
+
+        return Serialize::_toJson($fields);
+    }
+
 }
 
 ?>

@@ -710,6 +710,42 @@ EOD;
         $this->assertEquals([], $tags);
     }
 
+    public function testUpdateBatchTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/batches/batchid/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('{"tags" : ["tag"]}')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->updateBatchTags('batchid', ['at'], ['rt']);
+
+        $this->assertEquals(['tag'], $tags);
+    }
+
+    public function testUpdateGroupTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/groups/GroupId/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('{"tags" : ["a", "b"]}')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->updateGroupTags('GroupId', [], ['foo']);
+
+        $this->assertEquals(['a', 'b'], $tags);
+    }
+
 }
 
 ?>

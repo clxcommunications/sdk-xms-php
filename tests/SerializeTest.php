@@ -132,6 +132,14 @@ EOD;
         $this->assertJsonStringEqualsJsonString($expected, $actual);
     }
 
+    public function testTagsUpdate()
+    {
+        $actual = X\Serialize::tagsUpdate(['tag_1', 'tag_2'], ['tag']);
+        $expected = '{ "add": ["tag_1", "tag_2"], "remove": ["tag"] }';
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
 }
 
 ?>

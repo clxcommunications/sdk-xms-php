@@ -269,6 +269,23 @@ class Client
         return Deserialize::tags($result);
     }
 
+    /**
+     * Updates the tags of the given batch.
+     *
+     * @param string   $batchId      batch identifier
+     * @param string[] $tagsToAdd    tags to add to batch
+     * @param string[] $tagsToRemove tags to remove from batch
+     *
+     * @return string[] the updated batch tags
+     */
+    public function updateBatchTags(
+        string $batchId, array $tagsToAdd, array $tagsToRemove
+    ) {
+        $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
+        $result = $this->_post($this->_url("/batches/$batchId/tags"), $json);
+        return Deserialize::tags($result);
+    }
+
     public function fetchBatch(string $batchId)
     {
         $result = $this->_get($this->_url('/batches/' . $batchId));
@@ -339,6 +356,23 @@ class Client
     {
         $json = Serialize::tags($tags);
         $result = $this->_put($this->_url("/groups/$groupId/tags"), $json);
+        return Deserialize::tags($result);
+    }
+
+    /**
+     * Updates the tags of the given group.
+     *
+     * @param string   $groupId      group identifier
+     * @param string[] $tagsToAdd    tags to add to group
+     * @param string[] $tagsToRemove tags to remove from group
+     *
+     * @return string[] the updated group tags
+     */
+    public function updateGroupTags(
+        string $groupId, array $tagsToAdd, array $tagsToRemove
+    ) {
+        $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
+        $result = $this->_post($this->_url("/groups/$groupId/tags"), $json);
         return Deserialize::tags($result);
     }
 
