@@ -16,8 +16,9 @@ class Pages implements \IteratorAggregate
     private $_worker;
 
     /**
-     * Creates a new pages object with the given page fetcher. This is
-     * mainly intended for internal use.
+     * Creates a new pages object with the given page fetcher.
+     *
+     * This is mainly intended for internal use.
      *
      * @param callable $worker a page fetcher
      */

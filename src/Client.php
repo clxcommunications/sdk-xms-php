@@ -26,6 +26,9 @@ class Client
     /**
      * The user agent string that is included in each request.
      *
+     * We store it as an instance variable to avoid doing the
+     * necessary string concatenation for each request.
+     *
      * @var string the user agent string
      */
     private $_userAgent;
