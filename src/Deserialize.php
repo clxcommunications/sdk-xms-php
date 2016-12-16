@@ -10,9 +10,6 @@
 
 namespace Clx\Xms;
 
-require_once "Api.php";
-require_once "Exceptions.php";
-
 /**
  * A collection of static deserialization functions. These function
  * are capable of deserializing XMS API data objects.
@@ -59,13 +56,13 @@ class Deserialize
      * Helper that populates the given batch result. The batch result
      * is populated from an object as returned by `json_decode`.
      *
-     * @param object             $fields the JSON fields
-     * @param MtSmsBatchResponse $object the target object
+     * @param object                 $fields the JSON fields
+     * @param Api\MtSmsBatchResponse $object the target object
      *
      * @return void
      */
     private static function _batchResponseHelper(
-        \stdClass &$fields, MtSmsBatchResponse &$object
+        \stdClass &$fields, Api\MtSmsBatchResponse &$object
     ) {
         $object->batchId = $fields->id;
         $object->recipients = $fields->to;
@@ -128,12 +125,12 @@ class Deserialize
      * @param string $json   the JSON formatted string
      * @param object $fields the `json_decode` containing the result
      *
-     * @return MtSmsBatchResponse the parsed result
+     * @return Api\MtSmsBatchResponse the parsed result
      */
     private static function _batchResponseFromFields(&$json, &$fields)
     {
         if ($fields->type == 'mt_text') {
-            $result = new MtTextSmsBatchResponse();
+            $result = new Api\MtTextSmsBatchResponse();
             $result->body = $fields->body;
 
             if (isset($fields->parameters)) {
@@ -142,7 +139,7 @@ class Deserialize
                 );
             }
         } else if ($fields->type == 'mt_binary') {
-            $result = new MtBinarySmsBatchResponse();
+            $result = new Api\MtBinarySmsBatchResponse();
             $result->udh = hex2bin($fields->udh);
             $result->body = base64_decode($fields->body);
         } else {
@@ -167,7 +164,7 @@ class Deserialize
      *
      * @param string $json the JSON text to interpret
      *
-     * @return MtSmsBatchResponse the parsed result
+     * @return Api\MtSmsBatchResponse the parsed result
      */
     public static function batchResponse($json)
     {
@@ -180,13 +177,13 @@ class Deserialize
      *
      * @param string $json the JSON text
      *
-     * @return Page the parsed page
+     * @return Api\Page the parsed page
      */
     public static function batchesPage($json)
     {
         $fields = Deserialize::_fromJson($json);
 
-        $result = new Page();
+        $result = new Api\Page();
         $result->page = $fields->page;
         $result->size = $fields->page_size;
         $result->totalSize = $fields->count;
@@ -205,7 +202,7 @@ class Deserialize
      *
      * @param string $json the JSON text
      *
-     * @return BatchDeliveryReport the parsed batch delivery report
+     * @return Api\BatchDeliveryReport the parsed batch delivery report
      */
     public static function batchDeliveryReport($json)
     {
@@ -217,12 +214,12 @@ class Deserialize
             );
         }
 
-        $result = new BatchDeliveryReport();
+        $result = new Api\BatchDeliveryReport();
         $result->batchId = $fields->batch_id;
         $result->totalMessageCount = $fields->total_message_count;
         $result->statuses = array_map(
             function ($s) {
-                $r = new BatchDeliveryReportStatus();
+                $r = new Api\BatchDeliveryReportStatus();
                 $r->code = $s->code;
                 $r->status = $s->status;
                 $r->count = $s->count;
@@ -239,7 +236,7 @@ class Deserialize
 
     private static function _autoUpdateFromFields(&$fields)
     {
-        $result = new GroupAutoUpdate($fields->to);
+        $result = new Api\GroupAutoUpdate($fields->to);
 
         if (isset($fields->add) && isset($fields->add->first_word)) {
             $result->addFirstWord = $fields->add->first_word;
@@ -262,7 +259,7 @@ class Deserialize
 
     private static function _groupResponseFromFields(&$fields)
     {
-        $result = new GroupResponse();
+        $result = new Api\GroupResponse();
         $result->childGroups = $fields->child_groups;
         $result->groupId = $fields->id;
         $result->name = $fields->name;
@@ -295,7 +292,7 @@ class Deserialize
     {
         $fields = Deserialize::_fromJson($json);
 
-        $result = new Page();
+        $result = new Api\Page();
         $result->page = $fields->page;
         $result->size = $fields->page_size;
         $result->totalSize = $fields->count;
@@ -326,13 +323,13 @@ class Deserialize
      *
      * @param string $json a JSON formatted text
      *
-     * @return Error the decoded error
+     * @return Api\Error the decoded error
      */
     public static function error($json)
     {
         $fields = Deserialize::_fromJson($json);
 
-        $result = new Error();
+        $result = new Api\Error();
         $result->code = $fields->code;
         $result->text = $fields->text;
 

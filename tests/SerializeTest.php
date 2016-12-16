@@ -9,13 +9,14 @@
  */
 
 use Clx\Xms as X;
+use Clx\Xms\Api as XA;
 
 class SerializeTest extends PHPUnit\Framework\TestCase
 {
 
     public function testBatchCreateText()
     {
-        $batch = new X\MtTextSmsBatchCreate();
+        $batch = new XA\MtTextSmsBatchCreate();
         $batch->sender = '12345';
         $batch->recipients = ['987654321', '123456789'];
         $batch->body = 'Hello, ${name}!';
@@ -24,7 +25,7 @@ class SerializeTest extends PHPUnit\Framework\TestCase
             '123456789' => 'Joe',
             'default' => 'you'
         ];
-        $batch->deliveryReport = X\ReportType::NONE;
+        $batch->deliveryReport = XA\ReportType::NONE;
         $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
         $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
         $batch->callbackUrl = "http://localhost/callback";
@@ -59,12 +60,12 @@ EOD;
 
     public function testBatchCreateBinary()
     {
-        $batch = new X\MtBinarySmsBatchCreate();
+        $batch = new XA\MtBinarySmsBatchCreate();
         $batch->sender = '12345';
         $batch->recipients = ['987654321', '123456789'];
         $batch->body = "\x00\x01\x02\x03";
         $batch->udh = "\xff\xfe\xfd";
-        $batch->deliveryReport = X\ReportType::SUMMARY;
+        $batch->deliveryReport = XA\ReportType::SUMMARY;
         $batch->expireAt = new \DateTime('2016-12-17T08:15:29.969Z');
         $batch->tags = [ "tag1", "таг2" ];
 
@@ -91,11 +92,11 @@ EOD;
 
     public function testGroupCreate()
     {
-        $group = new X\GroupCreate();
+        $group = new XA\GroupCreate();
         $group->name = 'test name';
         $group->members = ['123456789', '987654321'];
         $group->childGroups = ['group1', 'group2'];
-        $group->autoUpdate = new X\GroupAutoUpdate(
+        $group->autoUpdate = new XA\GroupAutoUpdate(
             '12345', ['ADD', 'plz'], ['REMOVE', 'ME']
         );
 

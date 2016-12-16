@@ -10,9 +10,6 @@
 
 namespace Clx\Xms;
 
-require_once "Api.php";
-require_once "Exceptions.php";
-
 class Serialize
 {
 
@@ -33,8 +30,9 @@ class Serialize
         return json_encode($fields, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    public static function _createBatchHelper(&$fields, MtSmsBatchCreate &$batch)
-    {
+    public static function _createBatchHelper(
+        &$fields, Api\MtSmsBatchCreate &$batch
+    ) {
         $fields['from'] = $batch->sender;
         $fields['to'] = $batch->recipients;
 
@@ -59,7 +57,7 @@ class Serialize
         }
     }
 
-    public static function textBatch(MtTextSmsBatchCreate $batch_create)
+    public static function textBatch(Api\MtTextSmsBatchCreate $batch_create)
     {
         $fields = array(
             'type' => 'mt_text',
@@ -75,7 +73,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function binaryBatch(MtBinarySmsBatchCreate $batch_create)
+    public static function binaryBatch(Api\MtBinarySmsBatchCreate $batch_create)
     {
         $fields = array(
             'type' => 'mt_binary',
@@ -88,7 +86,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function group(GroupCreate $group)
+    public static function group(Api\GroupCreate $group)
     {
         $fields = [];
 

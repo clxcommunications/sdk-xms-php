@@ -4,6 +4,7 @@ use InterNations\Component\HttpMock\PHPUnit\HttpMockTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 use Clx\Xms as X;
+use Clx\Xms\Api as XA;
 
 class ClientTest extends PHPUnit\Framework\TestCase
 {
@@ -185,7 +186,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new X\MtTextSmsBatchCreate();
+        $batch = new XA\MtTextSmsBatchCreate();
         $batch->body = 'hello';
         $batch->recipients = ['987654321', '123456789'];
         $batch->sender = '12345';
@@ -237,7 +238,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new X\MtBinarySmsBatchCreate();
+        $batch = new XA\MtBinarySmsBatchCreate();
         $batch->body = "\x00\x01\x02\x03";
         $batch->udh = "\xff\xfe\xfd";
         $batch->recipients = ['987654321', '123456789'];
@@ -293,7 +294,7 @@ EOD;
 
         $result = $this->_client->fetchBatch('5Z8QsIRsk86f-jHB');
 
-        $this->assertInstanceOf(X\MtBinarySmsBatchResponse::class, $result);
+        $this->assertInstanceOf(XA\MtBinarySmsBatchResponse::class, $result);
         $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
     }
 
@@ -411,13 +412,13 @@ EOD;
         $pages = $this->_client->fetchBatches($filter);
 
         $page = $pages->get(0);
-        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertInstanceOf(XA\Page::class, $page);
         $this->assertEquals(3, $page->size);
         $this->assertEquals(7, $page->totalSize);
         $this->assertEquals('4G4OmwztSJbVL2bl', $page->content[2]->batchId);
 
         $page = $pages->get(1);
-        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertInstanceOf(XA\Page::class, $page);
         $this->assertEquals(0, $page->size);
         $this->assertEquals(7, $page->totalSize);
         $this->assertEquals([], $page->content);
@@ -536,13 +537,13 @@ EOD;
         $pages = $this->_client->fetchGroups($filter);
 
         $page = $pages->get(0);
-        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertInstanceOf(XA\Page::class, $page);
         $this->assertEquals(1, $page->size);
         $this->assertEquals(8, $page->totalSize);
         $this->assertEquals('4cldmgEdAcBfcHW3', $page->content[0]->groupId);
 
         $page = $pages->get(1);
-        $this->assertInstanceOf(X\Page::class, $page);
+        $this->assertInstanceOf(XA\Page::class, $page);
         $this->assertEquals(0, $page->size);
         $this->assertEquals(8, $page->totalSize);
         $this->assertEquals([], $page->content);

@@ -1,6 +1,7 @@
 <?php
 
 use Clx\Xms as X;
+use Clx\Xms\Api as XA;
 
 class DeserializeTest extends PHPUnit\Framework\TestCase
 {
@@ -49,7 +50,7 @@ EOD;
 
         $result = X\Deserialize::batchResponse($json);
 
-        $this->assertInstanceOf(X\MtTextSmsBatchResponse::class, $result);
+        $this->assertInstanceOf(XA\MtTextSmsBatchResponse::class, $result);
         $this->assertEquals('${foo}${bar}', $result->body);
         $this->assertTrue($result->canceled);
         $this->assertEquals(
@@ -179,13 +180,13 @@ EOD;
         $this->assertCount(3, $result->content);
 
         $this->assertInstanceOf(
-            X\MtBinarySmsBatchResponse::class, $result->content[0]
+            XA\MtBinarySmsBatchResponse::class, $result->content[0]
         );
         $this->assertInstanceOf(
-            X\MtTextSmsBatchResponse::class, $result->content[1]
+            XA\MtTextSmsBatchResponse::class, $result->content[1]
         );
         $this->assertInstanceOf(
-            X\MtTextSmsBatchResponse::class, $result->content[2]
+            XA\MtTextSmsBatchResponse::class, $result->content[2]
         );
 
         $this->assertEquals('5Z8QsIRsk86f-jHB', $result->content[0]->batchId);
@@ -364,7 +365,7 @@ EOD;
         $this->assertEquals(2, $result->page);
         $this->assertEquals(8, $result->totalSize);
         $this->assertCount(1, $result->content);
-        $this->assertInstanceOf(X\GroupResponse::class, $result->content[0]);
+        $this->assertInstanceOf(XA\GroupResponse::class, $result->content[0]);
         $this->assertEquals('4cldmgEdAcBfcHW3', $result->content[0]->groupId);
     }
 

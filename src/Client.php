@@ -10,42 +10,6 @@
 
 namespace Clx\Xms;
 
-require_once "Exceptions.php";
-require_once "Api.php";
-require_once "Deserialize.php";
-require_once "Serialize.php";
-
-/**
- * Holder of the library version.
- */
-class Version
-{
-
-    /**
-     * The version string for this library.
-     *
-     * @var string version string
-     */
-    private static $_version;
-
-    /**
-     * Returns the library version.
-     *
-     * @return string a version string
-     */
-    public static function version()
-    {
-        if (self::$_version == null) {
-            // Note! Need to bump this value after tagging a release.
-            $v = new \SebastianBergmann\Version("1.0", __DIR__);
-            self::$_version = $v->getVersion();
-        }
-
-        return self::$_version;
-    }
-
-}
-
 /**
  * Client used to communicate with the XMS server.
  *
@@ -224,20 +188,20 @@ class Client
      * Creates a new text batch. The text batch will be created as
      * described in the given object.
      *
-     * @param MtTextSmsBatchCreate $batch the batch description
+     * @param Api\MtTextSmsBatchCreate $batch the batch description
      *
-     * @return MtTextSmsBatchResponse the creation result
+     * @return Api\MtTextSmsBatchResponse the creation result
      *
      * @api
      */
-    public function createTextBatch(MtTextSmsBatchCreate $batch)
+    public function createTextBatch(Api\MtTextSmsBatchCreate $batch)
     {
         $json = Serialize::textBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
         return Deserialize::batchResponse($result);
     }
 
-    public function createBinaryBatch(MtBinarySmsBatchCreate $batch)
+    public function createBinaryBatch(Api\MtBinarySmsBatchCreate $batch)
     {
         $json = Serialize::binaryBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
@@ -252,7 +216,7 @@ class Client
 
     public function fetchBatches(BatchFilter $filter = null)
     {
-        return new Pages(
+        return new Api\Pages(
             function ($page) use ($filter) {
                 $params = ["page=$page"];
 
@@ -310,7 +274,7 @@ class Client
 
     public function fetchGroups(GroupFilter $filter = null)
     {
-        return new Pages(
+        return new Api\Pages(
             function ($page) use ($filter) {
                 $params = ["page=$page"];
 
