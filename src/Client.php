@@ -254,6 +254,21 @@ class Client
         return Deserialize::batchResponse($result);
     }
 
+    /**
+     * Replaces the tags of the given batch.
+     *
+     * @param string   $batchId identifier of the batch
+     * @param string[] $tags    the new set of batch tags
+     *
+     * @return string[] the new batch tags
+     */
+    public function replaceBatchTags(string $batchId, array $tags)
+    {
+        $json = Serialize::tags($tags);
+        $result = $this->_put($this->_url("/batches/$batchId/tags"), $json);
+        return Deserialize::tags($result);
+    }
+
     public function fetchBatch(string $batchId)
     {
         $result = $this->_get($this->_url('/batches/' . $batchId));
@@ -309,6 +324,21 @@ class Client
     public function fetchBatchTags(string $batchId)
     {
         $result = $this->_get($this->_url("/batches/$batchId/tags"));
+        return Deserialize::tags($result);
+    }
+
+    /**
+     * Replaces the tags of the given group.
+     *
+     * @param string   $groupId identifier of the group
+     * @param string[] $tags    the new set of group tags
+     *
+     * @return string[] the new group tags
+     */
+    public function replaceGroupTags(string $groupId, array $tags)
+    {
+        $json = Serialize::tags($tags);
+        $result = $this->_put($this->_url("/groups/$groupId/tags"), $json);
         return Deserialize::tags($result);
     }
 

@@ -674,6 +674,42 @@ EOD;
         $this->assertEquals(['tag1', 'tag2'], $tags);
     }
 
+    public function testReplaceBatchTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/batches/batchid/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('{"tags" : ["tag"]}')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->replaceBatchTags('batchid', ['tag']);
+
+        $this->assertEquals(['tag'], $tags);
+    }
+
+    public function testReplaceGroupTags()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/groups/GroupId/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('{"tags" : []}')
+            ->end();
+        $this->http->setUp();
+
+        $tags = $this->_client->replaceGroupTags('GroupId', []);
+
+        $this->assertEquals([], $tags);
+    }
+
 }
 
 ?>
