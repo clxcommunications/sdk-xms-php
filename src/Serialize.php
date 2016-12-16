@@ -86,6 +86,29 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    public static function _groupAutoUpdateHelper(&$autoUpdate)
+    {
+        $fields = [ 'to' => $autoUpdate->recipient ];
+
+        if (isset($autoUpdate->addFirstWord)) {
+            $fields['add']['first_word'] = $autoUpdate->addFirstWord;
+        }
+
+        if (isset($autoUpdate->addSecondWord)) {
+            $fields['add']['second_word'] = $autoUpdate->addSecondWord;
+        }
+
+        if (isset($autoUpdate->removeFirstWord)) {
+            $fields['remove']['first_word'] = $autoUpdate->removeFirstWord;
+        }
+
+        if (isset($autoUpdate->removeSecondWord)) {
+            $fields['remove']['second_word'] = $autoUpdate->removeSecondWord;
+        }
+
+        return $fields;
+    }
+
     public static function group(Api\GroupCreate $group)
     {
         $fields = [];
@@ -103,29 +126,59 @@ class Serialize
         }
 
         if (isset($group->autoUpdate)) {
-            $gau = $group->autoUpdate;
-            $fau = [ 'to' => $gau->recipient ];
-
-            if (isset($gau->addFirstWord)) {
-                $fau['add']['first_word'] = $gau->addFirstWord;
-            }
-
-            if (isset($gau->addSecondWord)) {
-                $fau['add']['second_word'] = $gau->addSecondWord;
-            }
-
-            if (isset($gau->removeFirstWord)) {
-                $fau['remove']['first_word'] = $gau->removeFirstWord;
-            }
-
-            if (isset($gau->removeSecondWord)) {
-                $fau['remove']['second_word'] = $gau->removeSecondWord;
-            }
-
-            $fields['auto_update'] = $fau;
+            $fields['auto_update'] = Serialize::_groupAutoUpdateHelper(
+                $group->autoUpdate
+            );
         }
 
         return Serialize::_toJson($fields);
+    }
+
+    public static function groupUpdate(Api\GroupUpdate $groupUpdate)
+    {
+        $fields = [];
+
+        if (isset($groupUpdate->name)) {
+            $fields['name'] = $groupUpdate->name === Api\Reset::reset()
+                            ? null
+                            : $groupUpdate->name;
+        }
+
+        if (isset($groupUpdate->memberInsertions)) {
+            $fields['add'] = $groupUpdate->memberInsertions;
+        }
+
+        if (isset($groupUpdate->memberRemovals)) {
+            $fields['remove'] = $groupUpdate->memberRemovals;
+        }
+
+        if (isset($groupUpdate->childGroupInsertions)) {
+            $fields['child_groups_add'] = $groupUpdate->childGroupInsertions;
+        }
+
+        if (isset($groupUpdate->childGroupRemovals)) {
+            $fields['child_groups_remove'] = $groupUpdate->childGroupRemovals;
+        }
+
+        if (isset($groupUpdate->addFromGroup)) {
+            $fields['add_from_group'] = $groupUpdate->addFromGroup;
+        }
+
+        if (isset($groupUpdate->removeFromGroup)) {
+            $fields['remove_from_group'] = $groupUpdate->removeFromGroup;
+        }
+
+        if (isset($groupUpdate->autoUpdate)) {
+            if ($groupUpdate->autoUpdate === Api\Reset::reset()) {
+                $fields['auto_update'] = null;
+            } else {
+                $fields['auto_update'] = Serialize::_groupAutoUpdateHelper(
+                    $groupUpdate->autoUpdate
+                );
+            }
+        }
+
+        return empty($fields) ? '{}' : Serialize::_toJson($fields);
     }
 
     /**

@@ -604,6 +604,37 @@ EOD;
         );
     }
 
+    public function testUpdateGroup()
+    {
+        $responseBody = <<<'EOD'
+{
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-10T12:38:19.162Z",
+    "size": 1004
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/groups/4cldmgEdAcBfcHW3')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $group = new XA\GroupUpdate();
+
+        $result = $this->_client->updateGroup('4cldmgEdAcBfcHW3', $group);
+
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals(1004, $result->size);
+    }
+
     public function testFetchGroup()
     {
         $responseBody = <<<'EOD'

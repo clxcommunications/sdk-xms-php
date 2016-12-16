@@ -124,6 +124,70 @@ EOD;
         $this->assertJsonStringEqualsJsonString($expected, $actual);
     }
 
+    public function testGroupUpdateEverything()
+    {
+        $groupUpdate = new XA\GroupUpdate();
+        $groupUpdate->name = 'new name';
+        $groupUpdate->memberInsertions = ['123456789'];
+        $groupUpdate->memberRemovals = ['987654321', '4242424242'];
+        $groupUpdate->childGroupInsertions = ['groupId1', 'groupId2'];
+        $groupUpdate->childGroupRemovals = ['groupId3'];
+        $groupUpdate->addFromGroup = "group1";
+        $groupUpdate->removeFromGroup = "group2";
+        $groupUpdate->autoUpdate = new XA\GroupAutoUpdate(
+            '1111', ['kw0', 'kw1'], ['kw2', 'kw3']
+        );
+
+        $actual = X\Serialize::groupUpdate($groupUpdate);
+
+        $expected = <<<'EOD'
+{
+  "name": "new name",
+  "add": [ "123456789" ],
+  "remove": [ "987654321", "4242424242" ],
+  "child_groups_add": [ "groupId1", "groupId2" ],
+  "child_groups_remove": [ "groupId3" ],
+  "add_from_group": "group1",
+  "remove_from_group": "group2",
+  "auto_update": {
+    "to": "1111",
+    "add": { "first_word": "kw0", "second_word": "kw1" },
+    "remove": { "first_word": "kw2", "second_word": "kw3" }
+  }
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testGroupUpdateMinimal()
+    {
+        $groupUpdate = new XA\GroupUpdate();
+
+        $actual = X\Serialize::groupUpdate($groupUpdate);
+        $expected = '{}';
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testGroupUpdateResets()
+    {
+        $groupUpdate = new XA\GroupUpdate();
+        $groupUpdate->name = XA\Reset::reset();
+        $groupUpdate->autoUpdate = XA\Reset::reset();
+
+        $actual = X\Serialize::groupUpdate($groupUpdate);
+
+        $expected = <<<'EOD'
+{
+  "name": null,
+  "auto_update": null
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
     public function testTags()
     {
         $actual = X\Serialize::tags(["tag1", "tag2"]);

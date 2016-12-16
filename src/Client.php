@@ -374,6 +374,22 @@ class Client
     }
 
     /**
+     * Updates the group with the given identifier.
+     *
+     * @param string          $groupId identifier of the group
+     * @param Api\GroupUpdate $group   the update description
+     *
+     * @return Api\GroupResponse the updated batch
+     */
+    public function updateGroup(
+        string $groupId, Api\GroupUpdate $group
+    ) {
+        $json = Serialize::groupUpdate($group);
+        $result = $this->_post($this->_url("/groups/$groupId"), $json);
+        return Deserialize::groupResponse($result);
+    }
+
+    /**
      * Updates the tags of the given group.
      *
      * @param string   $groupId      group identifier
