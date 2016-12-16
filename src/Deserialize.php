@@ -262,21 +262,18 @@ class Deserialize
         $result = new Api\GroupResponse();
         $result->childGroups = $fields->child_groups;
         $result->groupId = $fields->id;
-        $result->name = $fields->name;
         $result->size = $fields->size;
+        $result->createdAt = Deserialize::_dateTime($fields->created_at);
+        $result->modifiedAt = Deserialize::_dateTime($fields->modified_at);
+
+        if (isset($fields->name)) {
+            $result->name = $fields->name;
+        }
 
         if (isset($fields->auto_update)) {
             $result->autoUpdate = Deserialize::_autoUpdateFromFields(
                 $fields->auto_update
             );
-        }
-
-        if (isset($fields->created_at)) {
-            $result->createdAt = Deserialize::_dateTime($fields->created_at);
-        }
-
-        if (isset($fields->modified_at)) {
-            $result->modifiedAt = Deserialize::_dateTime($fields->modified_at);
         }
 
         return $result;
