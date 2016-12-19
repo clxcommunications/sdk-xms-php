@@ -177,6 +177,12 @@ class Client
         return $this->_curlHelper($url, false);
     }
 
+    private function _delete($url)
+    {
+        curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        return $this->_curlHelper($url, false);
+    }
+
     private function _post($url, &$json)
     {
         curl_setopt($this->_curlHandle, CURLOPT_POST, true);
@@ -284,6 +290,18 @@ class Client
         $json = Serialize::binaryBatchUpdate($batch);
         $result = $this->_post($this->_url("/batches/$batchId"), $json);
         return Deserialize::batchResponse($result);
+    }
+
+    /**
+     * Cancels the batch with the given batch identifier.
+     *
+     * @param string $batchId the batch identifier
+     *
+     * @return void
+     */
+    public function cancelBatch(string $batchId)
+    {
+        $this->_delete($this->_url("/batches/$batchId"));
     }
 
     /**

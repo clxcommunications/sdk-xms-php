@@ -642,6 +642,20 @@ EOD;
         $this->assertEquals([], $page->content);
     }
 
+    public function testCancelBatch()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('DELETE')
+            ->pathIs('/xms/v1/batches/BatchId')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->end();
+        $this->http->setUp();
+
+        $this->_client->cancelBatch('BatchId');
+    }
+
     public function testFetchBatchTags()
     {
         $this->http->mock
