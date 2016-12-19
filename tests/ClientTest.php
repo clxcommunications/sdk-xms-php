@@ -58,7 +58,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/batchid')
+            ->pathIs('/xms/v1/foo/batches/batchid')
             ->then()
             ->statusCode(Response::HTTP_BAD_REQUEST)
             ->body('{"code":"yes_this_is_code","text":"the text"}')
@@ -79,7 +79,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/batchid')
+            ->pathIs('/xms/v1/foo/batches/batchid')
             ->then()
             ->statusCode(Response::HTTP_FORBIDDEN)
             ->body('{"code":"yes_this_is_code","text":"the text"}')
@@ -100,7 +100,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/batchid')
+            ->pathIs('/xms/v1/foo/batches/batchid')
             ->then()
             ->statusCode(Response::HTTP_NOT_FOUND)
             ->body('{}')
@@ -112,7 +112,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
             $this->assertTrue(false, "expected exception");
         } catch (X\NotFoundException $ex) {
             $this->assertEquals(
-                'http://localhost:26542/xms/v1/batches/batchid',
+                'http://localhost:26542/xms/v1/foo/batches/batchid',
                 $ex->getUrl()
             );
         }
@@ -123,7 +123,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/batchid')
+            ->pathIs('/xms/v1/foo/batches/batchid')
             ->then()
             ->statusCode(Response::HTTP_UNAUTHORIZED)
             ->body('{}')
@@ -144,7 +144,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/batchid')
+            ->pathIs('/xms/v1/foo/batches/batchid')
             ->then()
             ->statusCode(Response::HTTP_INTERNAL_SERVER_ERROR)
             ->body('{}')
@@ -178,7 +178,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/batches')
+            ->pathIs('/xms/v1/foo/batches')
             ->then()
             ->statusCode(Response::HTTP_CREATED)
             ->header('content-type', 'application/json')
@@ -230,7 +230,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/batches')
+            ->pathIs('/xms/v1/foo/batches')
             ->then()
             ->statusCode(Response::HTTP_CREATED)
             ->header('content-type', 'application/json')
@@ -283,7 +283,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('PUT')
-            ->pathIs('/xms/v1/batches/BatchID')
+            ->pathIs('/xms/v1/foo/batches/BatchID')
             ->then()
             ->statusCode(Response::HTTP_CREATED)
             ->header('content-type', 'application/json')
@@ -335,7 +335,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('PUT')
-            ->pathIs('/xms/v1/batches/5Z8QsIRsk86f-jHB')
+            ->pathIs('/xms/v1/foo/batches/5Z8QsIRsk86f-jHB')
             ->then()
             ->statusCode(Response::HTTP_CREATED)
             ->header('content-type', 'application/json')
@@ -396,7 +396,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/batches/4nQCc1T6Dg-R-zHX')
+            ->pathIs('/xms/v1/foo/batches/4nQCc1T6Dg-R-zHX')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -452,7 +452,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/batches/4nQCc1T6Dg-R-zHY')
+            ->pathIs('/xms/v1/foo/batches/4nQCc1T6Dg-R-zHY')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -502,7 +502,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/5Z8QsIRsk86f-jHB')
+            ->pathIs('/xms/v1/foo/batches/5Z8QsIRsk86f-jHB')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -596,7 +596,7 @@ EOD;
             ->when()
             ->methodIs('GET')
             ->pathIs(
-                '/xms/v1/batches?page=0&page_size=10'
+                '/xms/v1/foo/batches?page=0&page_size=10'
                 . '&from=12345%2C98765&tags=tag1%2Ctag2'
                 . '&start_date=2016-12-01&end_date=2016-12-02'
             )
@@ -609,7 +609,7 @@ EOD;
             ->when()
             ->methodIs('GET')
             ->pathIs(
-                '/xms/v1/batches?page=1&page_size=10'
+                '/xms/v1/foo/batches?page=1&page_size=10'
                 . '&from=12345%2C98765&tags=tag1%2Ctag2'
                 . '&start_date=2016-12-01&end_date=2016-12-02'
             )
@@ -647,7 +647,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/xms/v1/batches/BatchId')
+            ->pathIs('/xms/v1/foo/batches/BatchId')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->end();
@@ -661,7 +661,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/batches/BATCHID/tags')
+            ->pathIs('/xms/v1/foo/batches/BATCHID/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -703,7 +703,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/groups')
+            ->pathIs('/xms/v1/foo/groups')
             ->then()
             ->statusCode(Response::HTTP_CREATED)
             ->header('content-type', 'application/json')
@@ -744,7 +744,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/groups/4cldmgEdAcBfcHW3')
+            ->pathIs('/xms/v1/foo/groups/4cldmgEdAcBfcHW3')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -765,7 +765,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/xms/v1/groups/GroupId')
+            ->pathIs('/xms/v1/foo/groups/GroupId')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->end();
@@ -797,7 +797,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/groups/4cldmgEdAcBfcHW3')
+            ->pathIs('/xms/v1/foo/groups/4cldmgEdAcBfcHW3')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -845,7 +845,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/groups?page=0&page_size=10&tags=tag1%2Ctag2')
+            ->pathIs('/xms/v1/foo/groups?page=0&page_size=10&tags=tag1%2Ctag2')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -854,7 +854,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/groups?page=1&page_size=10&tags=tag1%2Ctag2')
+            ->pathIs('/xms/v1/foo/groups?page=1&page_size=10&tags=tag1%2Ctag2')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -886,7 +886,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/xms/v1/groups/groupid/tags')
+            ->pathIs('/xms/v1/foo/groups/groupid/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -904,7 +904,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('PUT')
-            ->pathIs('/xms/v1/batches/batchid/tags')
+            ->pathIs('/xms/v1/foo/batches/batchid/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -922,7 +922,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('PUT')
-            ->pathIs('/xms/v1/groups/GroupId/tags')
+            ->pathIs('/xms/v1/foo/groups/GroupId/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -945,7 +945,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/batches/batchid/tags')
+            ->pathIs('/xms/v1/foo/batches/batchid/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')
@@ -968,7 +968,7 @@ EOD;
         $this->http->mock
             ->when()
             ->methodIs('POST')
-            ->pathIs('/xms/v1/groups/GroupId/tags')
+            ->pathIs('/xms/v1/foo/groups/GroupId/tags')
             ->then()
             ->statusCode(Response::HTTP_OK)
             ->header('content-type', 'application/json')

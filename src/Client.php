@@ -108,7 +108,7 @@ class Client
      */
     private function _url(string $sub_path)
     {
-        return $this->_endpoint . '/v1' . $sub_path;
+        return $this->_endpoint . '/v1/' . $this->_servicePlanId . $sub_path;
     }
 
     /**
