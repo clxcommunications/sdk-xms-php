@@ -905,6 +905,11 @@ EOD;
         $tags = $this->_client->replaceGroupTags('GroupId', []);
 
         $this->assertEquals([], $tags);
+
+        $this->assertJsonStringEqualsJsonString(
+            '{"tags":[]}',
+            (string) $this->http->requests->latest()->getBody()
+        );
     }
 
     public function testUpdateBatchTags()
@@ -923,6 +928,11 @@ EOD;
         $tags = $this->_client->updateBatchTags('batchid', ['at'], ['rt']);
 
         $this->assertEquals(['tag'], $tags);
+
+        $this->assertJsonStringEqualsJsonString(
+            '{"add":["at"],"remove":["rt"]}',
+            (string) $this->http->requests->latest()->getBody()
+        );
     }
 
     public function testUpdateGroupTags()
@@ -941,6 +951,11 @@ EOD;
         $tags = $this->_client->updateGroupTags('GroupId', [], ['foo']);
 
         $this->assertEquals(['a', 'b'], $tags);
+
+        $this->assertJsonStringEqualsJsonString(
+            '{"add":[],"remove":["foo"]}',
+            (string) $this->http->requests->latest()->getBody()
+        );
     }
 
 }
