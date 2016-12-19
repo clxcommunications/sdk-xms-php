@@ -2,7 +2,7 @@
 
 namespace Clx\Xms\Api;
 
-class MtTextSmsBatchUpdate extends MtSmsBatchUpdate
+class MtBatchTextSmsUpdate extends MtBatchSmsUpdate
 {
 
     /**
@@ -22,7 +22,7 @@ class MtTextSmsBatchUpdate extends MtSmsBatchUpdate
     /**
      * Resets the parameters field to the XMS default value.
      *
-     * @return MtTextSmsBatchUpdate this object for use in a chained
+     * @return MtBatchTextSmsUpdate this object for use in a chained
      *     invocation
      */
     public function resetParameters()

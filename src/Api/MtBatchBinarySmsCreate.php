@@ -2,10 +2,7 @@
 
 namespace Clx\Xms\Api;
 
-/**
- * A binary SMS batch as returned by XMS.
- */
-class MtBinarySmsBatchResponse extends MtSmsBatchResponse
+class MtBatchBinarySmsCreate extends MtBatchSmsCreate
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Clx\Xms\Api;
 
-class MtTextSmsBatchCreate extends MtSmsBatchCreate
+class MtBatchTextSmsCreate extends MtBatchSmsCreate
 {
 
     /**

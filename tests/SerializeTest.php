@@ -16,7 +16,7 @@ class SerializeTest extends PHPUnit\Framework\TestCase
 
     public function testBatchCreateText()
     {
-        $batch = new XA\MtTextSmsBatchCreate();
+        $batch = new XA\MtBatchTextSmsCreate();
         $batch->sender = '12345';
         $batch->recipients = ['987654321', '123456789'];
         $batch->body = 'Hello, ${name}!';
@@ -60,7 +60,7 @@ EOD;
 
     public function testBatchCreateBinary()
     {
-        $batch = new XA\MtBinarySmsBatchCreate();
+        $batch = new XA\MtBatchBinarySmsCreate();
         $batch->sender = '12345';
         $batch->recipients = ['987654321', '123456789'];
         $batch->body = "\x00\x01\x02\x03";
@@ -92,7 +92,7 @@ EOD;
 
     public function testBatchUpdateTextSetAll()
     {
-        $batch = new XA\MtTextSmsBatchUpdate();
+        $batch = new XA\MtBatchTextSmsUpdate();
         $batch->sender = '12345';
         $batch->recipientInsertions = ['987654321', '123456789'];
         $batch->recipientRemovals = ['555555555'];
@@ -140,7 +140,7 @@ EOD;
 
     public function testBatchUpdateTextMinimal()
     {
-        $batch = new XA\MtTextSmsBatchUpdate();
+        $batch = new XA\MtBatchTextSmsUpdate();
 
         $actual = X\Serialize::textBatchUpdate($batch);
         $expected = '{ "type": "mt_text" }';
@@ -150,7 +150,7 @@ EOD;
 
     public function testBatchUpdateTextResets()
     {
-        $update = (new XA\MtTextSmsBatchUpdate())
+        $update = (new XA\MtBatchTextSmsUpdate())
                 ->resetDeliveryReport()
                 ->resetSendAt()
                 ->resetExpireAt()
@@ -175,7 +175,7 @@ EOD;
 
     public function testBatchUpdateBinarySetAll()
     {
-        $batch = new XA\MtBinarySmsBatchUpdate();
+        $batch = new XA\MtBatchBinarySmsUpdate();
         $batch->sender = '12345';
         $batch->recipientInsertions = ['987654321', '123456789'];
         $batch->recipientRemovals = ['555555555'];
@@ -213,7 +213,7 @@ EOD;
 
     public function testBatchUpdateBinaryMinimal()
     {
-        $batch = new XA\MtBinarySmsBatchUpdate();
+        $batch = new XA\MtBatchBinarySmsUpdate();
 
         $actual = X\Serialize::binaryBatchUpdate($batch);
         $expected = '{ "type": "mt_binary" }';
@@ -223,7 +223,7 @@ EOD;
 
     public function testBatchUpdateBinaryResets()
     {
-        $update = (new XA\MtBinarySmsBatchUpdate())
+        $update = (new XA\MtBatchBinarySmsUpdate())
                 ->resetDeliveryReport()
                 ->resetSendAt()
                 ->resetExpireAt()

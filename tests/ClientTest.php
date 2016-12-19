@@ -186,7 +186,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtTextSmsBatchCreate();
+        $batch = new XA\MtBatchTextSmsCreate();
         $batch->body = 'hello';
         $batch->recipients = ['987654321', '123456789'];
         $batch->sender = '12345';
@@ -238,7 +238,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtBinarySmsBatchCreate();
+        $batch = new XA\MtBatchBinarySmsCreate();
         $batch->body = "\x00\x01\x02\x03";
         $batch->udh = "\xff\xfe\xfd";
         $batch->recipients = ['987654321', '123456789'];
@@ -291,7 +291,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtTextSmsBatchCreate();
+        $batch = new XA\MtBatchTextSmsCreate();
         $batch->body = 'hello';
         $batch->recipients = ['987654321', '123456789'];
         $batch->sender = '12345';
@@ -343,7 +343,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtBinarySmsBatchCreate();
+        $batch = new XA\MtBatchBinarySmsCreate();
         $batch->body = "\x00\x01\x02\x03";
         $batch->udh = "\xff\xfe\xfd";
         $batch->recipients = ['987654321', '123456789'];
@@ -404,7 +404,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtTextSmsBatchUpdate();
+        $batch = new XA\MtBatchTextSmsUpdate();
         $batch->resetSendAt();
         $batch->body = 'hello';
 
@@ -460,7 +460,7 @@ EOD;
             ->end();
         $this->http->setUp();
 
-        $batch = new XA\MtBinarySmsBatchUpdate();
+        $batch = new XA\MtBatchBinarySmsUpdate();
         $batch->resetCallbackUrl();
         $batch->body = 'hello';
 
@@ -512,7 +512,7 @@ EOD;
 
         $result = $this->_client->fetchBatch('5Z8QsIRsk86f-jHB');
 
-        $this->assertInstanceOf(XA\MtBinarySmsBatchResponse::class, $result);
+        $this->assertInstanceOf(XA\MtBatchBinarySmsResult::class, $result);
         $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
     }
 

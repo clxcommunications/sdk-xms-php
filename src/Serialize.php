@@ -31,7 +31,7 @@ class Serialize
     }
 
     public static function _createBatchHelper(
-        &$fields, Api\MtSmsBatchCreate &$batch
+        &$fields, Api\MtBatchSmsCreate &$batch
     ) {
         $fields['from'] = $batch->sender;
         $fields['to'] = $batch->recipients;
@@ -57,7 +57,7 @@ class Serialize
         }
     }
 
-    public static function textBatch(Api\MtTextSmsBatchCreate $batch_create)
+    public static function textBatch(Api\MtBatchTextSmsCreate $batch_create)
     {
         $fields = array(
             'type' => 'mt_text',
@@ -73,7 +73,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function binaryBatch(Api\MtBinarySmsBatchCreate $batch_create)
+    public static function binaryBatch(Api\MtBatchBinarySmsCreate $batch_create)
     {
         $fields = array(
             'type' => 'mt_binary',
@@ -86,7 +86,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    private static function _batchUpdateHelper(Api\MtSmsBatchUpdate $batch)
+    private static function _batchUpdateHelper(Api\MtBatchSmsUpdate $batch)
     {
         $fields = [];
 
@@ -137,7 +137,7 @@ class Serialize
         return $fields;
     }
 
-    public static function textBatchUpdate(Api\MtTextSmsBatchUpdate $batch)
+    public static function textBatchUpdate(Api\MtBatchTextSmsUpdate $batch)
     {
         $fields = Serialize::_batchUpdateHelper($batch);
 
@@ -158,7 +158,7 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function binaryBatchUpdate(Api\MtBinarySmsBatchUpdate $batch)
+    public static function binaryBatchUpdate(Api\MtBatchBinarySmsUpdate $batch)
     {
         $fields = Serialize::_batchUpdateHelper($batch);
 

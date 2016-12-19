@@ -5,7 +5,7 @@ namespace Clx\Xms\Api;
 /**
  * Describes updates to a binary SMS batch.
  */
-class MtBinarySmsBatchUpdate extends MtSmsBatchUpdate
+class MtBatchBinarySmsUpdate extends MtBatchSmsUpdate
 {
 
     /**

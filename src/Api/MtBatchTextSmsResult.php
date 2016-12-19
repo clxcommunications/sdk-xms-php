@@ -8,7 +8,7 @@ namespace Clx\Xms\Api;
  * This differs from the batch creation definition by the addition of,
  * for example, the batch identifier and the creation time.
  */
-class MtTextSmsBatchResponse extends MtSmsBatchResponse
+class MtBatchTextSmsResult extends MtBatchSmsResult
 {
 
     /**
@@ -21,7 +21,7 @@ class MtTextSmsBatchResponse extends MtSmsBatchResponse
     /**
      * The template parameters.
      *
-     * @see MtTextSmsBatchCreate::$parameters For an in-depth
+     * @see MtBatchSmsTextCreate::$parameters For an in-depth
      *     description.
      *
      * @var [] the template parameter definition

@@ -50,7 +50,7 @@ EOD;
 
         $result = X\Deserialize::batchResponse($json);
 
-        $this->assertInstanceOf(XA\MtTextSmsBatchResponse::class, $result);
+        $this->assertInstanceOf(XA\MtBatchTextSmsResult::class, $result);
         $this->assertEquals('${foo}${bar}', $result->body);
         $this->assertTrue($result->canceled);
         $this->assertEquals(
@@ -180,13 +180,13 @@ EOD;
         $this->assertCount(3, $result->content);
 
         $this->assertInstanceOf(
-            XA\MtBinarySmsBatchResponse::class, $result->content[0]
+            XA\MtBatchBinarySmsResult::class, $result->content[0]
         );
         $this->assertInstanceOf(
-            XA\MtTextSmsBatchResponse::class, $result->content[1]
+            XA\MtBatchTextSmsResult::class, $result->content[1]
         );
         $this->assertInstanceOf(
-            XA\MtTextSmsBatchResponse::class, $result->content[2]
+            XA\MtBatchTextSmsResult::class, $result->content[2]
         );
 
         $this->assertEquals('5Z8QsIRsk86f-jHB', $result->content[0]->batchId);
@@ -291,7 +291,7 @@ EOD;
     }
 
 
-    public function testReadGroupResponse()
+    public function testReadGroupResult()
     {
         $json = <<<'EOD'
 {
@@ -365,7 +365,7 @@ EOD;
         $this->assertEquals(2, $result->page);
         $this->assertEquals(8, $result->totalSize);
         $this->assertCount(1, $result->content);
-        $this->assertInstanceOf(XA\GroupResponse::class, $result->content[0]);
+        $this->assertInstanceOf(XA\GroupResult::class, $result->content[0]);
         $this->assertEquals('4cldmgEdAcBfcHW3', $result->content[0]->groupId);
     }
 

@@ -2,7 +2,7 @@
 
 namespace Clx\Xms\Api;
 
-class GroupResponse
+class GroupResult
 {
 
     /**

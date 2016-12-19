@@ -231,11 +231,11 @@ class Client
      * The text batch will be created as described in the given
      * object.
      *
-     * @param Api\MtTextSmsBatchCreate $batch the batch description
+     * @param Api\MtBatchTextSmsCreate $batch the batch description
      *
-     * @return Api\MtTextSmsBatchResponse the creation result
+     * @return Api\MtBatchTextSmsResult the creation result
      */
-    public function createTextBatch(Api\MtTextSmsBatchCreate $batch)
+    public function createTextBatch(Api\MtBatchTextSmsCreate $batch)
     {
         $json = Serialize::textBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
@@ -248,11 +248,11 @@ class Client
      * The binary batch will be created as described in the given
      * object.
      *
-     * @param Api\MtBinarySmsBatchCreate $batch the batch description
+     * @param Api\MtBatchBinarySmsCreate $batch the batch description
      *
-     * @return Api\MtBinarySmsBatchResponse the creation result
+     * @return Api\MtBatchBinarySmsResult the creation result
      */
-    public function createBinaryBatch(Api\MtBinarySmsBatchCreate $batch)
+    public function createBinaryBatch(Api\MtBatchBinarySmsCreate $batch)
     {
         $json = Serialize::binaryBatch($batch);
         $result = $this->_post($this->_url('/batches'), $json);
@@ -263,12 +263,12 @@ class Client
      * Replaces the batch with the given ID with the given text batch.
      *
      * @param string                   $batchId identifier of the batch
-     * @param Api\MtTextSmsBatchCreate $batch   the replacement batch
+     * @param Api\MtBatchTextSmsCreate $batch   the replacement batch
      *
-     * @return Api\MtTextSmsBatchResponse the resulting batch
+     * @return Api\MtBatchTextSmsResult the resulting batch
      */
     public function replaceTextBatch(
-        string $batchId, Api\MtTextSmsBatchCreate $batch
+        string $batchId, Api\MtBatchTextSmsCreate $batch
     ) {
         $json = Serialize::textBatch($batch);
         $result = $this->_put($this->_url("/batches/$batchId"), $json);
@@ -280,12 +280,12 @@ class Client
      * batch.
      *
      * @param string                     $batchId identifier of the batch
-     * @param Api\MtBinarySmsBatchCreate $batch   the replacement batch
+     * @param Api\MtBatchBinarySmsCreate $batch   the replacement batch
      *
-     * @return Api\MtBinarySmsBatchResponse the resulting batch
+     * @return Api\MtBatchBinarySmsResult the resulting batch
      */
     public function replaceBinaryBatch(
-        string $batchId, Api\MtBinarySmsBatchCreate $batch
+        string $batchId, Api\MtBatchBinarySmsCreate $batch
     ) {
         $json = Serialize::binaryBatch($batch);
         $result = $this->_put($this->_url("/batches/$batchId"), $json);
@@ -296,12 +296,12 @@ class Client
      * Updates the text batch with the given identifier.
      *
      * @param string                   $batchId identifier of the batch
-     * @param Api\MtTextSmsBatchUpdate $batch   the update description
+     * @param Api\MtBatchTextSmsUpdate $batch   the update description
      *
-     * @return Api\MtTextSmsBatchResponse the updated batch
+     * @return Api\MtBatchTextSmsResult the updated batch
      */
     public function updateTextBatch(
-        string $batchId, Api\MtTextSmsBatchUpdate $batch
+        string $batchId, Api\MtBatchTextSmsUpdate $batch
     ) {
         $json = Serialize::textBatchUpdate($batch);
         $result = $this->_post($this->_url("/batches/$batchId"), $json);
@@ -312,12 +312,12 @@ class Client
      * Updates the binary batch with the given identifier.
      *
      * @param string                     $batchId identifier of the batch
-     * @param Api\MtBinarySmsBatchUpdate $batch   the update description
+     * @param Api\MtBatchBinarySmsUpdate $batch   the update description
      *
-     * @return Api\MtBinarySmsBatchResponse the updated batch
+     * @return Api\MtBatchBinarySmsResult the updated batch
      */
     public function updateBinaryBatch(
-        string $batchId, Api\MtBinarySmsBatchUpdate $batch
+        string $batchId, Api\MtBatchBinarySmsUpdate $batch
     ) {
         $json = Serialize::binaryBatchUpdate($batch);
         $result = $this->_post($this->_url("/batches/$batchId"), $json);
