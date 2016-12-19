@@ -1,7 +1,21 @@
 <?php
 
+/**
+ * Contains an class for group results.
+ *
+ * PHP versions 5 and 7
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ */
+
 namespace Clx\Xms\Api;
 
+/**
+ * This class holds the result of a group fetch operation.
+ *
+ * This may be used either standalone or as an element of a paged
+ * result.
+ */
 class GroupResult
 {
 

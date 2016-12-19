@@ -10,6 +10,12 @@
 
 namespace Clx\Xms;
 
+/**
+ * A collection of static serialization functions.
+ *
+ * These function are capable of serializing XMS API data objects in a
+ * manner suitable for XMS.
+ */
 class Serialize
 {
 
@@ -25,12 +31,28 @@ class Serialize
         return $dt->format(\DateTime::ATOM);
     }
 
+    /**
+     * Serializes the given fields into JSON that can be sent to XMS.
+     *
+     * @param [] $fields an associative array describing the JSON
+     *
+     * @return string a JSON formatted string
+     */
     private static function _toJson($fields)
     {
         return json_encode($fields, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    public static function _createBatchHelper(
+    /**
+     * Helper that prepares the fields of a batch creates for JSON
+     * serialization.
+     *
+     * @param []                   $fields the output fields
+     * @param Api\MtBatchSmsCreate $batch  the batch to serialize
+     *
+     * @return [] associative array for JSON serialization
+     */
+    private static function _createBatchHelper(
         &$fields, Api\MtBatchSmsCreate &$batch
     ) {
         $fields['from'] = $batch->sender;
@@ -57,6 +79,13 @@ class Serialize
         }
     }
 
+    /**
+     * Serializes the given text batch into JSON.
+     *
+     * @param Api\MtBatchTextSmsCreate $batch_create the batch to serialize
+     *
+     * @return string JSON formatted string
+     */
     public static function textBatch(Api\MtBatchTextSmsCreate $batch_create)
     {
         $fields = array(
@@ -73,6 +102,13 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    /**
+     * Serializes the given binary batch into JSON.
+     *
+     * @param Api\MtBatchBinarySmsCreate $batch_create the batch to serialize
+     *
+     * @return string JSON formatted string
+     */
     public static function binaryBatch(Api\MtBatchBinarySmsCreate $batch_create)
     {
         $fields = array(
@@ -86,6 +122,13 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    /**
+     * Helper that prepares the given batch for serialization
+     *
+     * @param Api\MtBatchSmsUpdate $batch the batch to serialize
+     *
+     * @return [] associative array suitable for JSON serialization
+     */
     private static function _batchUpdateHelper(Api\MtBatchSmsUpdate $batch)
     {
         $fields = [];
@@ -137,6 +180,13 @@ class Serialize
         return $fields;
     }
 
+    /**
+     * Serializes the given text batch update into JSON.
+     *
+     * @param Api\MtBatchTextSmsUpdate $batch the batch update to serialize
+     *
+     * @return string JSON formatted string
+     */
     public static function textBatchUpdate(Api\MtBatchTextSmsUpdate $batch)
     {
         $fields = Serialize::_batchUpdateHelper($batch);
@@ -158,6 +208,13 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    /**
+     * Serializes the given binary batch update into JSON.
+     *
+     * @param Api\MtBatchBinarySmsUpdate $batch the batch update to serialize
+     *
+     * @return string JSON formatted string
+     */
     public static function binaryBatchUpdate(Api\MtBatchBinarySmsUpdate $batch)
     {
         $fields = Serialize::_batchUpdateHelper($batch);
@@ -175,8 +232,17 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
-    public static function _groupAutoUpdateHelper(&$autoUpdate)
-    {
+    /**
+     * Helper that prepares the given group auto update for JSON
+     * serialization.
+     *
+     * @param Api\GroupAutoUpdate $autoUpdate the auto update to serialize
+     *
+     * @return [] associative array suitable for JSON serialization
+     */
+    public static function _groupAutoUpdateHelper(
+        Api\GroupAutoUpdate &$autoUpdate
+    ) {
         $fields = [ 'to' => $autoUpdate->recipient ];
 
         if (isset($autoUpdate->addFirstWord)) {
@@ -198,6 +264,13 @@ class Serialize
         return $fields;
     }
 
+    /**
+     * Serializes the given group create object to JSON.
+     *
+     * @param Api\GroupCreate $group the group to serialize
+     *
+     * @return string a JSON string
+     */
     public static function group(Api\GroupCreate $group)
     {
         $fields = [];
@@ -223,6 +296,13 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    /**
+     * Serializes the given group update object to JSON.
+     *
+     * @param Api\GroupUpdate $groupUpdate the group update to serialize
+     *
+     * @return string a JSON string
+     */
     public static function groupUpdate(Api\GroupUpdate $groupUpdate)
     {
         $fields = [];

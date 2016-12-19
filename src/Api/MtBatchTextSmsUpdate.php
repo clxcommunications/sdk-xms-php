@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Contains the class that describes text SMS batch updates.
+ *
+ * PHP versions 5 and 7
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ */
+
 namespace Clx\Xms\Api;
 
+/**
+ * Class that the update operations that can be performed on a text
+ * batch.
+ */
 class MtBatchTextSmsUpdate extends MtBatchSmsUpdate
 {
 
