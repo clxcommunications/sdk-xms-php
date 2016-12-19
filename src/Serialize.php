@@ -47,16 +47,16 @@ class Serialize
      * Helper that prepares the fields of a batch creates for JSON
      * serialization.
      *
-     * @param []                   $fields the output fields
-     * @param Api\MtBatchSmsCreate $batch  the batch to serialize
+     * @param Api\MtBatchSmsCreate $batch the batch to serialize
      *
      * @return [] associative array for JSON serialization
      */
-    private static function _createBatchHelper(
-        &$fields, Api\MtBatchSmsCreate &$batch
-    ) {
-        $fields['from'] = $batch->sender;
-        $fields['to'] = $batch->recipients;
+    private static function _createBatchHelper(Api\MtBatchSmsCreate &$batch)
+    {
+        $fields = [
+            'from' => $batch->sender,
+            'to' => $batch->recipients
+        ];
 
         if (isset($batch->deliveryReport)) {
             $fields['delivery_report'] = $batch->deliveryReport;
@@ -77,6 +77,8 @@ class Serialize
         if (isset($batch->callbackUrl)) {
             $fields['callback_url'] = $batch->callbackUrl;
         }
+
+        return $fields;
     }
 
     /**
@@ -88,16 +90,14 @@ class Serialize
      */
     public static function textBatch(Api\MtBatchTextSmsCreate $batch_create)
     {
-        $fields = array(
-            'type' => 'mt_text',
-            'body' => $batch_create->body
-        );
+        $fields = Serialize::_createBatchHelper($batch_create);
+
+        $fields['type'] = 'mt_text';
+        $fields['body'] = $batch_create->body;
 
         if (!empty($batch_create->parameters)) {
             $fields['parameters'] = $batch_create->parameters;
         }
-
-        Serialize::_createBatchHelper($fields, $batch_create);
 
         return Serialize::_toJson($fields);
     }
@@ -111,13 +111,11 @@ class Serialize
      */
     public static function binaryBatch(Api\MtBatchBinarySmsCreate $batch_create)
     {
-        $fields = array(
-            'type' => 'mt_binary',
-            'body' => base64_encode($batch_create->body),
-            'udh' => bin2hex($batch_create->udh)
-        );
+        $fields = Serialize::_createBatchHelper($batch_create);
 
-        Serialize::_createBatchHelper($fields, $batch_create);
+        $fields['type'] = 'mt_binary';
+        $fields['body'] = base64_encode($batch_create->body);
+        $fields['udh'] = bin2hex($batch_create->udh);
 
         return Serialize::_toJson($fields);
     }
