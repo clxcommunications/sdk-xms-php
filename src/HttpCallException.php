@@ -10,9 +10,13 @@
 
 namespace Clx\Xms;
 
-class HttpCallException
-    extends \RuntimeException
-    implements ApiException
+/**
+ * Exception thrown when HTTP fails catastrophically.
+ *
+ * This happens, for example, when cURL cannot be initialized or the
+ * HTTP server didn't respond.
+ */
+class HttpCallException extends \RuntimeException implements ApiException
 {
 }
 

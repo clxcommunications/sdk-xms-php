@@ -86,6 +86,11 @@ class Client
         }
     }
 
+    /**
+     * Destructs this client.
+     *
+     * This includes shutting down the internal HTTP client.
+     */
     public function __destruct()
     {
         if ($this->_curlHandle) {

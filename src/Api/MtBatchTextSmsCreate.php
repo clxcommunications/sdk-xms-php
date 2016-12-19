@@ -10,6 +10,9 @@
 
 namespace Clx\Xms\Api;
 
+/**
+ * Class whose fields describe a text batch.
+ */
 class MtBatchTextSmsCreate extends MtBatchSmsCreate
 {
 
