@@ -291,6 +291,10 @@ class Serialize
             );
         }
 
+        if (isset($group->tags)) {
+            $fields['tags'] = $group->tags;
+        }
+
         return Serialize::_toJson($fields);
     }
 

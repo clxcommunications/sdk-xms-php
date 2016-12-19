@@ -39,6 +39,13 @@ class GroupCreate
      */
     public $autoUpdate;
 
+    /**
+     * The tags associated to this group.
+     *
+     * @var string[] the group tags
+     */
+    public $tags;
+
 }
 
 ?>

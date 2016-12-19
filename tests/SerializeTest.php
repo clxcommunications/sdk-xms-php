@@ -253,6 +253,7 @@ EOD;
         $group->autoUpdate = new XA\GroupAutoUpdate(
             '12345', ['ADD', 'plz'], ['REMOVE', 'ME']
         );
+        $group->tags = ['tag1', 'tag2'];
 
         $actual = X\Serialize::group($group);
 
@@ -271,7 +272,8 @@ EOD;
     },
     "members": ["123456789", "987654321"],
     "child_groups": ["group1", "group2"],
-    "name": "test name"
+    "name": "test name",
+    "tags": ["tag1", "tag2"]
 }
 EOD;
 
