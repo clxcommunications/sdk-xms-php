@@ -286,12 +286,32 @@ class Client
         return Deserialize::tags($result);
     }
 
+    /**
+     * Fetches the batch with the given batch identifier.
+     *
+     * @param string $batchId batch identifier
+     *
+     * @return Api\MtSmsBatchResponse the corresponding batch
+     */
     public function fetchBatch(string $batchId)
     {
         $result = $this->_get($this->_url('/batches/' . $batchId));
         return Deserialize::batchResponse($result);
     }
 
+    /**
+     * Fetch the batches matching the given filter.
+     *
+     * Note, calling this method does not actually cause any network
+     * traffic. Listing batches in XMS may return the result over
+     * multiple pages and this call therefore returns an object of the
+     * type {@link \Clx\Xms\Api\Pages}, which will fetch result pages
+     * as needed.
+     *
+     * @param BatchFilter|null $filter the batch filter
+     *
+     * @return Api\Pages the result pages
+     */
     public function fetchBatches(BatchFilter $filter = null)
     {
         return new Api\Pages(
@@ -406,12 +426,32 @@ class Client
         return Deserialize::tags($result);
     }
 
+    /**
+     * Fetches the group with the given group identifier.
+     *
+     * @param string $groupId group identifier
+     *
+     * @return Api\GroupResponse the corresponding group
+     */
     public function fetchGroup(string $groupId)
     {
         $result = $this->_get($this->_url('/groups/' . $groupId));
         return Deserialize::groupResponse($result);
     }
 
+    /**
+     * Fetch the groups matching the given filter.
+     *
+     * Note, calling this method does not actually cause any network
+     * traffic. Listing groups in XMS may return the result over
+     * multiple pages and this call therefore returns an object of the
+     * type {@link \Clx\Xms\Api\Pages}, which will fetch result pages
+     * as needed.
+     *
+     * @param GroupFilter|null $filter the group filter
+     *
+     * @return Api\Pages the result pages
+     */
     public function fetchGroups(GroupFilter $filter = null)
     {
         return new Api\Pages(
