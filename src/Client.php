@@ -19,7 +19,7 @@ class Client
     /**
      * The default XMS endpoint.
      */
-    const DEFAULT_ENDPOINT = "http://localhost:8000/xms";
+    const DEFAULT_ENDPOINT = "https://api.clxcommunications.com/xms";
 
     /**
      * The user agent string that is included in each request.
