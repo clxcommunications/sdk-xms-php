@@ -7,8 +7,6 @@ namespace Clx\Xms\Api;
  *
  * The key is the page number and the value corresponds to the content
  * of the pages.
- *
- * @api
  */
 class PagesIterator implements \Iterator
 {
@@ -32,8 +30,6 @@ class PagesIterator implements \Iterator
      * Rewinds the iterator.
      *
      * @return void
-     *
-     * @api
      */
     function rewind()
     {
@@ -45,8 +41,6 @@ class PagesIterator implements \Iterator
      * Returns the current page.
      *
      * @return Page the current page
-     *
-     * @api
      */
     function current()
     {
@@ -60,8 +54,6 @@ class PagesIterator implements \Iterator
      * Returns the current page number.
      *
      * @return int the current page number
-     *
-     * @api
      */
     function key()
     {
@@ -72,8 +64,6 @@ class PagesIterator implements \Iterator
      * Steps this iterator to the next page.
      *
      * @return void
-     *
-     * @api
      */
     function next()
     {
@@ -84,8 +74,6 @@ class PagesIterator implements \Iterator
      * Whether this iterator is currently valid.
      *
      * @return bool `true` if valid, `false` otherwise
-     *
-     * @api
      */
     function valid()
     {

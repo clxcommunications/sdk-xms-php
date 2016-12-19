@@ -12,8 +12,6 @@ namespace Clx\Xms;
 
 /**
  * Client used to communicate with the XMS server.
- *
- * @api
  */
 class Client
 {
@@ -71,8 +69,6 @@ class Client
      * @param string $service_plan_id the service plan identifier
      * @param string $token           the authentication token
      * @param string $endpoint        the XMS endpoint URL
-     *
-     * @api
      */
     public function __construct(
         string $service_plan_id,
@@ -172,17 +168,39 @@ class Client
         return $result;
     }
 
+    /**
+     * Helper that performs a HTTP GET operation.
+     *
+     * @param string $url the URL to GET
+     *
+     * @return string the response
+     */
     private function _get($url)
     {
         return $this->_curlHelper($url, false);
     }
 
+    /**
+     * Helper that performs a HTTP DELETE operation.
+     *
+     * @param string $url the URL to DELETE
+     *
+     * @return string the response (typically empty)
+     */
     private function _delete($url)
     {
         curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'DELETE');
         return $this->_curlHelper($url, false);
     }
 
+    /**
+     * Helper that performs a HTTP POST operation.
+     *
+     * @param string $url  the URL to POST to
+     * @param string $json the JSON payload
+     *
+     * @return string the response
+     */
     private function _post($url, &$json)
     {
         curl_setopt($this->_curlHandle, CURLOPT_POST, true);
@@ -191,6 +209,14 @@ class Client
         return $this->_curlHelper($url, true);
     }
 
+    /**
+     * Helper that performs a HTTP PUT operation.
+     *
+     * @param string $url  the URL to PUT to
+     * @param string $json the JSON payload
+     *
+     * @return string the response
+     */
     private function _put($url, &$json)
     {
         curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'PUT');
@@ -200,14 +226,14 @@ class Client
     }
 
     /**
-     * Creates a new text batch. The text batch will be created as
-     * described in the given object.
+     * Creates a new text batch.
+     *
+     * The text batch will be created as described in the given
+     * object.
      *
      * @param Api\MtTextSmsBatchCreate $batch the batch description
      *
      * @return Api\MtTextSmsBatchResponse the creation result
-     *
-     * @api
      */
     public function createTextBatch(Api\MtTextSmsBatchCreate $batch)
     {
@@ -216,6 +242,16 @@ class Client
         return Deserialize::batchResponse($result);
     }
 
+    /**
+     * Creates a new binary batch.
+     *
+     * The binary batch will be created as described in the given
+     * object.
+     *
+     * @param Api\MtBinarySmsBatchCreate $batch the batch description
+     *
+     * @return Api\MtBinarySmsBatchResponse the creation result
+     */
     public function createBinaryBatch(Api\MtBinarySmsBatchCreate $batch)
     {
         $json = Serialize::binaryBatch($batch);
@@ -230,8 +266,6 @@ class Client
      * @param Api\MtTextSmsBatchCreate $batch   the replacement batch
      *
      * @return Api\MtTextSmsBatchResponse the resulting batch
-     *
-     * @api
      */
     public function replaceTextBatch(
         string $batchId, Api\MtTextSmsBatchCreate $batch
@@ -249,8 +283,6 @@ class Client
      * @param Api\MtBinarySmsBatchCreate $batch   the replacement batch
      *
      * @return Api\MtBinarySmsBatchResponse the resulting batch
-     *
-     * @api
      */
     public function replaceBinaryBatch(
         string $batchId, Api\MtBinarySmsBatchCreate $batch

@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Contains the XMS error exception class.
+ *
+ * PHP versions 5 and 7
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ */
+
 namespace Clx\Xms;
 
 /**
- * Exception used to signal that XMS refused a request.
+ * Exception used when XMS responded with an error message.
  */
 class XmsErrorException extends \Exception implements ApiException
 {

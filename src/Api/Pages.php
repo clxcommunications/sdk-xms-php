@@ -7,8 +7,6 @@ namespace Clx\Xms\Api;
  *
  * It is possible to, e.g., fetch individual pages or iterate over all
  * pages.
- *
- * @api
  */
 class Pages implements \IteratorAggregate
 {
@@ -33,8 +31,6 @@ class Pages implements \IteratorAggregate
      * @param int $page number of the page to fetch
      *
      * @return Page a page
-     *
-     * @api
      */
     public function get(int $page)
     {
@@ -45,8 +41,6 @@ class Pages implements \IteratorAggregate
      * Returns an iterator over these pages.
      *
      * @return \Iterator an iterator
-     *
-     * @api
      */
     public function getIterator()
     {
