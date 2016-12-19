@@ -760,6 +760,20 @@ EOD;
         $this->assertEquals(1004, $result->size);
     }
 
+    public function testDeleteGroup()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('DELETE')
+            ->pathIs('/xms/v1/groups/GroupId')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->end();
+        $this->http->setUp();
+
+        $this->_client->deleteGroup('GroupId');
+    }
+
     public function testFetchGroup()
     {
         $responseBody = <<<'EOD'

@@ -477,6 +477,18 @@ class Client
     }
 
     /**
+     * Deletes the group with the given group identifier.
+     *
+     * @param string $groupId the group identifier
+     *
+     * @return void
+     */
+    public function deleteGroup(string $groupId)
+    {
+        $this->_delete($this->_url("/groups/$groupId"));
+    }
+
+    /**
      * Fetches the group with the given group identifier.
      *
      * @param string $groupId group identifier
