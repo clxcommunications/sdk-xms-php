@@ -255,6 +255,38 @@ class Client
     }
 
     /**
+     * Updates the text batch with the given identifier.
+     *
+     * @param string                   $batchId identifier of the batch
+     * @param Api\MtTextSmsBatchUpdate $batch   the update description
+     *
+     * @return Api\MtTextSmsBatchResponse the updated batch
+     */
+    public function updateTextBatch(
+        string $batchId, Api\MtTextSmsBatchUpdate $batch
+    ) {
+        $json = Serialize::textBatchUpdate($batch);
+        $result = $this->_post($this->_url("/batches/$batchId"), $json);
+        return Deserialize::batchResponse($result);
+    }
+
+    /**
+     * Updates the binary batch with the given identifier.
+     *
+     * @param string                     $batchId identifier of the batch
+     * @param Api\MtBinarySmsBatchUpdate $batch   the update description
+     *
+     * @return Api\MtBinarySmsBatchResponse the updated batch
+     */
+    public function updateBinaryBatch(
+        string $batchId, Api\MtBinarySmsBatchUpdate $batch
+    ) {
+        $json = Serialize::binaryBatchUpdate($batch);
+        $result = $this->_post($this->_url("/batches/$batchId"), $json);
+        return Deserialize::batchResponse($result);
+    }
+
+    /**
      * Replaces the tags of the given batch.
      *
      * @param string   $batchId identifier of the batch

@@ -86,6 +86,95 @@ class Serialize
         return Serialize::_toJson($fields);
     }
 
+    private static function _batchUpdateHelper(Api\MtSmsBatchUpdate $batch)
+    {
+        $fields = [];
+
+        if (isset($batch->recipientInsertions)) {
+            $fields['to_add'] = $batch->recipientInsertions;
+        }
+
+        if (isset($batch->recipientRemovals)) {
+            $fields['to_remove'] = $batch->recipientRemovals;
+        }
+
+        if (isset($batch->sender)) {
+            $fields['from'] = $batch->sender;
+        }
+
+        if (isset($batch->deliveryReport)) {
+            if ($batch->deliveryReport === Api\Reset::reset()) {
+                $fields['delivery_report'] = null;
+            } else {
+                $fields['delivery_report'] = $batch->deliveryReport;
+            }
+        }
+
+        if (isset($batch->sendAt)) {
+            if ($batch->sendAt === Api\Reset::reset()) {
+                $fields['send_at'] = null;
+            } else {
+                $fields['send_at'] = Serialize::_dateTime($batch->sendAt);
+            }
+        }
+
+        if (isset($batch->expireAt)) {
+            if ($batch->expireAt === Api\Reset::reset()) {
+                $fields['expire_at'] = null;
+            } else {
+                $fields['expire_at'] = Serialize::_dateTime($batch->expireAt);
+            }
+        }
+
+        if (isset($batch->callbackUrl)) {
+            if ($batch->callbackUrl === Api\Reset::reset()) {
+                $fields['callback_url'] = null;
+            } else {
+                $fields['callback_url'] = $batch->callbackUrl;
+            }
+        }
+
+        return $fields;
+    }
+
+    public static function textBatchUpdate(Api\MtTextSmsBatchUpdate $batch)
+    {
+        $fields = Serialize::_batchUpdateHelper($batch);
+
+        $fields['type'] = 'mt_text';
+
+        if (isset($batch->body)) {
+            $fields['body'] = $batch->body;
+        }
+
+        if (isset($batch->parameters)) {
+            if ($batch->parameters === Api\Reset::reset()) {
+                $fields['parameters'] = null;
+            } else {
+                $fields['parameters'] = $batch->parameters;
+            }
+        }
+
+        return Serialize::_toJson($fields);
+    }
+
+    public static function binaryBatchUpdate(Api\MtBinarySmsBatchUpdate $batch)
+    {
+        $fields = Serialize::_batchUpdateHelper($batch);
+
+        $fields['type'] = 'mt_binary';
+
+        if (isset($batch->body)) {
+            $fields['body'] = base64_encode($batch->body);
+        }
+
+        if (isset($batch->udh)) {
+            $fields['udh'] = bin2hex($batch->udh);
+        }
+
+        return Serialize::_toJson($fields);
+    }
+
     public static function _groupAutoUpdateHelper(&$autoUpdate)
     {
         $fields = [ 'to' => $autoUpdate->recipient ];

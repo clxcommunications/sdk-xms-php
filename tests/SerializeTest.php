@@ -90,6 +90,160 @@ EOD;
         $this->assertJsonStringEqualsJsonString($expected, $actual);
     }
 
+    public function testBatchUpdateTextSetAll()
+    {
+        $batch = new XA\MtTextSmsBatchUpdate();
+        $batch->sender = '12345';
+        $batch->recipientInsertions = ['987654321', '123456789'];
+        $batch->recipientRemovals = ['555555555'];
+        $batch->body = 'Hello, ${name}!';
+        $batch->parameters['name'] = [
+            '987654321' => 'Mary',
+            '123456789' => 'Joe',
+            'default' => 'you'
+        ];
+        $batch->deliveryReport = XA\ReportType::NONE;
+        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
+        $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
+        $batch->callbackUrl = "http://localhost/callback";
+
+        $actual = X\Serialize::textBatchUpdate($batch);
+
+        $expected = <<<'EOD'
+{
+    "type": "mt_text",
+    "body": "Hello, ${name}!",
+    "delivery_report": "none",
+    "send_at": "2016-12-01T11:03:13+00:00",
+    "expire_at": "2016-12-04T11:03:13+00:00",
+    "from": "12345",
+    "to_add": [
+        "987654321",
+        "123456789"
+    ],
+    "to_remove": [
+        "555555555"
+    ],
+    "parameters": {
+        "name": {
+            "987654321": "Mary",
+            "123456789": "Joe",
+            "default": "you"
+        }
+    },
+    "callback_url": "http://localhost/callback"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testBatchUpdateTextMinimal()
+    {
+        $batch = new XA\MtTextSmsBatchUpdate();
+
+        $actual = X\Serialize::textBatchUpdate($batch);
+        $expected = '{ "type": "mt_text" }';
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testBatchUpdateTextResets()
+    {
+        $update = (new XA\MtTextSmsBatchUpdate())
+                ->resetDeliveryReport()
+                ->resetSendAt()
+                ->resetExpireAt()
+                ->resetCallbackUrl()
+                ->resetParameters();
+
+        $actual = X\Serialize::textBatchUpdate($update);
+
+        $expected = <<<'EOD'
+{
+  "type": "mt_text",
+  "delivery_report": null,
+  "send_at": null,
+  "expire_at": null,
+  "callback_url": null,
+  "parameters": null
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testBatchUpdateBinarySetAll()
+    {
+        $batch = new XA\MtBinarySmsBatchUpdate();
+        $batch->sender = '12345';
+        $batch->recipientInsertions = ['987654321', '123456789'];
+        $batch->recipientRemovals = ['555555555'];
+        $batch->body = "\x00\x01\x02\x03";
+        $batch->udh = "\xff\xfe\xfd";
+        $batch->deliveryReport = XA\ReportType::PER_RECIPIENT;
+        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
+        $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
+        $batch->callbackUrl = "http://localhost/callback";
+
+        $actual = X\Serialize::binaryBatchUpdate($batch);
+
+        $expected = <<<'EOD'
+{
+    "type": "mt_binary",
+    "body": "AAECAw==",
+    "udh": "fffefd",
+    "delivery_report": "per_recipient",
+    "send_at": "2016-12-01T11:03:13+00:00",
+    "expire_at": "2016-12-04T11:03:13+00:00",
+    "from": "12345",
+    "to_add": [
+        "987654321",
+        "123456789"
+    ],
+    "to_remove": [
+        "555555555"
+    ],
+    "callback_url": "http://localhost/callback"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testBatchUpdateBinaryMinimal()
+    {
+        $batch = new XA\MtBinarySmsBatchUpdate();
+
+        $actual = X\Serialize::binaryBatchUpdate($batch);
+        $expected = '{ "type": "mt_binary" }';
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
+    public function testBatchUpdateBinaryResets()
+    {
+        $update = (new XA\MtBinarySmsBatchUpdate())
+                ->resetDeliveryReport()
+                ->resetSendAt()
+                ->resetExpireAt()
+                ->resetCallbackUrl();
+
+        $actual = X\Serialize::binaryBatchUpdate($update);
+
+        $expected = <<<'EOD'
+{
+  "type": "mt_binary",
+  "delivery_report": null,
+  "send_at": null,
+  "expire_at": null,
+  "callback_url": null
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString($expected, $actual);
+    }
+
     public function testGroupCreate()
     {
         $group = new XA\GroupCreate();
@@ -172,9 +326,9 @@ EOD;
 
     public function testGroupUpdateResets()
     {
-        $groupUpdate = new XA\GroupUpdate();
-        $groupUpdate->name = XA\Reset::reset();
-        $groupUpdate->autoUpdate = XA\Reset::reset();
+        $groupUpdate = (new XA\GroupUpdate())
+                     ->resetName()
+                     ->resetAutoUpdate();
 
         $actual = X\Serialize::groupUpdate($groupUpdate);
 
