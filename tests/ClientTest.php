@@ -53,6 +53,18 @@ class ClientTest extends PHPUnit\Framework\TestCase
         }
     }
 
+    public function testInvalidUrl()
+    {
+        $client = new X\Client('foo', 'bar', "/this is an invalid URL");
+
+        try {
+            $tags = $client->fetchBatch('BATCHID');
+            $this->assertTrue(false, 'expected exception');
+        } catch (X\HttpCallException $ex) {
+            // This is good.
+        }
+    }
+
     public function testHandles400BadRequest()
     {
         $this->http->mock
