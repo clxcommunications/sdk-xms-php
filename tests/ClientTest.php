@@ -6,6 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Clx\Xms as X;
 use Clx\Xms\Api as XA;
 
+/**
+ * A little fake batch SMS create subclass.
+ */
+class DummyMtBatchCreate extends XA\MtBatchSmsCreate
+{
+}
+
 class ClientTest extends PHPUnit\Framework\TestCase
 {
 
@@ -274,6 +281,100 @@ EOD;
             $expectedRequestBody,
             (string) $this->http->requests->latest()->getBody()
         );
+    }
+
+    public function testDryRunBinaryBatch()
+    {
+        $responseBody = <<<'EOD'
+{"number_of_recipients":2,"number_of_messages":2}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/foo/batches/dry_run')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $batch = new XA\MtBatchBinarySmsCreate();
+        $batch->body = "\x00\x01\x02\x03";
+        $batch->udh = "\xff\xfe\xfd";
+        $batch->recipients = ['987654321'];
+        $batch->sender = '12345';
+
+        $result = $this->_client->createBatchDryRun($batch);
+
+        $this->assertEquals(2, $result->numberOfRecipients);
+
+        $expectedRequestBody = <<<'EOD'
+{
+  "type" : "mt_binary",
+  "udh" : "fffefd",
+  "body" : "AAECAw==",
+  "to" : [ "987654321" ],
+  "from" : "12345"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString(
+            $expectedRequestBody,
+            (string) $this->http->requests->latest()->getBody()
+        );
+    }
+
+    public function testDryRunTextBatch()
+    {
+        $responseBody = <<<'EOD'
+{"number_of_recipients":2,"number_of_messages":2,"per_recipient":[{"recipient":"987654321","body":"Hello","number_of_parts":1,"encoding":"text"},{"recipient":"555555555","body":"Hello","number_of_parts":1,"encoding":"text"}]}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs(
+                '/xms/v1/foo/batches/dry_run'
+                . '?per_recipient=true'
+                . '&number_of_recipients=20'
+            )
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $batch = new XA\MtBatchTextSmsCreate();
+        $batch->body = 'Hello';
+        $batch->recipients = ['987654321', '555555555'];
+        $batch->sender = '12345';
+
+        $result = $this->_client->createBatchDryRun($batch, 20);
+
+        $this->assertEquals(2, $result->numberOfRecipients);
+
+        $expectedRequestBody = <<<'EOD'
+{
+  "type" : "mt_text",
+  "body" : "Hello",
+  "to" : [ "987654321", "555555555" ],
+  "from" : "12345"
+}
+EOD;
+
+        $this->assertJsonStringEqualsJsonString(
+            $expectedRequestBody,
+            (string) $this->http->requests->latest()->getBody()
+        );
+    }
+
+    public function testDryRunBatchWrongType()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $result = $this->_client->createBatchDryRun(new DummyMtBatchCreate(), 20);
     }
 
     public function testReplaceTextBatch()

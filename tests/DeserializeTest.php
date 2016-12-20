@@ -393,6 +393,37 @@ EOD;
         $this->assertEquals('This is a text', $result->text);
     }
 
+    public function testDryRunWithPerRecipients()
+    {
+        $json = <<<'EOD'
+{"number_of_recipients":2,"number_of_messages":2,"per_recipient":[{"recipient":"987654321","body":"Hello","number_of_parts":1,"encoding":"text"},{"recipient":"555555555","body":"Hello","number_of_parts":1,"encoding":"text"}]}
+EOD;
+
+        $result = X\Deserialize::batchDryRun($json);
+
+        $this->assertEquals(2, $result->numberOfRecipients);
+        $this->assertEquals(2, $result->numberOfMessages);
+        $this->assertEquals('Hello', $result->perRecipient[0]->body);
+        $this->assertEquals(
+            XA\DryRunPerRecipient::ENCODING_TEXT,
+            $result->perRecipient[0]->encoding
+        );
+        $this->assertEquals('555555555', $result->perRecipient[1]->recipient);
+        $this->assertEquals(1, $result->perRecipient[1]->numberOfParts);
+    }
+
+    public function testDryRunWithoutPerRecipients()
+    {
+        $json = <<<'EOD'
+{"number_of_recipients":2,"number_of_messages":2}
+EOD;
+
+        $result = X\Deserialize::batchDryRun($json);
+
+        $this->assertEquals(2, $result->numberOfRecipients);
+        $this->assertEquals(2, $result->numberOfMessages);
+    }
+
 }
 
 ?>

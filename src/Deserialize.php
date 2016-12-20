@@ -208,6 +208,38 @@ class Deserialize
     }
 
     /**
+     * Reads a JSON formatted string describing a dry-run result.
+     *
+     * @param string $json the JSON text
+     *
+     * @return Api\MtBatchDryRunResult the parsed result
+     */
+    public static function batchDryRun($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+
+        $result = new Api\MtBatchDryRunResult();
+        $result->numberOfRecipients = $fields->number_of_recipients;
+        $result->numberOfMessages = $fields->number_of_messages;
+
+        if (isset($fields->per_recipient)) {
+            $result->perRecipient = array_map(
+                function ($s) {
+                    $pr = new Api\DryRunPerRecipient();
+                    $pr->recipient = $s->recipient;
+                    $pr->numberOfParts = $s->number_of_parts;
+                    $pr->body = $s->body;
+                    $pr->encoding = $s->encoding;
+                    return $pr;
+                },
+                $fields->per_recipient
+            );
+        }
+
+        return $result;
+    }
+
+    /**
      * Reads a JSON blob describing a batch delivery report.
      *
      * @param string $json the JSON text

@@ -279,6 +279,42 @@ class Client
     }
 
     /**
+     * Simulates sending the given batch.
+     *
+     * The method takes an optional argument for instructing XMS to
+     * respond with per-recipient statistics, if non-null then this
+     * number of recipients will be returned in the result.
+     *
+     * @param Api\MtBatchSmsCreate $batch         the batch to simulate
+     * @param int|null             $numRecipients number of recipients
+     *     to show in per-recipient result
+     *
+     * @return Api\MtBatchDryRunResult result of dry-run
+     */
+    public function createBatchDryRun(
+        Api\MtBatchSmsCreate $batch, int $numRecipients = null
+    ) {
+        if ($batch instanceof Api\MtBatchTextSmsCreate) {
+            $json = Serialize::textBatch($batch);
+        } else if ($batch instanceof Api\MtBatchBinarySmsCreate) {
+            $json = Serialize::binaryBatch($batch);
+        } else {
+            throw new \InvalidArgumentException(
+                'Expected text or binary batch'
+            );
+        }
+
+        $path = '/batches/dry_run';
+
+        if (isset($numRecipients)) {
+            $path .= "?per_recipient=true&number_of_recipients=$numRecipients";
+        }
+
+        $result = $this->_post($this->_url($path), $json);
+        return Deserialize::batchDryRun($result);
+    }
+
+    /**
      * Replaces the batch with the given ID with the given text batch.
      *
      * @param string                   $batchId identifier of the batch
