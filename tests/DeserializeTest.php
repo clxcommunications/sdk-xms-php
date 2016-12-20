@@ -290,6 +290,38 @@ EOD;
         }
     }
 
+    public function testReadRecipientDeliveryReport()
+    {
+        $json = <<<'EOD'
+{"recipient":"123456789","code":11,"status":"Failed","at":"2016-12-05T16:24:23.318Z","type":"recipient_delivery_report_sms","batch_id":"3-mbA7z9wDKY76ag","operator_status_at":"2016-12-05T16:24:00.000Z","status_message":"mystatusmessage","operator":"31101"}
+EOD;
+
+        $result = X\Deserialize::batchRecipientDeliveryReport($json);
+
+        $expected = new XA\BatchRecipientDeliveryReport();
+        $expected->batchId = '3-mbA7z9wDKY76ag';
+        $expected->operatorStatusAt = new \DateTime('2016-12-05T16:24:00.000Z');
+        $expected->statusAt = new \DateTime('2016-12-05T16:24:23.318Z');
+        $expected->status = XA\DeliveryStatus::FAILED;
+        $expected->code = 11;
+        $expected->recipient = '123456789';
+        $expected->statusMessage = 'mystatusmessage';
+        $expected->operator = '31101';
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testReadRecipientDeliveryReportUnknownType()
+    {
+        $json = '{ "hello" : "value" }';
+
+        try {
+            X\Deserialize::batchRecipientDeliveryReport($json);
+            assertTrue(false, "expected exception");
+        } catch (X\UnexpectedResponseException $ex) {
+            $this->assertEquals($json, $ex->getHttpBody());
+        }
+    }
 
     public function testReadGroupResult()
     {

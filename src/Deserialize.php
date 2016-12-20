@@ -277,6 +277,45 @@ class Deserialize
     }
 
     /**
+     */
+    public static function batchRecipientDeliveryReport($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+
+        if (!isset($fields->type)
+            || $fields->type != 'recipient_delivery_report_sms'
+        ) {
+            throw new UnexpectedResponseException(
+                "Expected recipient delivery report", $json
+            );
+        }
+
+        $result = new Api\BatchRecipientDeliveryReport();
+
+        $result->batchId = $fields->batch_id;
+        $result->recipient = $fields->recipient;
+        $result->code = $fields->code;
+        $result->status = $fields->status;
+        $result->statusAt = Deserialize::_dateTime($fields->at);
+
+        if (isset($fields->status_message)) {
+            $result->statusMessage = $fields->status_message;
+        }
+
+        if (isset($fields->operator)) {
+            $result->operator = $fields->operator;
+        }
+
+        if (isset($fields->operator_status_at)) {
+            $result->operatorStatusAt = Deserialize::_dateTime(
+                $fields->operator_status_at
+            );
+        }
+
+        return $result;
+    }
+
+    /**
      * Helper that creates a group auto update object from the given
      * fields.
      *

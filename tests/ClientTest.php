@@ -868,6 +868,34 @@ EOD;
         $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
     }
 
+
+    public function testFetchRecipientDeliveryReport()
+    {
+        $responseBody = <<<'EOD'
+{"recipient":"123456789","code":11,"status":"Failed","at":"2016-12-05T16:24:23.318Z","type":"recipient_delivery_report_sms","batch_id":"3-mbA7z9wDKY76ag","operator_status_at":"2016-12-05T16:24:00.000Z"}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs(
+                '/xms/v1/foo/batches/3-mbA7z9wDKY76ag'
+                . '/delivery_report/123456789'
+            )
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->fetchRecipientDeliveryReport(
+            '3-mbA7z9wDKY76ag', '123456789'
+        );
+
+        $this->assertEquals('3-mbA7z9wDKY76ag', $result->batchId);
+    }
+
     public function testCreateGroup()
     {
         $responseBody = <<<'EOD'

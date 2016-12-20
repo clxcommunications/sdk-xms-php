@@ -568,6 +568,22 @@ class Client
     }
 
     /**
+     * Fetches a delivery report for a specific batch recipient.
+     *
+     * @param string $batchId   the batch identifier
+     * @param string $recipient the batch recipient
+     *
+      * @return Api\BatchRecipientDeliveryReport the delivery report
+     */
+    public function fetchRecipientDeliveryReport(
+        string $batchId, string $recipient
+    ) {
+        $path = '/delivery_report/' . urlencode($recipient);
+        $result = $this->_get($this->_batchUrl($batchId, $path));
+        return Deserialize::batchRecipientDeliveryReport($result);
+    }
+
+    /**
      * Creates the given group.
      *
      * @param Api\GroupCreate $group group description
