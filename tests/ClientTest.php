@@ -820,6 +820,54 @@ EOD;
         $this->assertEquals(['tag1', 'tag2'], $tags);
     }
 
+    public function testFetchDeliveryReport()
+    {
+        $responseBody = <<<'EOD'
+{
+    "batch_id": "3SD49KIOW8lL1Z5E",
+    "statuses": [
+        {
+            "code": 0,
+            "count": 2,
+            "status": "Delivered"
+        },
+        {
+            "code": 11,
+            "count": 1,
+            "status": "Failed"
+        }
+    ],
+    "total_message_count": 2,
+    "type": "delivery_report_sms"
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs(
+                '/xms/v1/foo/batches/3SD49KIOW8lL1Z5E/delivery_report'
+                . '?type=full'
+                . '&status=Delivered%2CFailed'
+                . '&code=0%2C11%2C400'
+            )
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->fetchDeliveryReport(
+            '3SD49KIOW8lL1Z5E',
+            X\DeliveryReportType::FULL,
+            ['Delivered', 'Failed'],
+            [0, 11, 400]
+        );
+
+        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
+    }
+
     public function testCreateGroup()
     {
         $responseBody = <<<'EOD'

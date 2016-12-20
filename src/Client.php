@@ -502,6 +502,72 @@ class Client
     }
 
     /**
+     * Fetches a delivery report for a batch.
+     *
+     * The report type can be either
+     * {@link Clx\Xms\DeliveryReportType::FULL "full"}
+     * or
+     * {@link Clx\Xms\DeliveryReportType::SUMMARY "summary"}
+     * and when "full" the report includes the individual recipients.
+     *
+     * The report can be further limited by status and code. For
+     * example, to retrieve a summary report limited to messages
+     * having delivery status "Delivered" or "Failed" and codes "0",
+     * "11", or "400", one could call
+     *
+     * ```php
+     * $conn->fetchDeliveryReport(
+     *     'MyBatchId',
+     *     Clx\Xms\DeliveryReportType::SUMMARY,
+     *     ['Delivered', 'Failed'],
+     *     [0, 11, 400]
+     * );
+     * ```
+     *
+     * If the non-identifier parameters are left as `null` then the
+     * XMS defaults are used. In particular, all statuses and codes
+     * are included in the report.
+     *
+     * @param string        $batchId identifier of the batch
+     * @param string|null   $type    delivery report type
+     * @param string[]|null $status  statuses to fetch
+     * @param int[]|null    $code    codes to fetch
+     *
+     * @return Api\DeliveryReport the batch delivery report
+     */
+    public function fetchDeliveryReport(
+        string $batchId,
+        string $type = null,
+        array $status = null,
+        array $code = null
+    ) {
+        $params = [];
+
+        if (isset($type)) {
+            array_push($params, 'type=' . $type);
+        }
+
+        if (!empty($status)) {
+            $val = urlencode(join(',', $status));
+            array_push($params, 'status=' . $val);
+        }
+
+        if (!empty($code)) {
+            $val = urlencode(join(',', $code));
+            array_push($params, 'code=' . $val);
+        }
+
+        $path = '/delivery_report';
+
+        if (!empty($params)) {
+            $path .= '?' . join('&', $params);
+        }
+
+        $result = $this->_get($this->_batchUrl($batchId, $path));
+        return Deserialize::batchDeliveryReport($result);
+    }
+
+    /**
      * Creates the given group.
      *
      * @param Api\GroupCreate $group group description
