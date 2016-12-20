@@ -112,6 +112,20 @@ class Client
     }
 
     /**
+     * Builds an endpoint URL for the given batch and sub-path.
+     *
+     * @param string $batchId a batch identifier
+     * @PARAM string $subPath additional sub-path
+     *
+     * @return string a complete URL
+     */
+    private function _batchUrl(string $batchId, string $subPath = '')
+    {
+        $ebid = rawurlencode($batchId);
+        return $this->_url('/batches/' . $ebid . $subPath);
+    }
+
+    /**
      * Helper method that asks cURL to do an HTTP request.
      *
      * @param string $url     the URL that should receive the request
@@ -276,7 +290,7 @@ class Client
         string $batchId, Api\MtBatchTextSmsCreate $batch
     ) {
         $json = Serialize::textBatch($batch);
-        $result = $this->_put($this->_url("/batches/$batchId"), $json);
+        $result = $this->_put($this->_batchUrl($batchId), $json);
         return Deserialize::batchResponse($result);
     }
 
@@ -293,7 +307,7 @@ class Client
         string $batchId, Api\MtBatchBinarySmsCreate $batch
     ) {
         $json = Serialize::binaryBatch($batch);
-        $result = $this->_put($this->_url("/batches/$batchId"), $json);
+        $result = $this->_put($this->_batchUrl($batchId), $json);
         return Deserialize::batchResponse($result);
     }
 
@@ -309,7 +323,7 @@ class Client
         string $batchId, Api\MtBatchTextSmsUpdate $batch
     ) {
         $json = Serialize::textBatchUpdate($batch);
-        $result = $this->_post($this->_url("/batches/$batchId"), $json);
+        $result = $this->_post($this->_batchUrl($batchId), $json);
         return Deserialize::batchResponse($result);
     }
 
@@ -325,7 +339,7 @@ class Client
         string $batchId, Api\MtBatchBinarySmsUpdate $batch
     ) {
         $json = Serialize::binaryBatchUpdate($batch);
-        $result = $this->_post($this->_url("/batches/$batchId"), $json);
+        $result = $this->_post($this->_batchUrl($batchId), $json);
         return Deserialize::batchResponse($result);
     }
 
@@ -338,7 +352,7 @@ class Client
      */
     public function cancelBatch(string $batchId)
     {
-        $this->_delete($this->_url("/batches/$batchId"));
+        $this->_delete($this->_batchUrl($batchId));
     }
 
     /**
@@ -352,7 +366,7 @@ class Client
     public function replaceBatchTags(string $batchId, array $tags)
     {
         $json = Serialize::tags($tags);
-        $result = $this->_put($this->_url("/batches/$batchId/tags"), $json);
+        $result = $this->_put($this->_batchUrl($batchId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -369,7 +383,7 @@ class Client
         string $batchId, array $tagsToAdd, array $tagsToRemove
     ) {
         $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
-        $result = $this->_post($this->_url("/batches/$batchId/tags"), $json);
+        $result = $this->_post($this->_batchUrl($batchId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -382,7 +396,7 @@ class Client
      */
     public function fetchBatch(string $batchId)
     {
-        $result = $this->_get($this->_url('/batches/' . $batchId));
+        $result = $this->_get($this->_batchUrl($batchId));
         return Deserialize::batchResponse($result);
     }
 
@@ -447,7 +461,7 @@ class Client
      */
     public function fetchBatchTags(string $batchId)
     {
-        $result = $this->_get($this->_url("/batches/$batchId/tags"));
+        $result = $this->_get($this->_batchUrl($batchId, '/tags'));
         return Deserialize::tags($result);
     }
 
