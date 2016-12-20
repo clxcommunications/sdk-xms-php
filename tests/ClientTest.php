@@ -494,6 +494,39 @@ EOD;
         );
     }
 
+    public function testFetchTextBatch()
+    {
+        $responseBody = <<<'EOD'
+{
+  "type" : "mt_text",
+  "body" : "Hello, world!",
+  "id" : "!-@#$%^&*",
+  "to" : [ "987654321", "123456789" ],
+  "from" : "12345",
+  "expire_at" : "2016-12-17T08:15:29.969Z",
+  "created_at" : "2016-12-14T08:15:29.969Z",
+  "modified_at" : "2016-12-14T08:15:29.969Z",
+  "canceled" : false
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/foo/batches/%21-%40%23%24%25%5E%26%2A')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->fetchBatch('!-@#$%^&*');
+
+        $this->assertInstanceOf(XA\MtBatchTextSmsResult::class, $result);
+        $this->assertEquals('!-@#$%^&*', $result->batchId);
+    }
+
     public function testFetchBinaryBatch()
     {
         $responseBody = <<<'EOD'
