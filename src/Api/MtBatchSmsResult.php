@@ -13,7 +13,7 @@ namespace Clx\Xms\Api;
 /**
  * Contains the common fields of text and binary batches.
  */
-class MtBatchSmsResult extends MtBatchSms
+abstract class MtBatchSmsResult extends MtBatchSms
 {
 
     /**

@@ -17,7 +17,7 @@ namespace Clx\Xms\Api;
  * in the child classes `MtBatchSmsTextCreate` and
  * `MtBatchTextSmsCreate`, respectively.
  */
-class MtBatchSmsCreate extends MtBatchSms
+abstract class MtBatchSmsCreate extends MtBatchSms
 {
 
     /**

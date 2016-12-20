@@ -17,7 +17,7 @@ namespace Clx\Xms\Api;
  * Holds fields that are common to both the create and response
  * classes.
  */
-class MtBatchSms
+abstract class MtBatchSms
 {
 
     /**

@@ -14,7 +14,7 @@ namespace Clx\Xms\Api;
  * Describes updates that can be performed on text and binary SMS
  * batches.
  */
-class MtBatchSmsUpdate
+abstract class MtBatchSmsUpdate
 {
 
     /**
