@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Contains the class holding the group create parameters.
+ *
+ * PHP versions 5 and 7
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ */
+
 namespace Clx\Xms\Api;
 
 /**
