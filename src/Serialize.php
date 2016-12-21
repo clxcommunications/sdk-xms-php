@@ -40,7 +40,7 @@ class Serialize
      */
     private static function _toJson($fields)
     {
-        return json_encode($fields, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return json_encode($fields, JSON_UNESCAPED_UNICODE);
     }
 
     /**
