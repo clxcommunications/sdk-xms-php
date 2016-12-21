@@ -128,12 +128,12 @@ class Client
     /**
      * Helper method that asks cURL to do an HTTP request.
      *
-     * @param string $url     the URL that should receive the request
-     * @param bool   $hasBody whether the request includes a body
+     * @param string      $url  URL that should receive the request
+     * @param string|null $json request body, if needed
      *
      * @return string the request result body
      */
-    private function _curlHelper(&$url, $hasBody)
+    private function _curlHelper(&$url, &$json = null)
     {
         $headers = [
             'Accept: application/json',
@@ -147,8 +147,9 @@ class Client
          * If this is a request that has a body then we need to
          * include the content type, which in our case always is JSON.
          */
-        if ($hasBody) {
+        if (isset($json)) {
             array_push($headers, 'Content-Type: application/json');
+            curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $json);
         }
 
         curl_setopt($this->_curlHandle, CURLOPT_URL, $url);
@@ -196,7 +197,7 @@ class Client
      */
     private function _get($url)
     {
-        return $this->_curlHelper($url, false);
+        return $this->_curlHelper($url);
     }
 
     /**
@@ -209,7 +210,7 @@ class Client
     private function _delete($url)
     {
         curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        return $this->_curlHelper($url, false);
+        return $this->_curlHelper($url);
     }
 
     /**
@@ -223,9 +224,7 @@ class Client
     private function _post($url, &$json)
     {
         curl_setopt($this->_curlHandle, CURLOPT_POST, true);
-        curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $json);
-
-        return $this->_curlHelper($url, true);
+        return $this->_curlHelper($url, $json);
     }
 
     /**
@@ -239,9 +238,7 @@ class Client
     private function _put($url, &$json)
     {
         curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $json);
-
-        return $this->_curlHelper($url, true);
+        return $this->_curlHelper($url, $json);
     }
 
     /**
