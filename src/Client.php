@@ -12,6 +12,49 @@ namespace Clx\Xms;
 
 /**
  * Client used to communicate with the XMS server.
+ *
+ * This class will use the cURL functions to communicate with XMS. It
+ * is intended as a long lived object and can handle multiple requests.
+ *
+ * For example, to send a simple parameterized text batch to three
+ * recipients we may use code such as
+ *
+ * ```php
+ * $client = new Clx\Xms\Client('{my-service-plan-id}', '{my-token}');
+ *
+ * try {
+ *     $batchParams = new Clx\Xms\Api\MtBatchTextSmsCreate();
+ *     $batchParams->sender = '12345';
+ *     $batchParams->recipients = ['987654321', '123456789', '567894321'];
+ *     $batchParams->body = 'Hello, ${name}!';
+ *     $batchParams->parameters['name'] = [
+ *         '987654321' => 'Mary',
+ *         '123456789' => 'Joe',
+ *         'default' => 'valued customer'
+ *     ];
+ *
+ *     $batch = $client->createTextBatch($batchParams);
+ *     echo('The batch was given ID ' . $batch->batchId);
+ * } catch (Exception $ex) {
+ *     echo('Error creating batch: ' . $ex->getMessage());
+ * }
+ * ```
+ *
+ * and to fetch a batch we may use the code (with `$client` being the
+ * same variable as above)
+ *
+ * ```php
+ * try {
+ *     $batch = $client->fetchBatch('{a batch identifier}');
+ *     echo('The batch was sent from ' . $batch->sender);
+ * } catch (Exception $ex) {
+ *     echo('Error fetching batch: ' . $ex->getMessage());
+ * }
+ * ```
+ *
+ * This client is aware of the PSR-3 logger interface and will log all
+ * requests at the debug level if given a logger through the
+ * {@link \Clx\Xms\Client::setLogger()} method.
  */
 class Client implements \Psr\Log\LoggerAwareInterface
 {
