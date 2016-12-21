@@ -115,7 +115,7 @@ class Client
      * Builds an endpoint URL for the given batch and sub-path.
      *
      * @param string $batchId a batch identifier
-     * @PARAM string $subPath additional sub-path
+     * @param string $subPath additional sub-path
      *
      * @return string a complete URL
      */
