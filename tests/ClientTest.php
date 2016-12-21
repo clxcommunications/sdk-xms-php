@@ -1,5 +1,6 @@
 <?php
 
+use Gamez\Psr\Log\TestLoggerTrait;
 use InterNations\Component\HttpMock\PHPUnit\HttpMockTrait;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +18,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
 {
 
     use HttpMockTrait;
+    use TestLoggerTrait;
 
     private $_client;
 
@@ -176,6 +178,29 @@ class ClientTest extends PHPUnit\Framework\TestCase
         } catch (X\UnexpectedResponseException $ex) {
             $this->assertEquals('{}', $ex->getHttpBody());
         }
+    }
+
+    public function testLogsRequestAndResponse()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/foo/groups/groupid/tags')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->body('{"tags":[]}')
+            ->end();
+        $this->http->setUp();
+
+        $logger = $this->getTestLogger();
+
+        $this->_client->setLogger($logger);
+        $this->_client->replaceGroupTags('groupid', []);
+
+        $this->assertTrue(
+            $logger->hasRecord('Request'),
+            'Missing request log'
+        );
     }
 
     public function testCreateTextBatch()

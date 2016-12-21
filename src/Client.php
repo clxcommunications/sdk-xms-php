@@ -13,7 +13,7 @@ namespace Clx\Xms;
 /**
  * Client used to communicate with the XMS server.
  */
-class Client
+class Client implements \Psr\Log\LoggerAwareInterface
 {
 
     /**
@@ -58,6 +58,11 @@ class Client
     private $_endpoint;
 
     /**
+     * @var \Psr\Log\LoggerInterface|null a logger
+     */
+    private $_logger;
+
+    /**
      * Constructs a new XMS client.
      *
      * The constructed client will communicate with the given endpoint
@@ -97,6 +102,21 @@ class Client
             curl_close($this->_curlHandle);
             $this->_curlHandle = null;
         }
+    }
+
+    /**
+     * Assigns a PSR-3 logger to this client.
+     *
+     * The given logger will be used to log the content of each XMS
+     * request and response.
+     *
+     * @param \Psr\Log\LoggerInterface $logger the logger to use
+     *
+     * @return void
+     */
+    public function setLogger(\Psr\Log\LoggerInterface $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -164,6 +184,20 @@ class Client
         }
 
         $httpStatus = curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
+
+        // If we have a logger then we can emit a bit of debug info.
+        if (isset($this->_logger)) {
+            $httpTime = curl_getinfo($this->_curlHandle, CURLINFO_TOTAL_TIME);
+            $this->_logger->debug(
+                'Request: {req}; Response (status {status}, took {time}s): {rsp}',
+                [
+                    'req' => $json,
+                    'rsp' => $result,
+                    'status' => $httpStatus,
+                    'time' => $httpTime
+                ]
+            );
+        }
 
         switch ($httpStatus) {
         case 200:               // OK
