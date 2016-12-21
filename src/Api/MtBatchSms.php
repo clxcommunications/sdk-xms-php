@@ -62,23 +62,6 @@ abstract class MtBatchSms
      */
     public $callbackUrl;
 
-    /**
-     * Prevent introduction of new fields.
-     *
-     * Typically this would happen when a misspelling a real field.
-     * Will always throw an `\InvalidArgumentException`.
-     *
-     * @param string $name  the field name
-     * @param string $value the value
-     *
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        $msg = "Attempt to set unknown field '$name'";
-        throw new \InvalidArgumentException($msg);
-    }
-
 }
 
 ?>
