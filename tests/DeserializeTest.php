@@ -101,7 +101,7 @@ EOD;
             $result = X\Deserialize::batchResponse($json);
             $this->assertTrue(false, "expected exception");
         } catch (X\UnexpectedResponseException $ex) {
-            // Expected
+            $this->assertEquals($json, $ex->getHttpBody());
         }
     }
 
