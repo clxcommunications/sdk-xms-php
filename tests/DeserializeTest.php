@@ -555,6 +555,26 @@ EOD;
         );
     }
 
+    public function testMoTextSmsInvalidDateTime()
+    {
+        $json = <<<'EOD'
+{
+  "type": "mo_text",
+  "to": "12345",
+  "from": "987654321",
+  "id": "b88b4cee-168f-4721-bbf9-cd748dd93b60",
+  "received_at": "2016-12-05T16:24:23318Z",
+  "body": "Hello, world!"
+}
+EOD;
+
+        try {
+            X\Deserialize::moSms($json);
+        } catch (X\UnexpectedResponseException $ex) {
+            $this->assertEquals($json, $ex->getHttpBody());
+        }
+    }
+
     public function testMoUnknownSms()
     {
         $json = '{"type": "whatever"}';
