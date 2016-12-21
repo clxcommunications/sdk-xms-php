@@ -720,6 +720,70 @@ class Client
         return Deserialize::tags($result);
     }
 
+    /**
+     * Fetches the inbound message with the given identifier.
+     *
+     * The returned message is either
+     * {@link Clx\Xms\Api\MoTextSms textual} or
+     * {@link Clx\Xms\Api\MoBinarySms binary}.
+     *
+     * @param string $inboundId message identifier
+     *
+     * @return Api\MoSms the fetched message
+     */
+    public function fetchInbound(string $inboundId)
+    {
+        $result = $this->_get($this->_url("/inbounds/$inboundId"));
+        return Deserialize::moSms($result);
+    }
+
+    /**
+     * Fetch inbound messages matching the given filter.
+     *
+     * Note, calling this method does not actually cause any network
+     * traffic. Listing inbound messages in XMS may return the result
+     * over multiple pages and this call therefore returns an object
+     * of the type {@link \Clx\Xms\Api\Pages}, which will fetch result
+     * pages as needed.
+     *
+     * @param InboundsFilter|null $filter the inbound message filter
+     *
+     * @return Api\Pages the result pages
+     */
+    public function fetchInbounds(InboundsFilter $filter = null)
+    {
+        return new Api\Pages(
+            function ($page) use ($filter) {
+                $params = ["page=$page"];
+
+                if (!is_null($filter)) {
+                    if (isset($filter->pageSize)) {
+                        array_push($params, 'page_size=' . $filter->pageSize);
+                    }
+
+                    if (isset($filter->recipients)) {
+                        $val = urlencode(join(',', $filter->recipients));
+                        array_push($params, 'to=' . $val);
+                    }
+
+                    if (isset($filter->startDate)) {
+                        $val = $filter->startDate->format('Y-m-d');
+                        array_push($params, 'start_date=' . $val);
+                    }
+
+                    if (isset($filter->endDate)) {
+                        $val = $filter->endDate->format('Y-m-d');
+                        array_push($params, 'end_date=' . $val);
+                    }
+                }
+
+                $q = join('&', $params);
+                $result = $this->_get($this->_url('/inbounds?' . $q));
+                return Deserialize::inboundsPage($result);
+            }
+        );
+    }
+
 }
 
 ?>

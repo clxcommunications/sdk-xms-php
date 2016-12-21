@@ -445,6 +445,100 @@ class Deserialize
         return $result;
     }
 
+    /**
+     * Helper that reads an MO from the given fields.
+     *
+     * @param string $json   original JSON formatted text
+     * @param object $fields the result of `json_decode`
+     *
+     * @return Api\MoSms the parsed inbound message
+     *
+     * @throws UnexpectedResponseException if the JSON contained an
+     *     unexpected message type
+     */
+    private static function _moSmsFromFields(&$json, &$fields)
+    {
+        if ($fields->type === 'mo_text') {
+            $result = new Api\MoTextSms();
+            $result->body = $fields->body;
+
+            if (isset($fields->keyword)) {
+                $result->keyword = $fields->keyword;
+            }
+        } else if ($fields->type === 'mo_binary') {
+            $result = new Api\MoBinarySms();
+            $result->body = base64_decode($fields->body);
+            $result->udh = hex2bin($fields->udh);
+        } else {
+            throw new UnexpectedResponseException(
+                "Received unexpected inbound type " . $fields->type,
+                $json
+            );
+        }
+
+        $result->messageId = $fields->id;
+        $result->sender = $fields->from;
+        $result->recipient = $fields->to;
+
+        if (isset($fields->operator)) {
+            $result->operator = $fields->operator;
+        }
+
+        if (isset($fields->sent_at)) {
+            $result->sentAt = Deserialize::_dateTime($fields->sent_at);
+        }
+
+        if (isset($fields->received_at)) {
+            $result->receivedAt = Deserialize::_dateTime($fields->received_at);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Reads a JSON blob containing an MO message.
+     *
+     * @param string $json a JSON formatted text
+     *
+     * @return Api\MoSms the decoded error
+     *
+     * @throws UnexpectedResponseException if the JSON contained an
+     *     unexpected message type
+     */
+    public static function moSms($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+        return Deserialize::_moSmsFromFields($json, $fields);
+    }
+
+    /**
+     * Reads a JSON blob describing a page of MO messages.
+     *
+     * @param string $json the JSON text
+     *
+     * @return Api\Page the parsed page
+     *
+     * @throws UnexpectedResponseException if the JSON contained an
+     *     unexpected message type
+     */
+    public static function inboundsPage($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+
+        $result = new Api\Page();
+        $result->page = $fields->page;
+        $result->size = $fields->page_size;
+        $result->totalSize = $fields->count;
+        $result->content = array_map(
+            function ($s) {
+                return Deserialize::_moSmsFromFields($json, $s);
+            },
+            $fields->inbounds
+        );
+
+        return $result;
+    }
+
 }
 
 ?>

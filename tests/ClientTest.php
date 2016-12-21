@@ -1208,6 +1208,140 @@ EOD;
         );
     }
 
+    public function testFetchInbound()
+    {
+        $responseBody = <<<'EOD'
+{
+  "type": "mo_text",
+  "to": "12345",
+  "from": "987654321",
+  "id": "10101010101",
+  "sent_at": "2016-12-03T16:24:23.318Z",
+  "received_at": "2016-12-05T16:24:23.318Z",
+  "body": "Hello, world!",
+  "keyword": "kivord",
+  "operator": "31110"
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/foo/inbounds/10101010101')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $mo = $this->_client->fetchInbound('10101010101');
+
+        $this->assertEquals('987654321', $mo->sender);
+    }
+
+    public function testFetchInbounds()
+    {
+        $responseBody1 = <<<'EOD'
+{
+  "count": 4,
+  "page": 0,
+  "inbounds": [
+    {
+      "type": "mo_text",
+      "to": "12345",
+      "from": "987654321",
+      "id": "10101010101",
+      "received_at": "2016-12-05T16:24:23.318Z",
+      "body": "Hello, world!",
+      "keyword": "kivord",
+      "operator": "31110"
+    }, {
+      "type": "mo_binary",
+      "to": "54321",
+      "from": "123456789",
+      "id": "20202020202",
+      "received_at": "2016-12-05T16:24:23.318Z",
+      "body": "AwE=",
+      "udh": "00010203"
+    }, {
+      "type": "mo_text",
+      "to": "12345",
+      "from": "987654321",
+      "id": "30303030303",
+      "sent_at": "2016-12-03T16:24:23.318Z",
+      "received_at": "2016-12-05T16:24:23.318Z",
+      "body": "Hello, world!",
+      "keyword": "kivord",
+      "operator": "31110"
+    }
+  ],
+  "page_size": 3
+}
+EOD;
+
+        $responseBody2 = <<<'EOD'
+{
+    "inbounds": [],
+    "count": 4,
+    "page": 1,
+    "page_size": 0
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs(
+                '/xms/v1/foo/inbounds'
+                . '?page=0&page_size=12&to=23456%2C8654'
+                . '&start_date=2016-12-11&end_date=2016-12-12'
+            )
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody1)
+            ->end();
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs(
+                '/xms/v1/foo/inbounds'
+                . '?page=1&page_size=12&to=23456%2C8654'
+                . '&start_date=2016-12-11&end_date=2016-12-12'
+            )
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody2)
+            ->end();
+        $this->http->setUp();
+
+        $filter = new X\InboundsFilter();
+        $filter->pageSize = 12;
+        $filter->recipients = ['23456', '8654'];
+        $filter->startDate = new \DateTime('2016-12-11');
+        $filter->endDate = new \DateTime('2016-12-12');
+
+        $pages = $this->_client->fetchInbounds($filter);
+
+        $page = $pages->get(0);
+        $this->assertInstanceOf(XA\Page::class, $page);
+        $this->assertEquals(0, $page->page);
+        $this->assertEquals(3, $page->size);
+        $this->assertEquals(4, $page->totalSize);
+        $this->assertEquals('10101010101', $page->content[0]->messageId);
+        $this->assertEquals('20202020202', $page->content[1]->messageId);
+        $this->assertEquals('30303030303', $page->content[2]->messageId);
+
+        $page = $pages->get(1);
+        $this->assertInstanceOf(XA\Page::class, $page);
+        $this->assertEquals(1, $page->page);
+        $this->assertEquals(0, $page->size);
+        $this->assertEquals(4, $page->totalSize);
+        $this->assertEquals([], $page->content);
+    }
+
 }
 
 ?>

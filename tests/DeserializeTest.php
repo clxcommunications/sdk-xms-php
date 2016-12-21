@@ -456,6 +456,158 @@ EOD;
         $this->assertEquals(2, $result->numberOfMessages);
     }
 
+    public function testMoBinarySms()
+    {
+        $json = <<<'EOD'
+{
+  "type": "mo_binary",
+  "to": "54321",
+  "from": "123456789",
+  "id": "b88b4cee-168f-4721-bbf9-cd748dd93b60",
+  "sent_at": "2016-12-03T16:24:23.318Z",
+  "received_at": "2016-12-05T16:24:23.318Z",
+  "body": "AwE=",
+  "udh": "00010203"
+}
+EOD;
+
+        $result = X\Deserialize::moSms($json);
+
+        $this->assertInstanceOf(XA\MoBinarySms::class, $result);
+        $this->assertEquals('54321', $result->recipient);
+        $this->assertEquals('123456789', $result->sender);
+        $this->assertEquals(
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+        );
+        $this->assertEquals("\x03\x01", $result->body);
+        $this->assertEquals("\x00\x01\x02\x03", $result->udh);
+        $this->assertEquals(
+            new \DateTime('2016-12-03T16:24:23.318Z'),
+            $result->sentAt
+        );
+        $this->assertEquals(
+            new \DateTime('2016-12-05T16:24:23.318Z'),
+            $result->receivedAt
+        );
+    }
+
+    public function testMoTextSms()
+    {
+        $json = <<<'EOD'
+{
+  "type": "mo_text",
+  "to": "12345",
+  "from": "987654321",
+  "id": "b88b4cee-168f-4721-bbf9-cd748dd93b60",
+  "sent_at": "2016-12-03T16:24:23.318Z",
+  "received_at": "2016-12-05T16:24:23.318Z",
+  "body": "Hello, world!",
+  "keyword": "kivord",
+  "operator": "31110"
+}
+EOD;
+
+        $result = X\Deserialize::moSms($json);
+
+        $this->assertInstanceOf(XA\MoTextSms::class, $result);
+        $this->assertEquals('12345', $result->recipient);
+        $this->assertEquals('987654321', $result->sender);
+        $this->assertEquals(
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+        );
+        $this->assertEquals('Hello, world!', $result->body);
+        $this->assertEquals("kivord", $result->keyword);
+        $this->assertEquals(
+            new \DateTime('2016-12-03T16:24:23.318Z'),
+            $result->sentAt
+        );
+        $this->assertEquals(
+            new \DateTime('2016-12-05T16:24:23.318Z'),
+            $result->receivedAt
+        );
+    }
+
+    public function testMoTextSmsMinimal()
+    {
+        $json = <<<'EOD'
+{
+  "type": "mo_text",
+  "to": "12345",
+  "from": "987654321",
+  "id": "b88b4cee-168f-4721-bbf9-cd748dd93b60",
+  "received_at": "2016-12-05T16:24:23.318Z",
+  "body": "Hello, world!"
+}
+EOD;
+
+        $result = X\Deserialize::moSms($json);
+
+        $this->assertInstanceOf(XA\MoTextSms::class, $result);
+        $this->assertEquals('12345', $result->recipient);
+        $this->assertEquals('987654321', $result->sender);
+        $this->assertEquals(
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+        );
+        $this->assertEquals('Hello, world!', $result->body);
+        $this->assertEquals(
+            new \DateTime('2016-12-05T16:24:23.318Z'),
+            $result->receivedAt
+        );
+    }
+
+    public function testMoUnknownSms()
+    {
+        $json = '{"type": "whatever"}';
+
+        try {
+            X\Deserialize::moSms($json);
+        } catch (X\UnexpectedResponseException $ex) {
+            $this->assertEquals($json, $ex->getHttpBody());
+        }
+    }
+
+    public function testReadInboundsPage()
+    {
+        $json = <<<'EOD'
+{
+  "count": 9,
+  "page": 3,
+  "inbounds": [
+    {
+      "type": "mo_text",
+      "to": "12345",
+      "from": "987654321",
+      "id": "b88b4cee",
+      "received_at": "2016-12-05T16:24:23.318Z",
+      "body": "Hello, world!"
+    },
+    {
+      "type": "mo_binary",
+      "to": "54321",
+      "from": "123456789",
+      "id": "cd748dd93b60",
+      "sent_at": "2016-12-03T16:24:23.318Z",
+      "received_at": "2016-12-05T16:24:23.318Z",
+      "body": "AwE=",
+      "udh": "00010203"
+    }
+  ],
+  "page_size": 2
+}
+EOD;
+
+        $result = X\Deserialize::inboundsPage($json);
+
+        $this->assertEquals(2, $result->size);
+        $this->assertEquals(3, $result->page);
+        $this->assertEquals(9, $result->totalSize);
+        $this->assertCount(2, $result->content);
+        $this->assertInstanceOf(XA\MoTextSms::class, $result->content[0]);
+        $this->assertEquals('b88b4cee', $result->content[0]->messageId);
+        $this->assertInstanceOf(XA\MoBinarySms::class, $result->content[1]);
+        $this->assertEquals('cd748dd93b60', $result->content[1]->messageId);
+    }
+
 }
 
 ?>
