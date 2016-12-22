@@ -689,6 +689,21 @@ class Client implements \Psr\Log\LoggerAwareInterface
     }
 
     /**
+     * Replaces the group with the given group identifier.
+     *
+     * @param string          $groupId identifier of the group
+     * @param Api\GroupCreate $group   new group description
+     *
+     * @return Api\GroupResponse the group after replacement
+     */
+    public function replaceGroup($groupId, Api\GroupCreate $group)
+    {
+        $json = Serialize::group($group);
+        $result = $this->_put($this->_url("/groups/$groupId"), $json);
+        return Deserialize::groupResponse($result);
+    }
+
+    /**
      * Updates the group with the given identifier.
      *
      * @param string          $groupId identifier of the group

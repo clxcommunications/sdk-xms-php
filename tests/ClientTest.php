@@ -1088,6 +1088,38 @@ EOD;
         );
     }
 
+    public function testReplaceGroup()
+    {
+        $responseBody = <<<'EOD'
+{
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-10T12:38:19.162Z",
+    "size": 1004
+}
+EOD;
+
+        $this->http->mock
+            ->when()
+            ->methodIs('PUT')
+            ->pathIs('/xms/v1/foo/groups/4cldmgEdAcBfcHW3')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody)
+            ->end();
+        $this->http->setUp();
+
+        $group = new XA\GroupCreate();
+        $group->members = ['555555555'];
+
+        $result = $this->_client->replaceGroup('4cldmgEdAcBfcHW3', $group);
+
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals(1004, $result->size);
+    }
+
     public function testUpdateGroup()
     {
         $responseBody = <<<'EOD'
