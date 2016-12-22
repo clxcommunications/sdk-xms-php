@@ -274,6 +274,8 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     private function _get($url)
     {
+        curl_setopt($this->_curlHandle, CURLOPT_HTTPGET, true);
+        curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'GET');
         return $this->_curlHelper($url);
     }
 
@@ -286,6 +288,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     private function _delete($url)
     {
+        curl_setopt($this->_curlHandle, CURLOPT_HTTPGET, true);
         curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'DELETE');
         return $this->_curlHelper($url);
     }

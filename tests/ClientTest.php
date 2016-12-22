@@ -976,6 +976,118 @@ EOD;
         );
     }
 
+    public function testCreateThenFetchGroup()
+    {
+        $responseBody1 = <<<'EOD'
+{
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-08T12:38:19.962Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $responseBody2 = <<<'EOD'
+{
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "helloworld",
+    "modified_at": "2016-12-08T12:38:19.962Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $group = new XA\GroupCreate();
+        $group->members = ['123456789', '987654321'];
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/foo/groups')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody1)
+            ->end();
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/foo/groups/helloworld')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body($responseBody2)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->createGroup($group);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertJsonStringEqualsJsonString(
+            '{"members":["123456789","987654321"]}',
+            (string) $this->http->requests->latest()->getBody()
+        );
+
+        $result = $this->_client->fetchGroup('helloworld');
+        $this->assertEquals('helloworld', $result->groupId);
+        $this->assertFalse(
+            $this->http->requests->latest()->hasHeader('content-type'),
+            'Has content-type header'
+        );
+    }
+
+    public function testCreateThenDeleteGroup()
+    {
+        $responseBody1 = <<<'EOD'
+{
+    "child_groups": [],
+    "created_at": "2016-12-08T12:38:19.962Z",
+    "id": "4cldmgEdAcBfcHW3",
+    "modified_at": "2016-12-08T12:38:19.962Z",
+    "name": "rah-test",
+    "size": 1
+}
+EOD;
+
+        $group = new XA\GroupCreate();
+        $group->members = ['123456789', '987654321'];
+
+        $this->http->mock
+            ->when()
+            ->methodIs('POST')
+            ->pathIs('/xms/v1/foo/groups')
+            ->then()
+            ->statusCode(Response::HTTP_CREATED)
+            ->header('content-type', 'application/json')
+            ->body($responseBody1)
+            ->end();
+        $this->http->mock
+            ->when()
+            ->methodIs('DELETE')
+            ->pathIs('/xms/v1/foo/groups/helloworld')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            // ->header('content-type', 'application/json')
+            // ->body($responseBody2)
+            ->end();
+        $this->http->setUp();
+
+        $result = $this->_client->createGroup($group);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertJsonStringEqualsJsonString(
+            '{"members":["123456789","987654321"]}',
+            (string) $this->http->requests->latest()->getBody()
+        );
+
+        $this->_client->deleteGroup('helloworld');
+        $this->assertFalse(
+            $this->http->requests->latest()->hasHeader('content-type'),
+            'Has content-type header'
+        );
+    }
+
     public function testUpdateGroup()
     {
         $responseBody = <<<'EOD'
