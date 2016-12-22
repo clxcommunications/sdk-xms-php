@@ -13,7 +13,7 @@ namespace Clx\Xms;
 /**
  * Exception used when XMS responded with an error message.
  */
-class XmsErrorException extends \Exception implements ApiException
+class ErrorResponseException extends \Exception implements ApiException
 {
 
     /**

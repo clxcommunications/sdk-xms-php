@@ -89,7 +89,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         try {
             $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
-        } catch (X\XmsErrorException $ex) {
+        } catch (X\ErrorResponseException $ex) {
             $this->assertEquals('yes_this_is_code', $ex->getErrorCode());
             $this->assertEquals('the text', $ex->getMessage());
         }
@@ -110,7 +110,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
         try {
             $this->_client->fetchBatch('batchid');
             $this->assertTrue(false, "expected exception");
-        } catch (X\XmsErrorException $ex) {
+        } catch (X\ErrorResponseException $ex) {
             $this->assertEquals('yes_this_is_code', $ex->getErrorCode());
             $this->assertEquals('the text', $ex->getMessage());
         }

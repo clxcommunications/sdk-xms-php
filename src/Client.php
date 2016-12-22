@@ -249,7 +249,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
         case 400:               // Bad Request
         case 403:               // Forbidden
             $e = Deserialize::error($result);
-            throw new XmsErrorException($e->code, $e->text);
+            throw new ErrorResponseException($e->code, $e->text);
         case 404:               // Not Found
             throw new NotFoundException($url);
         case 401:               // Unauthorized
