@@ -300,7 +300,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     private function _post($url, &$json)
     {
-        curl_setopt($this->_curlHandle, CURLOPT_POST, true);
+        curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'POST');
         return $this->_curlHelper($url, $json);
     }
 
