@@ -76,7 +76,7 @@ class Deserialize
      * @return void
      */
     private static function _batchResponseHelper(
-        string &$json, \stdClass &$fields, Api\MtBatchSmsResult &$object
+        &$json, \stdClass &$fields, Api\MtBatchSmsResult &$object
     ) {
         $object->batchId = $fields->id;
         $object->recipients = $fields->to;
@@ -390,7 +390,7 @@ class Deserialize
      *
      * @return Api\GroupResult the created group response
      */
-    private static function _groupResponseFromFields(string &$json, &$fields)
+    private static function _groupResponseFromFields(&$json, &$fields)
     {
         $result = new Api\GroupResult();
         $result->childGroups = $fields->child_groups;

@@ -29,7 +29,7 @@ class XmsErrorException extends \Exception implements ApiException
      * @param string $code    the machine readable error code
      * @param string $message the human readable error message
      */
-    public function __construct(string $code, string $message)
+    public function __construct($code, $message)
     {
         parent::__construct($message);
         $this->_code = $code;

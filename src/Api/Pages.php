@@ -40,7 +40,7 @@ class Pages implements \IteratorAggregate
      *
      * @return Page a page
      */
-    public function get(int $page)
+    public function get($page)
     {
         return call_user_func($this->_worker, $page);
     }

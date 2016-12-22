@@ -104,7 +104,7 @@ class GroupAutoUpdate
      * @throws \DomainException if recipient is `null`
      */
     public function __construct(
-        string $recipient,
+        $recipient,
         array $addWordPair = [null, null],
         array $removeWordPair = [null, null]
     ) {

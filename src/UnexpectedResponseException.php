@@ -29,7 +29,7 @@ class UnexpectedResponseException
      * @param string $message the error message
      * @param string $body    the HTTP response body
      */
-    public function __construct(string $message, string $body)
+    public function __construct($message, $body)
     {
         parent::__construct($message);
 

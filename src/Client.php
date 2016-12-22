@@ -119,9 +119,9 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string $endpoint        the XMS endpoint URL
      */
     public function __construct(
-        string $service_plan_id,
-        string $token,
-        string $endpoint = Client::DEFAULT_ENDPOINT
+        $service_plan_id,
+        $token,
+        $endpoint = Client::DEFAULT_ENDPOINT
     ) {
         $this->_servicePlanId = $service_plan_id;
         $this->_token = $token;
@@ -169,7 +169,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string an URL
      */
-    private function _url(string $sub_path)
+    private function _url($sub_path)
     {
         return $this->_endpoint . '/v1/' . $this->_servicePlanId . $sub_path;
     }
@@ -182,7 +182,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string a complete URL
      */
-    private function _batchUrl(string $batchId, string $subPath = '')
+    private function _batchUrl($batchId, $subPath = '')
     {
         $ebid = rawurlencode($batchId);
         return $this->_url('/batches/' . $ebid . $subPath);
@@ -366,7 +366,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\MtBatchDryRunResult result of dry-run
      */
     public function createBatchDryRun(
-        Api\MtBatchSmsCreate $batch, int $numRecipients = null
+        Api\MtBatchSmsCreate $batch, $numRecipients = null
     ) {
         if ($batch instanceof Api\MtBatchTextSmsCreate) {
             $json = Serialize::textBatch($batch);
@@ -397,7 +397,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\MtBatchTextSmsResult the resulting batch
      */
     public function replaceTextBatch(
-        string $batchId, Api\MtBatchTextSmsCreate $batch
+        $batchId, Api\MtBatchTextSmsCreate $batch
     ) {
         $json = Serialize::textBatch($batch);
         $result = $this->_put($this->_batchUrl($batchId), $json);
@@ -414,7 +414,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\MtBatchBinarySmsResult the resulting batch
      */
     public function replaceBinaryBatch(
-        string $batchId, Api\MtBatchBinarySmsCreate $batch
+        $batchId, Api\MtBatchBinarySmsCreate $batch
     ) {
         $json = Serialize::binaryBatch($batch);
         $result = $this->_put($this->_batchUrl($batchId), $json);
@@ -430,7 +430,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\MtBatchTextSmsResult the updated batch
      */
     public function updateTextBatch(
-        string $batchId, Api\MtBatchTextSmsUpdate $batch
+        $batchId, Api\MtBatchTextSmsUpdate $batch
     ) {
         $json = Serialize::textBatchUpdate($batch);
         $result = $this->_post($this->_batchUrl($batchId), $json);
@@ -446,7 +446,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\MtBatchBinarySmsResult the updated batch
      */
     public function updateBinaryBatch(
-        string $batchId, Api\MtBatchBinarySmsUpdate $batch
+        $batchId, Api\MtBatchBinarySmsUpdate $batch
     ) {
         $json = Serialize::binaryBatchUpdate($batch);
         $result = $this->_post($this->_batchUrl($batchId), $json);
@@ -460,7 +460,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return void
      */
-    public function cancelBatch(string $batchId)
+    public function cancelBatch($batchId)
     {
         $this->_delete($this->_batchUrl($batchId));
     }
@@ -473,7 +473,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string[] the new batch tags
      */
-    public function replaceBatchTags(string $batchId, array $tags)
+    public function replaceBatchTags($batchId, array $tags)
     {
         $json = Serialize::tags($tags);
         $result = $this->_put($this->_batchUrl($batchId, '/tags'), $json);
@@ -490,7 +490,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return string[] the updated batch tags
      */
     public function updateBatchTags(
-        string $batchId, array $tagsToAdd, array $tagsToRemove
+        $batchId, array $tagsToAdd, array $tagsToRemove
     ) {
         $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
         $result = $this->_post($this->_batchUrl($batchId, '/tags'), $json);
@@ -504,7 +504,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return Api\MtSmsBatchResponse the corresponding batch
      */
-    public function fetchBatch(string $batchId)
+    public function fetchBatch($batchId)
     {
         $result = $this->_get($this->_batchUrl($batchId));
         return Deserialize::batchResponse($result);
@@ -569,7 +569,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string[] a list of tags
      */
-    public function fetchBatchTags(string $batchId)
+    public function fetchBatchTags($batchId)
     {
         $result = $this->_get($this->_batchUrl($batchId, '/tags'));
         return Deserialize::tags($result);
@@ -610,8 +610,8 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return Api\DeliveryReport the batch delivery report
      */
     public function fetchDeliveryReport(
-        string $batchId,
-        string $type = null,
+        $batchId,
+        $type = null,
         array $status = null,
         array $code = null
     ) {
@@ -649,9 +649,8 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
       * @return Api\BatchRecipientDeliveryReport the delivery report
      */
-    public function fetchRecipientDeliveryReport(
-        string $batchId, string $recipient
-    ) {
+    public function fetchRecipientDeliveryReport($batchId, $recipient)
+    {
         $path = '/delivery_report/' . urlencode($recipient);
         $result = $this->_get($this->_batchUrl($batchId, $path));
         return Deserialize::batchRecipientDeliveryReport($result);
@@ -679,7 +678,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string[] the new group tags
      */
-    public function replaceGroupTags(string $groupId, array $tags)
+    public function replaceGroupTags($groupId, array $tags)
     {
         $json = Serialize::tags($tags);
         $result = $this->_put($this->_url("/groups/$groupId/tags"), $json);
@@ -694,9 +693,8 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return Api\GroupResponse the updated batch
      */
-    public function updateGroup(
-        string $groupId, Api\GroupUpdate $group
-    ) {
+    public function updateGroup($groupId, Api\GroupUpdate $group)
+    {
         $json = Serialize::groupUpdate($group);
         $result = $this->_post($this->_url("/groups/$groupId"), $json);
         return Deserialize::groupResponse($result);
@@ -712,7 +710,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @return string[] the updated group tags
      */
     public function updateGroupTags(
-        string $groupId, array $tagsToAdd, array $tagsToRemove
+        $groupId, array $tagsToAdd, array $tagsToRemove
     ) {
         $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
         $result = $this->_post($this->_url("/groups/$groupId/tags"), $json);
@@ -726,7 +724,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return void
      */
-    public function deleteGroup(string $groupId)
+    public function deleteGroup($groupId)
     {
         $this->_delete($this->_url("/groups/$groupId"));
     }
@@ -738,7 +736,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return Api\GroupResponse the corresponding group
      */
-    public function fetchGroup(string $groupId)
+    public function fetchGroup($groupId)
     {
         $result = $this->_get($this->_url('/groups/' . $groupId));
         return Deserialize::groupResponse($result);
@@ -788,7 +786,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return string[] a list of tags
      */
-    public function fetchGroupTags(string $groupId)
+    public function fetchGroupTags($groupId)
     {
         $result = $this->_get($this->_url("/groups/$groupId/tags"));
         return Deserialize::tags($result);
@@ -805,7 +803,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @return Api\MoSms the fetched message
      */
-    public function fetchInbound(string $inboundId)
+    public function fetchInbound($inboundId)
     {
         $result = $this->_get($this->_url("/inbounds/$inboundId"));
         return Deserialize::moSms($result);

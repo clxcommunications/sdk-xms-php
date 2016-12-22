@@ -32,7 +32,7 @@ class NotFoundException extends \Exception implements ApiException
      *
      * @param string $url URL to the missing resource
      */
-    public function __construct(string $url)
+    public function __construct($url)
     {
         parent::__construct("No resource found at '$url'");
         $this->_url = $url;

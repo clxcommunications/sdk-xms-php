@@ -27,7 +27,7 @@ class UnauthorizedException extends \Exception implements ApiException
      * @param string $servicePlanId the service plan identifier
      * @param string $token         the authentication token
      */
-    public function __construct(string $servicePlanId, string $token)
+    public function __construct($servicePlanId, $token)
     {
         $this->_servicePlanId = $servicePlanId;
         $this->_token = $token;
