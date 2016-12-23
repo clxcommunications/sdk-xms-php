@@ -19,6 +19,6 @@
     "scripts": {
         "test": "phpunit --bootstrap vendor/autoload.php tests",
         "test-cover": "phpunit --whitelist=src --coverage-html=cover --bootstrap vendor/autoload.php tests",
-        "phpdoc": "phpdoc -d src --visibility=public"
+        "phpdoc": "phpdoc run --title 'REST API SDK for SMS' -d src --visibility=public"
     }
 }
