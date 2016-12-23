@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>REST API SDK for SMS</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">REST API SDK for SMS</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Clx.html">\Clx</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-564475802"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-564475802" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-765650449"></a>
+                                <a href="../namespaces/Clx.html" style="margin-left: 30px; padding-left: 0">Clx</a>
+            </div>
+            <div id="namespace-765650449" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-255189186"></a>
+                                <a href="../namespaces/Clx.Xms.html" style="margin-left: 30px; padding-left: 0">Xms</a>
+            </div>
+            <div id="namespace-255189186" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1948015963"></a>
+                                <a href="../namespaces/Clx.Xms.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-1948015963" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchDeliveryReport.html">BatchDeliveryReport</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchDeliveryReportStatus.html">BatchDeliveryReportStatus</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchRecipientDeliveryReport.html">BatchRecipientDeliveryReport</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.DeliveryStatus.html">DeliveryStatus</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.DryRunPerRecipient.html">DryRunPerRecipient</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Error.html">Error</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupAutoUpdate.html">GroupAutoUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupCreate.html">GroupCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupResult.html">GroupResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupUpdate.html">GroupUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoBinarySms.html">MoBinarySms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoSms.html">MoSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoTextSms.html">MoTextSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsCreate.html">MtBatchBinarySmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsResult.html">MtBatchBinarySmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsUpdate.html">MtBatchBinarySmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchDryRunResult.html">MtBatchDryRunResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSms.html">MtBatchSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsCreate.html">MtBatchSmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsResult.html">MtBatchSmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsUpdate.html">MtBatchSmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsCreate.html">MtBatchTextSmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsResult.html">MtBatchTextSmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsUpdate.html">MtBatchTextSmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Pages.html">Pages</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.PagesIterator.html">PagesIterator</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.ReportType.html">ReportType</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Reset.html">Reset</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Clx.Xms.ApiException.html">ApiException</a></li>
+                                                                                                    <li class="class"><a href="../classes/Clx.Xms.BatchFilter.html">BatchFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.DeliveryReportType.html">DeliveryReportType</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Deserialize.html">Deserialize</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.ErrorResponseException.html">ErrorResponseException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.GroupFilter.html">GroupFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.HttpCallException.html">HttpCallException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.InboundsFilter.html">InboundsFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.NotFoundException.html">NotFoundException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Serialize.html">Serialize</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Tutorial.html">Tutorial</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.UnauthorizedException.html">UnauthorizedException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.UnexpectedResponseException.html">UnexpectedResponseException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Version.html">Version</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Clx.Xms.html">\Clx\Xms</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Clx\Xms</small>Client</h1>
+                    <p><em>Client used to communicate with the XMS server.</em></p>
+                    <p>This class will use the cURL functions to communicate with XMS. It
+is intended as a long lived object and can handle multiple requests.</p>
+<p>For example, to send a simple parameterized text batch to three
+recipients we may use code such as</p>
+<pre><code class="language-php">$client = new Clx\Xms\Client('{my-service-plan-id}', '{my-token}');
+
+try {
+    $batchParams = new Clx\Xms\Api\MtBatchTextSmsCreate();
+    $batchParams-&gt;sender = '12345';
+    $batchParams-&gt;recipients = ['987654321', '123456789', '567894321'];
+    $batchParams-&gt;body = 'Hello, ${name}!';
+    $batchParams-&gt;parameters['name'] = [
+        '987654321' =&gt; 'Mary',
+        '123456789' =&gt; 'Joe',
+        'default' =&gt; 'valued customer'
+    ];
+
+    $batch = $client-&gt;createTextBatch($batchParams);
+    echo('The batch was given ID ' . $batch-&gt;batchId . "\n");
+} catch (Exception $ex) {
+    echo('Error creating batch: ' . $ex-&gt;getMessage() . "\n");
+}</code></pre>
+<p>and to fetch a batch we may use the code (with <code>$client</code> being the
+same variable as above)</p>
+<pre><code class="language-php">try {
+    $batch = $client-&gt;fetchBatch('{a batch identifier}');
+    echo('The batch was sent from ' . $batch-&gt;sender . "\n");
+} catch (Exception $ex) {
+    echo('Error fetching batch: ' . $ex-&gt;getMessage() . "\n");
+}</code></pre>
+<p>This client is aware of the PSR-3 logger interface and will log all
+requests at the debug level if given a logger through the
+<a href="../classes/Clx.Xms.Client.html#method_setLogger">\Clx\Xms\Client::setLogger()</a> method.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Clx.Xms.Client.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method___destruct" class="">__destruct()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_setLogger" class="">setLogger()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_createTextBatch" class="">createTextBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_createBinaryBatch" class="">createBinaryBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_createBatchDryRun" class="">createBatchDryRun()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_replaceTextBatch" class="">replaceTextBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_replaceBinaryBatch" class="">replaceBinaryBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_updateTextBatch" class="">updateTextBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_updateBinaryBatch" class="">updateBinaryBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_cancelBatch" class="">cancelBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_replaceBatchTags" class="">replaceBatchTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_updateBatchTags" class="">updateBatchTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchBatch" class="">fetchBatch()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchBatches" class="">fetchBatches()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchBatchTags" class="">fetchBatchTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchDeliveryReport" class="">fetchDeliveryReport()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchRecipientDeliveryReport" class="">fetchRecipientDeliveryReport()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_createGroup" class="">createGroup()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_replaceGroupTags" class="">replaceGroupTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_replaceGroup" class="">replaceGroup()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_updateGroup" class="">updateGroup()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_updateGroupTags" class="">updateGroupTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_deleteGroup" class="">deleteGroup()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchGroup" class="">fetchGroup()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchGroups" class="">fetchGroups()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchGroupTags" class="">fetchGroupTags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchInbound" class="">fetchInbound()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Client.html#method_fetchInbounds" class="">fetchInbounds()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Clx.Xms.Client.html#constant_DEFAULT_ENDPOINT" class="">DEFAULT_ENDPOINT</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Client.html"><div class="path-wrapper">Client.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Clx\Xms\Client</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DEFAULT_ENDPOINT" name="constant_DEFAULT_ENDPOINT" class="anchor"></a>
+            <article id="constant_DEFAULT_ENDPOINT" class="constant">
+                <h3 class="">DEFAULT_ENDPOINT</h3>
+                <pre class="signature">DEFAULT_ENDPOINT</pre>
+                <p><em>The default XMS endpoint.</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$service_plan_id</span>, string  <span class="argument">$token</span>, string  <span class="argument">$endpoint = \Clx\Xms\Client::DEFAULT_ENDPOINT</span>) </pre>
+                <p><em>Constructs a new XMS client.</em></p>
+                <p>The constructed client will communicate with the given endpoint
+using the given credentials. A default endpoint at CLX
+Communications is used if no endpoint is explicitly provided.</p>
+<p>This client is <em>not</em> thread-safe.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$service_plan_id </td>
+                                <td><p>the service plan identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$token </td>
+                                <td><p>the authentication token</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$endpoint </td>
+                                <td><p>the XMS endpoint URL</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___destruct" name="method___destruct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__destruct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__destruct() </pre>
+                <p><em>Destructs this client.</em></p>
+                <p>This includes shutting down the internal HTTP client.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLogger" name="method_setLogger" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLogger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLogger(\Psr\Log\LoggerInterface  <span class="argument">$logger</span>) : void</pre>
+                <p><em>Assigns a PSR-3 logger to this client.</em></p>
+                <p>The given logger will be used to log the content of each XMS
+request and response.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Log\LoggerInterface</td>
+                                <td>$logger </td>
+                                <td><p>the logger to use</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createTextBatch" name="method_createTextBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createTextBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createTextBatch(\Clx\Xms\Api\MtBatchTextSmsCreate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchTextSmsResult</pre>
+                <p><em>Creates a new text batch.</em></p>
+                <p>The text batch will be created as described in the given
+object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchTextSmsCreate.html">\Clx\Xms\Api\MtBatchTextSmsCreate</a></td>
+                                <td>$batch </td>
+                                <td><p>the batch description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchTextSmsResult.html">\Clx\Xms\Api\MtBatchTextSmsResult</a>
+                                            &mdash; <p>the creation result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createBinaryBatch" name="method_createBinaryBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createBinaryBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createBinaryBatch(\Clx\Xms\Api\MtBatchBinarySmsCreate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchBinarySmsResult</pre>
+                <p><em>Creates a new binary batch.</em></p>
+                <p>The binary batch will be created as described in the given
+object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsCreate.html">\Clx\Xms\Api\MtBatchBinarySmsCreate</a></td>
+                                <td>$batch </td>
+                                <td><p>the batch description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchBinarySmsResult.html">\Clx\Xms\Api\MtBatchBinarySmsResult</a>
+                                            &mdash; <p>the creation result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createBatchDryRun" name="method_createBatchDryRun" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createBatchDryRun()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createBatchDryRun(\Clx\Xms\Api\MtBatchSmsCreate  <span class="argument">$batch</span>, integer|null  <span class="argument">$numRecipients = null</span>) : \Clx\Xms\Api\MtBatchDryRunResult</pre>
+                <p><em>Simulates sending the given batch.</em></p>
+                <p>The method takes an optional argument for instructing XMS to
+respond with per-recipient statistics, if non-null then this
+number of recipients will be returned in the result.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchSmsCreate.html">\Clx\Xms\Api\MtBatchSmsCreate</a></td>
+                                <td>$batch </td>
+                                <td><p>the batch to simulate</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|null</td>
+                                <td>$numRecipients </td>
+                                <td><p>number of recipients
+to show in per-recipient result</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchDryRunResult.html">\Clx\Xms\Api\MtBatchDryRunResult</a>
+                                            &mdash; <p>result of dry-run</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_replaceTextBatch" name="method_replaceTextBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">replaceTextBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">replaceTextBatch(string  <span class="argument">$batchId</span>, \Clx\Xms\Api\MtBatchTextSmsCreate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchTextSmsResult</pre>
+                <p><em>Replaces the batch with the given ID with the given text batch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchTextSmsCreate.html">\Clx\Xms\Api\MtBatchTextSmsCreate</a></td>
+                                <td>$batch </td>
+                                <td><p>the replacement batch</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchTextSmsResult.html">\Clx\Xms\Api\MtBatchTextSmsResult</a>
+                                            &mdash; <p>the resulting batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_replaceBinaryBatch" name="method_replaceBinaryBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">replaceBinaryBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">replaceBinaryBatch(string  <span class="argument">$batchId</span>, \Clx\Xms\Api\MtBatchBinarySmsCreate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchBinarySmsResult</pre>
+                <p><em>Replaces the batch with the given ID with the given binary
+batch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsCreate.html">\Clx\Xms\Api\MtBatchBinarySmsCreate</a></td>
+                                <td>$batch </td>
+                                <td><p>the replacement batch</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchBinarySmsResult.html">\Clx\Xms\Api\MtBatchBinarySmsResult</a>
+                                            &mdash; <p>the resulting batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateTextBatch" name="method_updateTextBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateTextBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateTextBatch(string  <span class="argument">$batchId</span>, \Clx\Xms\Api\MtBatchTextSmsUpdate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchTextSmsResult</pre>
+                <p><em>Updates the text batch with the given identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchTextSmsUpdate.html">\Clx\Xms\Api\MtBatchTextSmsUpdate</a></td>
+                                <td>$batch </td>
+                                <td><p>the update description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchTextSmsResult.html">\Clx\Xms\Api\MtBatchTextSmsResult</a>
+                                            &mdash; <p>the updated batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateBinaryBatch" name="method_updateBinaryBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateBinaryBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateBinaryBatch(string  <span class="argument">$batchId</span>, \Clx\Xms\Api\MtBatchBinarySmsUpdate  <span class="argument">$batch</span>) : \Clx\Xms\Api\MtBatchBinarySmsResult</pre>
+                <p><em>Updates the binary batch with the given identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsUpdate.html">\Clx\Xms\Api\MtBatchBinarySmsUpdate</a></td>
+                                <td>$batch </td>
+                                <td><p>the update description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchBinarySmsResult.html">\Clx\Xms\Api\MtBatchBinarySmsResult</a>
+                                            &mdash; <p>the updated batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cancelBatch" name="method_cancelBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">cancelBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cancelBatch(string  <span class="argument">$batchId</span>) : void</pre>
+                <p><em>Cancels the batch with the given batch identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>the batch identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_replaceBatchTags" name="method_replaceBatchTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">replaceBatchTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">replaceBatchTags(string  <span class="argument">$batchId</span>, array&lt;mixed,string&gt;  <span class="argument">$tags</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Replaces the tags of the given batch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tags </td>
+                                <td><p>the new set of batch tags</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>the new batch tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateBatchTags" name="method_updateBatchTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateBatchTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateBatchTags(string  <span class="argument">$batchId</span>, array&lt;mixed,string&gt;  <span class="argument">$tagsToAdd</span>, array&lt;mixed,string&gt;  <span class="argument">$tagsToRemove</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Updates the tags of the given batch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>batch identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tagsToAdd </td>
+                                <td><p>tags to add to batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tagsToRemove </td>
+                                <td><p>tags to remove from batch</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>the updated batch tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchBatch" name="method_fetchBatch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchBatch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchBatch(string  <span class="argument">$batchId</span>) : \Clx\Xms\Api\MtSmsBatchResponse</pre>
+                <p><em>Fetches the batch with the given batch identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>batch identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\MtSmsBatchResponse
+                                            &mdash; <p>the corresponding batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchBatches" name="method_fetchBatches" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchBatches()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchBatches(\Clx\Xms\BatchFilter|null  <span class="argument">$filter = null</span>) : \Clx\Xms\Api\Pages</pre>
+                <p><em>Fetch the batches matching the given filter.</em></p>
+                <p>Note, calling this method does not actually cause any network
+traffic. Listing batches in XMS may return the result over
+multiple pages and this call therefore returns an object of the
+type <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>, which will fetch result pages
+as needed.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.BatchFilter.html">\Clx\Xms\BatchFilter</a>|null</td>
+                                <td>$filter </td>
+                                <td><p>the batch filter</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>
+                                            &mdash; <p>the result pages</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchBatchTags" name="method_fetchBatchTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchBatchTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchBatchTags(string  <span class="argument">$batchId</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Fetches the tags associated with the given batch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>the batch identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>a list of tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchDeliveryReport" name="method_fetchDeliveryReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchDeliveryReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchDeliveryReport(string  <span class="argument">$batchId</span>, string|null  <span class="argument">$type = null</span>, array&lt;mixed,string&gt;|null  <span class="argument">$status = null</span>, array&lt;mixed,integer&gt;|null  <span class="argument">$code = null</span>) : \Clx\Xms\Api\DeliveryReport</pre>
+                <p><em>Fetches a delivery report for a batch.</em></p>
+                <p>The report type can be either
+<a href="../classes/Clx.Xms.DeliveryReportType.html#constant_FULL">&quot;full&quot;</a>
+or
+<a href="../classes/Clx.Xms.DeliveryReportType.html#constant_SUMMARY">&quot;summary&quot;</a>
+and when &quot;full&quot; the report includes the individual recipients.</p>
+<p>The report can be further limited by status and code. For
+example, to retrieve a summary report limited to messages
+having delivery status &quot;Delivered&quot; or &quot;Failed&quot; and codes &quot;0&quot;,
+&quot;11&quot;, or &quot;400&quot;, one could call</p>
+<pre><code class="language-php">$conn-&gt;fetchDeliveryReport(
+    'MyBatchId',
+    Clx\Xms\DeliveryReportType::SUMMARY,
+    ['Delivered', 'Failed'],
+    [0, 11, 400]
+);</code></pre>
+<p>If the non-identifier parameters are left as <code>null</code> then the
+XMS defaults are used. In particular, all statuses and codes
+are included in the report.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>identifier of the batch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string|null</td>
+                                <td>$type </td>
+                                <td><p>delivery report type</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;|null</td>
+                                <td>$status </td>
+                                <td><p>statuses to fetch</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,integer&gt;|null</td>
+                                <td>$code </td>
+                                <td><p>codes to fetch</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\DeliveryReport
+                                            &mdash; <p>the batch delivery report</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchRecipientDeliveryReport" name="method_fetchRecipientDeliveryReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchRecipientDeliveryReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchRecipientDeliveryReport(string  <span class="argument">$batchId</span>, string  <span class="argument">$recipient</span>) : \Clx\Xms\Api\BatchRecipientDeliveryReport</pre>
+                <p><em>Fetches a delivery report for a specific batch recipient.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$batchId </td>
+                                <td><p>the batch identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$recipient </td>
+                                <td><p>the batch recipient</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.BatchRecipientDeliveryReport.html">\Clx\Xms\Api\BatchRecipientDeliveryReport</a>
+                                            &mdash; <p>the delivery report</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createGroup" name="method_createGroup" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createGroup()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createGroup(\Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <p><em>Creates the given group.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.GroupCreate.html">\Clx\Xms\Api\GroupCreate</a></td>
+                                <td>$group </td>
+                                <td><p>group description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\GroupResponse
+                                            &mdash; <p>the created group</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_replaceGroupTags" name="method_replaceGroupTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">replaceGroupTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">replaceGroupTags(string  <span class="argument">$groupId</span>, array&lt;mixed,string&gt;  <span class="argument">$tags</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Replaces the tags of the given group.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>identifier of the group</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tags </td>
+                                <td><p>the new set of group tags</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>the new group tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_replaceGroup" name="method_replaceGroup" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">replaceGroup()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">replaceGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <p><em>Replaces the group with the given group identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>identifier of the group</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.GroupCreate.html">\Clx\Xms\Api\GroupCreate</a></td>
+                                <td>$group </td>
+                                <td><p>new group description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\GroupResponse
+                                            &mdash; <p>the group after replacement</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateGroup" name="method_updateGroup" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateGroup()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupUpdate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <p><em>Updates the group with the given identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>identifier of the group</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.Api.GroupUpdate.html">\Clx\Xms\Api\GroupUpdate</a></td>
+                                <td>$group </td>
+                                <td><p>the update description</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\GroupResponse
+                                            &mdash; <p>the updated batch</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateGroupTags" name="method_updateGroupTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateGroupTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateGroupTags(string  <span class="argument">$groupId</span>, array&lt;mixed,string&gt;  <span class="argument">$tagsToAdd</span>, array&lt;mixed,string&gt;  <span class="argument">$tagsToRemove</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Updates the tags of the given group.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>group identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tagsToAdd </td>
+                                <td><p>tags to add to group</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$tagsToRemove </td>
+                                <td><p>tags to remove from group</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>the updated group tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deleteGroup" name="method_deleteGroup" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">deleteGroup()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deleteGroup(string  <span class="argument">$groupId</span>) : void</pre>
+                <p><em>Deletes the group with the given group identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>the group identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchGroup" name="method_fetchGroup" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchGroup()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchGroup(string  <span class="argument">$groupId</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <p><em>Fetches the group with the given group identifier.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>group identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\GroupResponse
+                                            &mdash; <p>the corresponding group</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchGroups" name="method_fetchGroups" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchGroups()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchGroups(\Clx\Xms\GroupFilter|null  <span class="argument">$filter = null</span>) : \Clx\Xms\Api\Pages</pre>
+                <p><em>Fetch the groups matching the given filter.</em></p>
+                <p>Note, calling this method does not actually cause any network
+traffic. Listing groups in XMS may return the result over
+multiple pages and this call therefore returns an object of the
+type <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>, which will fetch result pages
+as needed.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.GroupFilter.html">\Clx\Xms\GroupFilter</a>|null</td>
+                                <td>$filter </td>
+                                <td><p>the group filter</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>
+                                            &mdash; <p>the result pages</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchGroupTags" name="method_fetchGroupTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchGroupTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchGroupTags(string  <span class="argument">$groupId</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Fetches the tags associated with the given group.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$groupId </td>
+                                <td><p>the group identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>a list of tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchInbound" name="method_fetchInbound" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchInbound()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchInbound(string  <span class="argument">$inboundId</span>) : \Clx\Xms\Api\MoSms</pre>
+                <p><em>Fetches the inbound message with the given identifier.</em></p>
+                <p>The returned message is either
+<a href="../classes/Clx.Xms.Api.MoTextSms.html">textual</a> or
+<a href="../classes/Clx.Xms.Api.MoBinarySms.html">binary</a>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$inboundId </td>
+                                <td><p>message identifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MoSms.html">\Clx\Xms\Api\MoSms</a>
+                                            &mdash; <p>the fetched message</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetchInbounds" name="method_fetchInbounds" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetchInbounds()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetchInbounds(\Clx\Xms\InboundsFilter|null  <span class="argument">$filter = null</span>) : \Clx\Xms\Api\Pages</pre>
+                <p><em>Fetch inbound messages matching the given filter.</em></p>
+                <p>Note, calling this method does not actually cause any network
+traffic. Listing inbound messages in XMS may return the result
+over multiple pages and this call therefore returns an object
+of the type <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>, which will fetch result
+pages as needed.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Clx.Xms.InboundsFilter.html">\Clx\Xms\InboundsFilter</a>|null</td>
+                                <td>$filter </td>
+                                <td><p>the inbound message filter</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Pages.html">\Clx\Xms\Api\Pages</a>
+                                            &mdash; <p>the result pages</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Client.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Client.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Clx.html">\Clx</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 23rd, 2016 at 12:08.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

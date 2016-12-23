@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>REST API SDK for SMS</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">REST API SDK for SMS</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Clx.html">\Clx</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1235495677"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1235495677" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-498773227"></a>
+                                <a href="../namespaces/Clx.html" style="margin-left: 30px; padding-left: 0">Clx</a>
+            </div>
+            <div id="namespace-498773227" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-383686409"></a>
+                                <a href="../namespaces/Clx.Xms.html" style="margin-left: 30px; padding-left: 0">Xms</a>
+            </div>
+            <div id="namespace-383686409" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1931266971"></a>
+                                <a href="../namespaces/Clx.Xms.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
+            </div>
+            <div id="namespace-1931266971" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchDeliveryReport.html">BatchDeliveryReport</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchDeliveryReportStatus.html">BatchDeliveryReportStatus</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.BatchRecipientDeliveryReport.html">BatchRecipientDeliveryReport</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.DeliveryStatus.html">DeliveryStatus</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.DryRunPerRecipient.html">DryRunPerRecipient</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Error.html">Error</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupAutoUpdate.html">GroupAutoUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupCreate.html">GroupCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupResult.html">GroupResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.GroupUpdate.html">GroupUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoBinarySms.html">MoBinarySms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoSms.html">MoSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MoTextSms.html">MoTextSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsCreate.html">MtBatchBinarySmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsResult.html">MtBatchBinarySmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchBinarySmsUpdate.html">MtBatchBinarySmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchDryRunResult.html">MtBatchDryRunResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSms.html">MtBatchSms</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsCreate.html">MtBatchSmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsResult.html">MtBatchSmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchSmsUpdate.html">MtBatchSmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsCreate.html">MtBatchTextSmsCreate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsResult.html">MtBatchTextSmsResult</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.MtBatchTextSmsUpdate.html">MtBatchTextSmsUpdate</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Pages.html">Pages</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.PagesIterator.html">PagesIterator</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.ReportType.html">ReportType</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Api.Reset.html">Reset</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Clx.Xms.ApiException.html">ApiException</a></li>
+                                                                                                    <li class="class"><a href="../classes/Clx.Xms.BatchFilter.html">BatchFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.DeliveryReportType.html">DeliveryReportType</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Deserialize.html">Deserialize</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.ErrorResponseException.html">ErrorResponseException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.GroupFilter.html">GroupFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.HttpCallException.html">HttpCallException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.InboundsFilter.html">InboundsFilter</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.NotFoundException.html">NotFoundException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Serialize.html">Serialize</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Tutorial.html">Tutorial</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.UnauthorizedException.html">UnauthorizedException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.UnexpectedResponseException.html">UnexpectedResponseException</a></li>
+                                                    <li class="class"><a href="../classes/Clx.Xms.Version.html">Version</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Clx.Xms.html">\Clx\Xms</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Clx\Xms</small>Deserialize</h1>
+                    <p><em>A collection of static deserialization functions.</em></p>
+                    <p>These function are capable of deserializing XMS API data objects in
+a manner suitable for XMS.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_batchResponse" class="">batchResponse()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_batchesPage" class="">batchesPage()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_batchDryRun" class="">batchDryRun()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_batchDeliveryReport" class="">batchDeliveryReport()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_batchRecipientDeliveryReport" class="">batchRecipientDeliveryReport()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_groupResponse" class="">groupResponse()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_groupsPage" class="">groupsPage()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_tags" class="">tags()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_error" class="">error()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_moSms" class="">moSms()</a><br />
+                                                                    <a href="../classes/Clx.Xms.Deserialize.html#method_inboundsPage" class="">inboundsPage()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Deserialize.html"><div class="path-wrapper">Deserialize.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Clx\Xms\Deserialize</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchResponse" name="method_batchResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchResponse(string  <span class="argument">$json</span>) : \Clx\Xms\Api\MtBatchSmsResult</pre>
+                <p><em>Reads a JSON blob describing a batch result.</em></p>
+                <p>If the <code>type</code> field has the value <code>mt_text</code> then an
+<code>MtBatchSmsTextCreate</code> object is returned, if the value is
+<code>mt_binary</code> then an <code>MtBatchTextSmsCreate</code> object is
+returned, otherwise an exception is thrown.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>the JSON text to interpret</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchSmsResult.html">\Clx\Xms\Api\MtBatchSmsResult</a>
+                                            &mdash; <p>the parsed result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchesPage" name="method_batchesPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchesPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchesPage(string  <span class="argument">$json</span>) : \Clx\Xms\Api\Page</pre>
+                <p><em>Reads a JSON blob describing a page of batches.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>the JSON text</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Page.html">\Clx\Xms\Api\Page</a>
+                                            &mdash; <p>the parsed page</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchDryRun" name="method_batchDryRun" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchDryRun()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchDryRun(string  <span class="argument">$json</span>) : \Clx\Xms\Api\MtBatchDryRunResult</pre>
+                <p><em>Reads a JSON formatted string describing a dry-run result.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>the JSON text</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MtBatchDryRunResult.html">\Clx\Xms\Api\MtBatchDryRunResult</a>
+                                            &mdash; <p>the parsed result</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchDeliveryReport" name="method_batchDeliveryReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchDeliveryReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchDeliveryReport(string  <span class="argument">$json</span>) : \Clx\Xms\Api\BatchDeliveryReport</pre>
+                <p><em>Reads a JSON blob describing a batch delivery report.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>the JSON text</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.BatchDeliveryReport.html">\Clx\Xms\Api\BatchDeliveryReport</a>
+                                            &mdash; <p>the parsed batch delivery report</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_batchRecipientDeliveryReport" name="method_batchRecipientDeliveryReport" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">batchRecipientDeliveryReport()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">batchRecipientDeliveryReport(string  <span class="argument">$json</span>) : \Clx\Xms\Api\batchRecipientDeliveryReport</pre>
+                <p><em>Reads a batch recipient delivery report from the given JSON
+text.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    \Clx\Xms\Api\batchRecipientDeliveryReport
+                                            &mdash; <p>a delivery report</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_groupResponse" name="method_groupResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">groupResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">groupResponse(string  <span class="argument">$json</span>) : \Clx\Xms\Api\GroupResult</pre>
+                <p><em>Parses a group response from the given JSON text.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.GroupResult.html">\Clx\Xms\Api\GroupResult</a>
+                                            &mdash; <p>the created group response</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_groupsPage" name="method_groupsPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">groupsPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">groupsPage(string  <span class="argument">$json</span>) : \Clx\Xms\Api\Page</pre>
+                <p><em>Parses a page of groups from the given JSON text.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Page.html">\Clx\Xms\Api\Page</a>
+                                            &mdash; <p>the created page of groups</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_tags" name="method_tags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">tags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">tags(string  <span class="argument">$json</span>) : array&lt;mixed,string&gt;</pre>
+                <p><em>Reads a JSON blob containing a list of tags.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>a JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>a list of tags</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_error" name="method_error" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">error()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">error(string  <span class="argument">$json</span>) : \Clx\Xms\Api\Error</pre>
+                <p><em>Reads a JSON blob containing an error response.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>a JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Error.html">\Clx\Xms\Api\Error</a>
+                                            &mdash; <p>the decoded error</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_moSms" name="method_moSms" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">moSms()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">moSms(string  <span class="argument">$json</span>) : \Clx\Xms\Api\MoSms</pre>
+                <p><em>Reads a JSON blob containing an MO message.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>a JSON formatted text</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.MoSms.html">\Clx\Xms\Api\MoSms</a>
+                                            &mdash; <p>the decoded error</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_inboundsPage" name="method_inboundsPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">inboundsPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">inboundsPage(string  <span class="argument">$json</span>) : \Clx\Xms\Api\Page</pre>
+                <p><em>Reads a JSON blob describing a page of MO messages.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$json </td>
+                                <td><p>the JSON text</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Clx\Xms\UnexpectedResponseException</dt>
+                            <dd><p>if the JSON contained an
+unexpected message type</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Clx.Xms.Api.Page.html">\Clx\Xms\Api\Page</a>
+                                            &mdash; <p>the parsed page</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Deserialize.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Deserialize.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Clx.html">\Clx</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 23rd, 2016 at 12:08.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
