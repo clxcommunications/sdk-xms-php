@@ -7,7 +7,7 @@ supports scheduled sends, organizing your frequent recipients into
 groups, and customizing your message for each recipient using
 parameterization.
 
-This library is compatible with PHP 5.4 and later.
+This library is compatible with PHP 5.6 and later.
 
 Using
 -----
