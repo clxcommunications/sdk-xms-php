@@ -263,27 +263,27 @@ namespace Clx\Xms;
  * SDK all implement the {@link \Clx\Xms\ApiException} interface and
  * they are
  *
- * {@link Clx\Xms\ErrorResponseException}
+ * {@link \Clx\Xms\ErrorResponseException}
  * :   If the XMS server responded with a JSON error object containing
  *     an error code and error description.
  *
- * {@link HttpCallException}
+ * {@link \Clx\Xms\HttpCallException}
  * :   If the HTTP client library could not be initialized or an HTTP
  *     request failed. This may be due to a malformed URL or the XMS
  *     server could not be reached.
  *
- * {@link NotFoundException}
+ * {@link \Clx\Xms\NotFoundException}
  * :   If the XMS server response indicated that the desired resource
  *     does not exist. In other words, if the server responded with
  *     HTTP status 404 Not Found. During a fetch batch or group
  *     operation this exception would typically indicate that the batch
  *     or group identifier is incorrect.
  *
- * {@link UnauthorizedException}
+ * {@link \Clx\Xms\UnauthorizedException}
  * :   Thrown if the XMS server determined that the authentication
  *     token was invalid for the service plan.
  *
- * {@link UnexpectedResponseException}
+ * {@link \Clx\Xms\UnexpectedResponseException}
  * :   If the XMS server responded in a way that the SDK did not expect
  *     and cannot handle, the complete HTTP response body can be
  *     retrieved from the exception object using the

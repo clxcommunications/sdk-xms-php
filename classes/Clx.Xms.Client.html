@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-564475802"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1941976858"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-564475802" class="accordion-body collapse in">
+            <div id="namespace-1941976858" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-765650449"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2813385"></a>
                                 <a href="../namespaces/Clx.html" style="margin-left: 30px; padding-left: 0">Clx</a>
             </div>
-            <div id="namespace-765650449" class="accordion-body collapse ">
+            <div id="namespace-2813385" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-255189186"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1753670900"></a>
                                 <a href="../namespaces/Clx.Xms.html" style="margin-left: 30px; padding-left: 0">Xms</a>
             </div>
-            <div id="namespace-255189186" class="accordion-body collapse ">
+            <div id="namespace-1753670900" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1948015963"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1209790348"></a>
                                 <a href="../namespaces/Clx.Xms.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
             </div>
-            <div id="namespace-1948015963" class="accordion-body collapse ">
+            <div id="namespace-1209790348" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -968,7 +968,7 @@ batch.</em></p>
             <article class="method">
                 <h3 class="public ">fetchBatch()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">fetchBatch(string  <span class="argument">$batchId</span>) : \Clx\Xms\Api\MtSmsBatchResponse</pre>
+                <pre class="signature" style="margin-right: 54px;">fetchBatch(string  <span class="argument">$batchId</span>) : \Clx\Xms\Api\MtBatchSmsResult</pre>
                 <p><em>Fetches the batch with the given batch identifier.</em></p>
                 
 
@@ -983,7 +983,7 @@ batch.</em></p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\MtSmsBatchResponse
+                    <a href="../classes/Clx.Xms.Api.MtBatchSmsResult.html">\Clx\Xms\Api\MtBatchSmsResult</a>
                                             &mdash; <p>the corresponding batch</p>
                                     				
                             </article>
@@ -1083,7 +1083,7 @@ as needed.</p>
             <article class="method">
                 <h3 class="public ">fetchDeliveryReport()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">fetchDeliveryReport(string  <span class="argument">$batchId</span>, string|null  <span class="argument">$type = null</span>, array&lt;mixed,string&gt;|null  <span class="argument">$status = null</span>, array&lt;mixed,integer&gt;|null  <span class="argument">$code = null</span>) : \Clx\Xms\Api\DeliveryReport</pre>
+                <pre class="signature" style="margin-right: 54px;">fetchDeliveryReport(string  <span class="argument">$batchId</span>, string|null  <span class="argument">$type = null</span>, array&lt;mixed,string&gt;|null  <span class="argument">$status = null</span>, array&lt;mixed,integer&gt;|null  <span class="argument">$code = null</span>) : \Clx\Xms\Api\BatchDeliveryReport</pre>
                 <p><em>Fetches a delivery report for a batch.</em></p>
                 <p>The report type can be either
 <a href="../classes/Clx.Xms.DeliveryReportType.html#constant_FULL">&quot;full&quot;</a>
@@ -1130,7 +1130,7 @@ are included in the report.</p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\DeliveryReport
+                    <a href="../classes/Clx.Xms.Api.BatchDeliveryReport.html">\Clx\Xms\Api\BatchDeliveryReport</a>
                                             &mdash; <p>the batch delivery report</p>
                                     				
                             </article>
@@ -1194,7 +1194,7 @@ are included in the report.</p>
             <article class="method">
                 <h3 class="public ">createGroup()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createGroup(\Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <pre class="signature" style="margin-right: 54px;">createGroup(\Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResult</pre>
                 <p><em>Creates the given group.</em></p>
                 
 
@@ -1209,7 +1209,7 @@ are included in the report.</p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\GroupResponse
+                    <a href="../classes/Clx.Xms.Api.GroupResult.html">\Clx\Xms\Api\GroupResult</a>
                                             &mdash; <p>the created group</p>
                                     				
                             </article>
@@ -1273,7 +1273,7 @@ are included in the report.</p>
             <article class="method">
                 <h3 class="public ">replaceGroup()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">replaceGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <pre class="signature" style="margin-right: 54px;">replaceGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupCreate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResult</pre>
                 <p><em>Replaces the group with the given group identifier.</em></p>
                 
 
@@ -1293,7 +1293,7 @@ are included in the report.</p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\GroupResponse
+                    <a href="../classes/Clx.Xms.Api.GroupResult.html">\Clx\Xms\Api\GroupResult</a>
                                             &mdash; <p>the group after replacement</p>
                                     				
                             </article>
@@ -1315,7 +1315,7 @@ are included in the report.</p>
             <article class="method">
                 <h3 class="public ">updateGroup()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">updateGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupUpdate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <pre class="signature" style="margin-right: 54px;">updateGroup(string  <span class="argument">$groupId</span>, \Clx\Xms\Api\GroupUpdate  <span class="argument">$group</span>) : \Clx\Xms\Api\GroupResult</pre>
                 <p><em>Updates the group with the given identifier.</em></p>
                 
 
@@ -1335,7 +1335,7 @@ are included in the report.</p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\GroupResponse
+                    <a href="../classes/Clx.Xms.Api.GroupResult.html">\Clx\Xms\Api\GroupResult</a>
                                             &mdash; <p>the updated batch</p>
                                     				
                             </article>
@@ -1438,7 +1438,7 @@ are included in the report.</p>
             <article class="method">
                 <h3 class="public ">fetchGroup()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">fetchGroup(string  <span class="argument">$groupId</span>) : \Clx\Xms\Api\GroupResponse</pre>
+                <pre class="signature" style="margin-right: 54px;">fetchGroup(string  <span class="argument">$groupId</span>) : \Clx\Xms\Api\GroupResult</pre>
                 <p><em>Fetches the group with the given group identifier.</em></p>
                 
 
@@ -1453,7 +1453,7 @@ are included in the report.</p>
                 
                 
                                     <h4>Returns</h4>
-                    \Clx\Xms\Api\GroupResponse
+                    <a href="../classes/Clx.Xms.Api.GroupResult.html">\Clx\Xms\Api\GroupResult</a>
                                             &mdash; <p>the corresponding group</p>
                                     				
                             </article>
@@ -1677,7 +1677,7 @@ pages as needed.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on December 23rd, 2016 at 12:08.
+                    on December 23rd, 2016 at 13:32.
                 </section>
             </section>
         </section>

@@ -505,7 +505,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @param string $batchId batch identifier
      *
-     * @return Api\MtSmsBatchResponse the corresponding batch
+     * @return Api\MtBatchSmsResult the corresponding batch
      */
     public function fetchBatch($batchId)
     {
@@ -610,7 +610,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string[]|null $status  statuses to fetch
      * @param int[]|null    $code    codes to fetch
      *
-     * @return Api\DeliveryReport the batch delivery report
+     * @return Api\BatchDeliveryReport the batch delivery report
      */
     public function fetchDeliveryReport(
         $batchId,
@@ -664,7 +664,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @param Api\GroupCreate $group group description
      *
-     * @return Api\GroupResponse the created group
+     * @return Api\GroupResult the created group
      */
     public function createGroup(Api\GroupCreate $group)
     {
@@ -694,7 +694,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string          $groupId identifier of the group
      * @param Api\GroupCreate $group   new group description
      *
-     * @return Api\GroupResponse the group after replacement
+     * @return Api\GroupResult the group after replacement
      */
     public function replaceGroup($groupId, Api\GroupCreate $group)
     {
@@ -709,7 +709,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string          $groupId identifier of the group
      * @param Api\GroupUpdate $group   the update description
      *
-     * @return Api\GroupResponse the updated batch
+     * @return Api\GroupResult the updated batch
      */
     public function updateGroup($groupId, Api\GroupUpdate $group)
     {
@@ -752,7 +752,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * @param string $groupId group identifier
      *
-     * @return Api\GroupResponse the corresponding group
+     * @return Api\GroupResult the corresponding group
      */
     public function fetchGroup($groupId)
     {
