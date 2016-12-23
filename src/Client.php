@@ -34,9 +34,9 @@ namespace Clx\Xms;
  *     ];
  *
  *     $batch = $client->createTextBatch($batchParams);
- *     echo('The batch was given ID ' . $batch->batchId);
+ *     echo('The batch was given ID ' . $batch->batchId . "\n");
  * } catch (Exception $ex) {
- *     echo('Error creating batch: ' . $ex->getMessage());
+ *     echo('Error creating batch: ' . $ex->getMessage() . "\n");
  * }
  * ```
  *
@@ -46,9 +46,9 @@ namespace Clx\Xms;
  * ```php
  * try {
  *     $batch = $client->fetchBatch('{a batch identifier}');
- *     echo('The batch was sent from ' . $batch->sender);
+ *     echo('The batch was sent from ' . $batch->sender . "\n");
  * } catch (Exception $ex) {
- *     echo('Error fetching batch: ' . $ex->getMessage());
+ *     echo('Error fetching batch: ' . $ex->getMessage() . "\n");
  * }
  * ```
  *

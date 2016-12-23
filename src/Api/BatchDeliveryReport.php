@@ -26,7 +26,7 @@ class BatchDeliveryReport
     /**
      * The total number of messages sent as part of this batch.
      *
-     * @var int the batch size
+     * @var int number of sent messages in the batch
      */
     public $totalMessageCount;
 
