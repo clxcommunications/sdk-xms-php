@@ -51,27 +51,29 @@ EOD;
         $result = X\Deserialize::batchResponse($json);
 
         $this->assertInstanceOf(XA\MtBatchTextSmsResult::class, $result);
-        $this->assertEquals('${foo}${bar}', $result->body);
-        $this->assertTrue($result->canceled);
+        $this->assertEquals('${foo}${bar}', $result->getBody());
+        $this->assertTrue($result->isCanceled());
         $this->assertEquals(
-            new DateTime('2016-12-01T11:03:13.192Z'), $result->createdAt
+            new DateTime('2016-12-01T11:03:13.192Z'), $result->getCreatedAt()
         );
-        $this->assertEquals('none', $result->deliveryReport);
+        $this->assertEquals('none', $result->getDeliveryReport());
         $this->assertEquals(
-            new DateTime('2016-12-02T11:03:13.192Z'), $result->sendAt
-        );
-        $this->assertEquals(
-            new DateTime('2016-12-05T11:03:13.192Z'), $result->expireAt
-        );
-        $this->assertEquals('12345', $result->sender);
-        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
-        $this->assertEquals(
-            new DateTime('2016-12-01T11:03:13Z'), $result->modifiedAt
+            new DateTime('2016-12-02T11:03:13.192Z'), $result->getSendAt()
         );
         $this->assertEquals(
-            'https://example.com/callbacker', $result->callbackUrl
+            new DateTime('2016-12-05T11:03:13.192Z'), $result->getExpireAt()
         );
-        $this->assertEquals(['987654321', '555555555'], $result->recipients);
+        $this->assertEquals('12345', $result->getSender());
+        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->getBatchId());
+        $this->assertEquals(
+            new DateTime('2016-12-01T11:03:13Z'), $result->getModifiedAt()
+        );
+        $this->assertEquals(
+            'https://example.com/callbacker', $result->getCallbackUrl()
+        );
+        $this->assertEquals(
+            ['987654321', '555555555'], $result->getRecipients()
+        );
         $this->assertEquals(
             [
                 'foo' => [
@@ -81,7 +83,7 @@ EOD;
                 ],
                 'bar' => []
             ],
-            $result->parameters
+            $result->getParameters()
         );
 
         // The type attribute should not be deserialized.
@@ -174,24 +176,30 @@ EOD;
 
         $result = X\Deserialize::batchesPage($json);
 
-        $this->assertEquals(3, $result->size);
-        $this->assertEquals(0, $result->page);
-        $this->assertEquals(7, $result->totalSize);
-        $this->assertCount(3, $result->content);
+        $this->assertEquals(3, $result->getSize());
+        $this->assertEquals(0, $result->getPage());
+        $this->assertEquals(7, $result->getTotalSize());
+        $this->assertCount(3, $result->getContent());
 
         $this->assertInstanceOf(
-            XA\MtBatchBinarySmsResult::class, $result->content[0]
+            XA\MtBatchBinarySmsResult::class, $result->getContent()[0]
         );
         $this->assertInstanceOf(
-            XA\MtBatchTextSmsResult::class, $result->content[1]
+            XA\MtBatchTextSmsResult::class, $result->getContent()[1]
         );
         $this->assertInstanceOf(
-            XA\MtBatchTextSmsResult::class, $result->content[2]
+            XA\MtBatchTextSmsResult::class, $result->getContent()[2]
         );
 
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->content[0]->batchId);
-        $this->assertEquals('4nQCc1T6Dg-R-zHX', $result->content[1]->batchId);
-        $this->assertEquals('4G4OmwztSJbVL2bl', $result->content[2]->batchId);
+        $this->assertEquals(
+            '5Z8QsIRsk86f-jHB', $result->getContent()[0]->getBatchId()
+        );
+        $this->assertEquals(
+            '4nQCc1T6Dg-R-zHX', $result->getContent()[1]->getBatchId()
+        );
+        $this->assertEquals(
+            '4G4OmwztSJbVL2bl', $result->getContent()[2]->getBatchId()
+        );
     }
 
     public function testReadDeliveryReportSummary()
@@ -218,21 +226,21 @@ EOD;
 
         $result = X\Deserialize::batchDeliveryReport($json);
 
-        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
-        $this->assertEquals(2, $result->totalMessageCount);
-        $this->assertCount(2, $result->statuses);
+        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->getBatchId());
+        $this->assertEquals(2, $result->getTotalMessageCount());
+        $this->assertCount(2, $result->getStatuses());
 
-        $this->assertEquals(0, $result->statuses[0]->code);
-        $this->assertEquals(11, $result->statuses[1]->code);
+        $this->assertEquals(0, $result->getStatuses()[0]->getCode());
+        $this->assertEquals(11, $result->getStatuses()[1]->getCode());
 
-        $this->assertEquals('Delivered', $result->statuses[0]->status);
-        $this->assertEquals('Failed', $result->statuses[1]->status);
+        $this->assertEquals('Delivered', $result->getStatuses()[0]->getStatus());
+        $this->assertEquals('Failed', $result->getStatuses()[1]->getStatus());
 
-        $this->assertEquals(2, $result->statuses[0]->count);
-        $this->assertEquals(1, $result->statuses[1]->count);
+        $this->assertEquals(2, $result->getStatuses()[0]->getCount());
+        $this->assertEquals(1, $result->getStatuses()[1]->getCount());
 
-        $this->assertNull($result->statuses[0]->recipients);
-        $this->assertNull($result->statuses[1]->recipients);
+        $this->assertNull($result->getStatuses()[0]->getRecipients());
+        $this->assertNull($result->getStatuses()[1]->getRecipients());
 
         // The type field should not be picked up.
         $this->assertObjectNotHasAttribute('type', $result);
@@ -261,21 +269,30 @@ EOD;
 
         $result = X\Deserialize::batchDeliveryReport($json);
 
-        $this->assertEquals('4G4OmwztSJbVL2bl', $result->batchId);
-        $this->assertEquals(2, $result->totalMessageCount);
-        $this->assertCount(2, $result->statuses);
+        $this->assertEquals('4G4OmwztSJbVL2bl', $result->getBatchId());
+        $this->assertEquals(2, $result->getTotalMessageCount());
+        $this->assertCount(2, $result->getStatuses());
 
-        $this->assertEquals(0, $result->statuses[0]->code);
-        $this->assertEquals(11, $result->statuses[1]->code);
+        $this->assertEquals(0, $result->getStatuses()[0]->getCode());
+        $this->assertEquals(11, $result->getStatuses()[1]->getCode());
 
-        $this->assertEquals('Delivered', $result->statuses[0]->status);
-        $this->assertEquals('Failed', $result->statuses[1]->status);
+        $this->assertEquals(
+            'Delivered',
+            $result->getStatuses()[0]->getStatus()
+        );
+        $this->assertEquals('Failed', $result->getStatuses()[1]->getStatus());
 
-        $this->assertEquals(1, $result->statuses[0]->count);
-        $this->assertEquals(1, $result->statuses[1]->count);
+        $this->assertEquals(1, $result->getStatuses()[0]->getCount());
+        $this->assertEquals(1, $result->getStatuses()[1]->getCount());
 
-        $this->assertEquals(['555555555'], $result->statuses[0]->recipients);
-        $this->assertEquals(['987654321'], $result->statuses[1]->recipients);
+        $this->assertEquals(
+            ['555555555'],
+            $result->getStatuses()[0]->getRecipients()
+        );
+        $this->assertEquals(
+            ['987654321'],
+            $result->getStatuses()[1]->getRecipients()
+        );
     }
 
     public function testReadDeliveryReportUnknownType()
@@ -299,14 +316,16 @@ EOD;
         $result = X\Deserialize::batchRecipientDeliveryReport($json);
 
         $expected = new XA\BatchRecipientDeliveryReport();
-        $expected->batchId = '3-mbA7z9wDKY76ag';
-        $expected->operatorStatusAt = new \DateTime('2016-12-05T16:24:00.000Z');
-        $expected->statusAt = new \DateTime('2016-12-05T16:24:23.318Z');
-        $expected->status = XA\DeliveryStatus::FAILED;
-        $expected->code = 11;
-        $expected->recipient = '123456789';
-        $expected->statusMessage = 'mystatusmessage';
-        $expected->operator = '31101';
+        $expected->setBatchId('3-mbA7z9wDKY76ag');
+        $expected->setOperatorStatusAt(
+            new \DateTime('2016-12-05T16:24:00.000Z')
+        );
+        $expected->setStatusAt(new \DateTime('2016-12-05T16:24:23.318Z'));
+        $expected->setStatus(XA\DeliveryStatus::FAILED);
+        $expected->setCode(11);
+        $expected->setRecipient('123456789');
+        $expected->setStatusMessage('mystatusmessage');
+        $expected->setOperator('31101');
 
         $this->assertEquals($expected, $result);
     }
@@ -349,23 +368,35 @@ EOD;
 
         $result = X\Deserialize::groupResponse($json);
 
-        $this->assertEquals('12345', $result->autoUpdate->recipient);
-        $this->assertEquals('hello', $result->autoUpdate->addFirstWord);
-        $this->assertEquals('world', $result->autoUpdate->addSecondWord);
-        $this->assertEquals('goodbye', $result->autoUpdate->removeFirstWord);
-        $this->assertEquals('world', $result->autoUpdate->removeSecondWord);
-        $this->assertCount(0, $result->childGroups);
+        $this->assertEquals('12345', $result->getAutoUpdate()->getRecipient());
+        $this->assertEquals(
+            'hello',
+            $result->getAutoUpdate()->getAddFirstWord()
+        );
+        $this->assertEquals(
+            'world',
+            $result->getAutoUpdate()->getAddSecondWord()
+        );
+        $this->assertEquals(
+            'goodbye',
+            $result->getAutoUpdate()->getRemoveFirstWord()
+        );
+        $this->assertEquals(
+            'world',
+            $result->getAutoUpdate()->getRemoveSecondWord()
+        );
+        $this->assertCount(0, $result->getChildGroups());
         $this->assertEquals(
             new \DateTime('2016-12-08T12:38:19.962Z'),
-            $result->createdAt
+            $result->getCreatedAt()
         );
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
         $this->assertEquals(
             new \DateTime('2016-12-10T12:38:19.162Z'),
-            $result->modifiedAt
+            $result->getModifiedAt()
         );
-        $this->assertEquals('rah-test', $result->name);
-        $this->assertEquals(1, $result->size);
+        $this->assertEquals('rah-test', $result->getName());
+        $this->assertEquals(1, $result->getSize());
     }
 
     public function testReadGroupsPage()
@@ -393,12 +424,17 @@ EOD;
 
         $result = X\Deserialize::groupsPage($json);
 
-        $this->assertEquals(1, $result->size);
-        $this->assertEquals(2, $result->page);
-        $this->assertEquals(8, $result->totalSize);
-        $this->assertCount(1, $result->content);
-        $this->assertInstanceOf(XA\GroupResult::class, $result->content[0]);
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->content[0]->groupId);
+        $this->assertEquals(1, $result->getSize());
+        $this->assertEquals(2, $result->getPage());
+        $this->assertEquals(8, $result->getTotalSize());
+        $this->assertCount(1, $result->getContent());
+        $this->assertInstanceOf(
+            XA\GroupResult::class, $result->getContent()[0]
+        );
+        $this->assertEquals(
+            '4cldmgEdAcBfcHW3',
+            $result->getContent()[0]->getGroupId()
+        );
     }
 
     public function testReadTags()
@@ -421,8 +457,8 @@ EOD;
 
         $result = X\Deserialize::error($json);
 
-        $this->assertEquals('yes_this_is_code', $result->code);
-        $this->assertEquals('This is a text', $result->text);
+        $this->assertEquals('yes_this_is_code', $result->getCode());
+        $this->assertEquals('This is a text', $result->getText());
     }
 
     public function testDryRunWithPerRecipients()
@@ -433,15 +469,19 @@ EOD;
 
         $result = X\Deserialize::batchDryRun($json);
 
-        $this->assertEquals(2, $result->numberOfRecipients);
-        $this->assertEquals(2, $result->numberOfMessages);
-        $this->assertEquals('Hello', $result->perRecipient[0]->body);
+        $this->assertEquals(2, $result->getNumberOfRecipients());
+        $this->assertEquals(2, $result->getNumberOfMessages());
+        $this->assertEquals('Hello', $result->getPerRecipient()[0]->getBody());
         $this->assertEquals(
             XA\DryRunPerRecipient::ENCODING_TEXT,
-            $result->perRecipient[0]->encoding
+            $result->getPerRecipient()[0]->getEncoding()
         );
-        $this->assertEquals('555555555', $result->perRecipient[1]->recipient);
-        $this->assertEquals(1, $result->perRecipient[1]->numberOfParts);
+        $this->assertEquals(
+            '555555555', $result->getPerRecipient()[1]->getRecipient()
+        );
+        $this->assertEquals(
+            1, $result->getPerRecipient()[1]->getNumberOfParts()
+        );
     }
 
     public function testDryRunWithoutPerRecipients()
@@ -452,8 +492,8 @@ EOD;
 
         $result = X\Deserialize::batchDryRun($json);
 
-        $this->assertEquals(2, $result->numberOfRecipients);
-        $this->assertEquals(2, $result->numberOfMessages);
+        $this->assertEquals(2, $result->getNumberOfRecipients());
+        $this->assertEquals(2, $result->getNumberOfMessages());
     }
 
     public function testMoBinarySms()
@@ -474,20 +514,20 @@ EOD;
         $result = X\Deserialize::moSms($json);
 
         $this->assertInstanceOf(XA\MoBinarySms::class, $result);
-        $this->assertEquals('54321', $result->recipient);
-        $this->assertEquals('123456789', $result->sender);
+        $this->assertEquals('54321', $result->getRecipient());
+        $this->assertEquals('123456789', $result->getSender());
         $this->assertEquals(
-            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->getMessageId()
         );
-        $this->assertEquals("\x03\x01", $result->body);
-        $this->assertEquals("\x00\x01\x02\x03", $result->udh);
+        $this->assertEquals("\x03\x01", $result->getBody());
+        $this->assertEquals("\x00\x01\x02\x03", $result->getUdh());
         $this->assertEquals(
             new \DateTime('2016-12-03T16:24:23.318Z'),
-            $result->sentAt
+            $result->getSentAt()
         );
         $this->assertEquals(
             new \DateTime('2016-12-05T16:24:23.318Z'),
-            $result->receivedAt
+            $result->getReceivedAt()
         );
     }
 
@@ -510,20 +550,20 @@ EOD;
         $result = X\Deserialize::moSms($json);
 
         $this->assertInstanceOf(XA\MoTextSms::class, $result);
-        $this->assertEquals('12345', $result->recipient);
-        $this->assertEquals('987654321', $result->sender);
+        $this->assertEquals('12345', $result->getRecipient());
+        $this->assertEquals('987654321', $result->getSender());
         $this->assertEquals(
-            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->getMessageId()
         );
-        $this->assertEquals('Hello, world!', $result->body);
-        $this->assertEquals("kivord", $result->keyword);
+        $this->assertEquals('Hello, world!', $result->getBody());
+        $this->assertEquals("kivord", $result->getKeyword());
         $this->assertEquals(
             new \DateTime('2016-12-03T16:24:23.318Z'),
-            $result->sentAt
+            $result->getSentAt()
         );
         $this->assertEquals(
             new \DateTime('2016-12-05T16:24:23.318Z'),
-            $result->receivedAt
+            $result->getReceivedAt()
         );
     }
 
@@ -543,15 +583,15 @@ EOD;
         $result = X\Deserialize::moSms($json);
 
         $this->assertInstanceOf(XA\MoTextSms::class, $result);
-        $this->assertEquals('12345', $result->recipient);
-        $this->assertEquals('987654321', $result->sender);
+        $this->assertEquals('12345', $result->getRecipient());
+        $this->assertEquals('987654321', $result->getSender());
         $this->assertEquals(
-            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->messageId
+            'b88b4cee-168f-4721-bbf9-cd748dd93b60', $result->getMessageId()
         );
-        $this->assertEquals('Hello, world!', $result->body);
+        $this->assertEquals('Hello, world!', $result->getBody());
         $this->assertEquals(
             new \DateTime('2016-12-05T16:24:23.318Z'),
-            $result->receivedAt
+            $result->getReceivedAt()
         );
     }
 
@@ -618,14 +658,20 @@ EOD;
 
         $result = X\Deserialize::inboundsPage($json);
 
-        $this->assertEquals(2, $result->size);
-        $this->assertEquals(3, $result->page);
-        $this->assertEquals(9, $result->totalSize);
-        $this->assertCount(2, $result->content);
-        $this->assertInstanceOf(XA\MoTextSms::class, $result->content[0]);
-        $this->assertEquals('b88b4cee', $result->content[0]->messageId);
-        $this->assertInstanceOf(XA\MoBinarySms::class, $result->content[1]);
-        $this->assertEquals('cd748dd93b60', $result->content[1]->messageId);
+        $this->assertEquals(2, $result->getSize());
+        $this->assertEquals(3, $result->getPage());
+        $this->assertEquals(9, $result->getTotalSize());
+        $this->assertCount(2, $result->getContent());
+        $this->assertInstanceOf(XA\MoTextSms::class, $result->getContent()[0]);
+        $this->assertEquals(
+            'b88b4cee', $result->getContent()[0]->getMessageId()
+        );
+        $this->assertInstanceOf(
+            XA\MoBinarySms::class, $result->getContent()[1]
+        );
+        $this->assertEquals(
+            'cd748dd93b60', $result->getContent()[1]->getMessageId()
+        );
     }
 
 }

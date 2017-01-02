@@ -7,12 +7,12 @@ class GroupUpdateTest extends PHPUnit\Framework\TestCase
 
     public function testResetMethods()
     {
-        $groupUpdate = (new XA\GroupUpdate())
-                     ->resetName()
-                     ->resetAutoUpdate();
+        $groupUpdate = new XA\GroupUpdate();
+        $groupUpdate->resetName();
+        $groupUpdate->resetAutoUpdate();
 
-        $this->assertSame(XA\Reset::reset(), $groupUpdate->name);
-        $this->assertSame(XA\Reset::reset(), $groupUpdate->autoUpdate);
+        $this->assertSame(XA\Reset::reset(), $groupUpdate->getName());
+        $this->assertSame(XA\Reset::reset(), $groupUpdate->getAutoUpdate());
     }
 
 }

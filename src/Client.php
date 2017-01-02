@@ -24,17 +24,21 @@ namespace Clx\Xms;
  *
  * try {
  *     $batchParams = new Clx\Xms\Api\MtBatchTextSmsCreate();
- *     $batchParams->sender = '12345';
- *     $batchParams->recipients = ['987654321', '123456789', '567894321'];
- *     $batchParams->body = 'Hello, ${name}!';
- *     $batchParams->parameters['name'] = [
- *         '987654321' => 'Mary',
- *         '123456789' => 'Joe',
- *         'default' => 'valued customer'
- *     ];
+ *     $batchParams->setSender('12345');
+ *     $batchParams->setRecipients(['987654321', '123456789', '567894321']);
+ *     $batchParams->setBody('Hello, ${name}!');
+ *     $batchParams->setParameters(
+ *         [
+ *             'name' => [
+ *                 '987654321' => 'Mary',
+ *                 '123456789' => 'Joe',
+ *                 'default' => 'valued customer'
+ *             ]
+ *         ]
+ *     );
  *
  *     $batch = $client->createTextBatch($batchParams);
- *     echo('The batch was given ID ' . $batch->batchId . "\n");
+ *     echo('The batch was given ID ' . $batch->getBatchId() . "\n");
  * } catch (Exception $ex) {
  *     echo('Error creating batch: ' . $ex->getMessage() . "\n");
  * }
@@ -46,7 +50,7 @@ namespace Clx\Xms;
  * ```php
  * try {
  *     $batch = $client->fetchBatch('{a batch identifier}');
- *     echo('The batch was sent from ' . $batch->sender . "\n");
+ *     echo('The batch was sent from ' . $batch->getSender() . "\n");
  * } catch (Exception $ex) {
  *     echo('Error fetching batch: ' . $ex->getMessage() . "\n");
  * }
@@ -249,7 +253,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
         case 400:               // Bad Request
         case 403:               // Forbidden
             $e = Deserialize::error($result);
-            throw new ErrorResponseException($e->code, $e->text);
+            throw new ErrorResponseException($e->getCode(), $e->getText());
         case 404:               // Not Found
             throw new NotFoundException($url);
         case 401:               // Unauthorized
@@ -533,27 +537,29 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->senders)) {
-                        $val = urlencode(join(',', $filter->senders));
+                    if (null != $filter->getSenders()) {
+                        $val = urlencode(join(',', $filter->getSenders()));
                         array_push($params, 'from=' . $val);
                     }
 
-                    if (isset($filter->tags)) {
-                        $val = urlencode(join(',', $filter->tags));
+                    if (null != $filter->getTags()) {
+                        $val = urlencode(join(',', $filter->getTags()));
                         array_push($params, 'tags=' . $val);
                     }
 
-                    if (isset($filter->startDate)) {
-                        $val = $filter->startDate->format('Y-m-d');
+                    if (null != $filter->getStartDate()) {
+                        $val = $filter->getStartDate()->format('Y-m-d');
                         array_push($params, 'start_date=' . $val);
                     }
 
-                    if (isset($filter->endDate)) {
-                        $val = $filter->endDate->format('Y-m-d');
+                    if (null != $filter->getEndDate()) {
+                        $val = $filter->getEndDate()->format('Y-m-d');
                         array_push($params, 'end_date=' . $val);
                     }
                 }
@@ -780,12 +786,14 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->tags)) {
-                        $val = urlencode(join(',', $filter->tags));
+                    if (null != $filter->getTags()) {
+                        $val = urlencode(join(',', $filter->getTags()));
                         array_push($params, 'tags=' . $val);
                     }
                 }
@@ -847,22 +855,24 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->recipients)) {
-                        $val = urlencode(join(',', $filter->recipients));
+                    if (null != $filter->getRecipients()) {
+                        $val = urlencode(join(',', $filter->getRecipients()));
                         array_push($params, 'to=' . $val);
                     }
 
-                    if (isset($filter->startDate)) {
-                        $val = $filter->startDate->format('Y-m-d');
+                    if (null != $filter->getStartDate()) {
+                        $val = $filter->getStartDate()->format('Y-m-d');
                         array_push($params, 'start_date=' . $val);
                     }
 
-                    if (isset($filter->endDate)) {
-                        $val = $filter->endDate->format('Y-m-d');
+                    if (null != $filter->getEndDate()) {
+                        $val = $filter->getEndDate()->format('Y-m-d');
                         array_push($params, 'end_date=' . $val);
                     }
                 }

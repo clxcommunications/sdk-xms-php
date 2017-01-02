@@ -21,28 +21,122 @@ class InboundsFilter
      *
      * @var int page size
      */
-    public $pageSize;
+    private $_pageSize;
 
     /**
      * Fetch only messages having one of these recipients.
      *
      * @var string[] list of short codes and long numbers
      */
-    public $recipients;
+    private $_recipients;
 
     /**
      * Fetch only messages received at or after this date.
      *
      * @var \DateTime start date filter
      */
-    public $startDate;
+    private $_startDate;
 
     /**
-     * Fetch only batches received before this date.
+     * Fetch only messages received before this date.
      *
      * @var \DateTime end date filter
      */
-    public $endDate;
+    private $_endDate;
+
+    /**
+     * Get the maximum number of messages to retrieve per page.
+     *
+     * @return int page size
+     */
+    public function getPageSize()
+    {
+        return $this->_pageSize;
+    }
+
+    /**
+     * Set the maximum number of messages to retrieve per page.
+     *
+     * @param int $pageSize page size
+     *
+     * @return void
+     */
+    public function setPageSize($pageSize)
+    {
+        $this->_pageSize = $pageSize;
+    }
+
+    /**
+     * Get recipient filter.
+     *
+     * @return string[] list of short codes and long numbers
+     */
+    public function getRecipients()
+    {
+        return $this->_recipients;
+    }
+
+    /**
+     * Set recipient filter.
+     *
+     * Only messages having one of these recipients will be fetched.
+     *
+     * @param string[] $recipients list of short codes and long numbers
+     *
+     * @return void
+     */
+    public function setRecipients($recipients)
+    {
+        $this->_recipients = $recipients;
+    }
+
+    /**
+     * Get start date filter.
+     *
+     * @return \DateTime start date filter
+     */
+    public function getStartDate()
+    {
+        return $this->_startDate;
+    }
+
+    /**
+     * Set start date filter.
+     *
+     * Only messages received at or after this date will be fetched.
+     *
+     * @param \DateTime $startDate start date filter
+     *
+     * @return void
+     */
+    public function setStartDate($startDate)
+    {
+        $this->_startDate = $startDate;
+    }
+
+    /**
+     * Get end date filter.
+     *
+     * @return \DateTime end date filter
+     */
+    public function getEndDate()
+    {
+        return $this->_endDate;
+    }
+
+    /**
+     * Set end date filter.
+     *
+     * Only messages received before this date will be fetched.
+     *
+     * @param \DateTime $endDate end date filter
+     *
+     * @return void
+     */
+    public function setEndDate($endDate)
+    {
+        $this->_endDate = $endDate;
+    }
 
 }
 

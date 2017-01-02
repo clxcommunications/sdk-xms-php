@@ -22,8 +22,32 @@ abstract class MtBatchSmsCreate extends MtBatchSms
 
     /**
      * The initial set of tags to give the batch.
+     *
+     * @var string[] batch tags
      */
-    public $tags;
+    private $_tags;
+
+    /**
+     * Get the initial set of tags to give the batch.
+     *
+     * @return string[] batch tags
+     */
+    public function getTags()
+    {
+        return $this->_tags;
+    }
+
+    /**
+     * Set the initial set of tags to give the batch.
+     *
+     * @param string[] $tags batch tags
+     *
+     * @return void
+     */
+    public function setTags($tags)
+    {
+        $this->_tags = $tags;
+    }
 
 }
 

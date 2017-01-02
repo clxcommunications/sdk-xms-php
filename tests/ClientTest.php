@@ -231,13 +231,13 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchTextSmsCreate();
-        $batch->body = 'hello';
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->sender = '12345';
+        $batch->setBody('hello');
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setSender('12345');
 
         $result = $this->_client->createTextBatch($batch);
 
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -283,14 +283,14 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchBinarySmsCreate();
-        $batch->body = "\x00\x01\x02\x03";
-        $batch->udh = "\xff\xfe\xfd";
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->sender = '12345';
+        $batch->setBody("\x00\x01\x02\x03");
+        $batch->setUdh("\xff\xfe\xfd");
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setSender('12345');
 
         $result = $this->_client->createBinaryBatch($batch);
 
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -326,14 +326,14 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchBinarySmsCreate();
-        $batch->body = "\x00\x01\x02\x03";
-        $batch->udh = "\xff\xfe\xfd";
-        $batch->recipients = ['987654321'];
-        $batch->sender = '12345';
+        $batch->setBody("\x00\x01\x02\x03");
+        $batch->setUdh("\xff\xfe\xfd");
+        $batch->setRecipients(['987654321']);
+        $batch->setSender('12345');
 
         $result = $this->_client->createBatchDryRun($batch);
 
-        $this->assertEquals(2, $result->numberOfRecipients);
+        $this->assertEquals(2, $result->getNumberOfRecipients());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -373,13 +373,13 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchTextSmsCreate();
-        $batch->body = 'Hello';
-        $batch->recipients = ['987654321', '555555555'];
-        $batch->sender = '12345';
+        $batch->setBody('Hello');
+        $batch->setRecipients(['987654321', '555555555']);
+        $batch->setSender('12345');
 
         $result = $this->_client->createBatchDryRun($batch, 20);
 
-        $this->assertEquals(2, $result->numberOfRecipients);
+        $this->assertEquals(2, $result->getNumberOfRecipients());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -430,13 +430,13 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchTextSmsCreate();
-        $batch->body = 'hello';
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->sender = '12345';
+        $batch->setBody('hello');
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setSender('12345');
 
         $result = $this->_client->replaceTextBatch('BatchID', $batch);
 
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -482,16 +482,16 @@ EOD;
         $this->http->setUp();
 
         $batch = new XA\MtBatchBinarySmsCreate();
-        $batch->body = "\x00\x01\x02\x03";
-        $batch->udh = "\xff\xfe\xfd";
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->sender = '12345';
+        $batch->setBody("\x00\x01\x02\x03");
+        $batch->setUdh("\xff\xfe\xfd");
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setSender('12345');
 
         $result = $this->_client->replaceBinaryBatch(
             '5Z8QsIRsk86f-jHB', $batch
         );
 
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -544,11 +544,11 @@ EOD;
 
         $batch = new XA\MtBatchTextSmsUpdate();
         $batch->resetSendAt();
-        $batch->body = 'hello';
+        $batch->setBody('hello');
 
         $result = $this->_client->updateTextBatch('4nQCc1T6Dg-R-zHX', $batch);
 
-        $this->assertEquals('4nQCc1T6Dg-R-zHX', $result->batchId);
+        $this->assertEquals('4nQCc1T6Dg-R-zHX', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -600,11 +600,11 @@ EOD;
 
         $batch = new XA\MtBatchBinarySmsUpdate();
         $batch->resetCallbackUrl();
-        $batch->body = 'hello';
+        $batch->setBody('hello');
 
         $result = $this->_client->updateBinaryBatch('4nQCc1T6Dg-R-zHY', $batch);
 
-        $this->assertEquals('4nQCc1T6Dg-R-zHY', $result->batchId);
+        $this->assertEquals('4nQCc1T6Dg-R-zHY', $result->getBatchId());
 
         $expectedRequestBody = <<<'EOD'
 {
@@ -650,7 +650,7 @@ EOD;
         $result = $this->_client->fetchBatch('!-@#$%^&*');
 
         $this->assertInstanceOf(XA\MtBatchTextSmsResult::class, $result);
-        $this->assertEquals('!-@#$%^&*', $result->batchId);
+        $this->assertEquals('!-@#$%^&*', $result->getBatchId());
     }
 
     public function testFetchBinaryBatch()
@@ -684,7 +684,7 @@ EOD;
         $result = $this->_client->fetchBatch('5Z8QsIRsk86f-jHB');
 
         $this->assertInstanceOf(XA\MtBatchBinarySmsResult::class, $result);
-        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->batchId);
+        $this->assertEquals('5Z8QsIRsk86f-jHB', $result->getBatchId());
     }
 
     public function testFetchBatches()
@@ -792,25 +792,27 @@ EOD;
         $this->http->setUp();
 
         $filter = new X\BatchFilter();
-        $filter->pageSize = 10;
-        $filter->senders = ['12345', '98765'];
-        $filter->tags = ['tag1', 'tag2'];
-        $filter->startDate = new \DateTime('2016-12-01');
-        $filter->endDate = new \DateTime('2016-12-02');
+        $filter->setPageSize(10);
+        $filter->setSenders(['12345', '98765']);
+        $filter->setTags(['tag1', 'tag2']);
+        $filter->setStartDate(new \DateTime('2016-12-01'));
+        $filter->setEndDate(new \DateTime('2016-12-02'));
 
         $pages = $this->_client->fetchBatches($filter);
 
         $page = $pages->get(0);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(3, $page->size);
-        $this->assertEquals(7, $page->totalSize);
-        $this->assertEquals('4G4OmwztSJbVL2bl', $page->content[2]->batchId);
+        $this->assertEquals(3, $page->getSize());
+        $this->assertEquals(7, $page->getTotalSize());
+        $this->assertEquals(
+            '4G4OmwztSJbVL2bl', $page->getContent()[2]->getBatchId()
+        );
 
         $page = $pages->get(1);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(0, $page->size);
-        $this->assertEquals(7, $page->totalSize);
-        $this->assertEquals([], $page->content);
+        $this->assertEquals(0, $page->getSize());
+        $this->assertEquals(7, $page->getTotalSize());
+        $this->assertEquals([], $page->getContent());
     }
 
     public function testCancelBatch()
@@ -890,7 +892,7 @@ EOD;
             [0, 11, 400]
         );
 
-        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->batchId);
+        $this->assertEquals('3SD49KIOW8lL1Z5E', $result->getBatchId());
     }
 
 
@@ -918,7 +920,7 @@ EOD;
             '3-mbA7z9wDKY76ag', '123456789'
         );
 
-        $this->assertEquals('3-mbA7z9wDKY76ag', $result->batchId);
+        $this->assertEquals('3-mbA7z9wDKY76ag', $result->getBatchId());
     }
 
     public function testCreateGroup()
@@ -944,8 +946,8 @@ EOD;
 EOD;
 
         $group = new XA\GroupCreate();
-        $group->members = ['123456789', '987654321'];
-        $group->name = 'my group';
+        $group->setMembers(['123456789', '987654321']);
+        $group->setName('my group');
 
         $this->http->mock
             ->when()
@@ -960,7 +962,7 @@ EOD;
 
         $result = $this->_client->createGroup($group);
 
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
 
 
         $expectedRequestBody = <<<'EOD'
@@ -1001,7 +1003,7 @@ EOD;
 EOD;
 
         $group = new XA\GroupCreate();
-        $group->members = ['123456789', '987654321'];
+        $group->setMembers(['123456789', '987654321']);
 
         $this->http->mock
             ->when()
@@ -1024,14 +1026,14 @@ EOD;
         $this->http->setUp();
 
         $result = $this->_client->createGroup($group);
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
         $this->assertJsonStringEqualsJsonString(
             '{"members":["123456789","987654321"]}',
             (string) $this->http->requests->latest()->getBody()
         );
 
         $result = $this->_client->fetchGroup('helloworld');
-        $this->assertEquals('helloworld', $result->groupId);
+        $this->assertEquals('helloworld', $result->getGroupId());
         $this->assertFalse(
             $this->http->requests->latest()->hasHeader('content-type'),
             'Has content-type header'
@@ -1052,7 +1054,7 @@ EOD;
 EOD;
 
         $group = new XA\GroupCreate();
-        $group->members = ['123456789', '987654321'];
+        $group->setMembers(['123456789', '987654321']);
 
         $this->http->mock
             ->when()
@@ -1075,7 +1077,7 @@ EOD;
         $this->http->setUp();
 
         $result = $this->_client->createGroup($group);
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
         $this->assertJsonStringEqualsJsonString(
             '{"members":["123456789","987654321"]}',
             (string) $this->http->requests->latest()->getBody()
@@ -1112,12 +1114,12 @@ EOD;
         $this->http->setUp();
 
         $group = new XA\GroupCreate();
-        $group->members = ['555555555'];
+        $group->setMembers(['555555555']);
 
         $result = $this->_client->replaceGroup('4cldmgEdAcBfcHW3', $group);
 
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
-        $this->assertEquals(1004, $result->size);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
+        $this->assertEquals(1004, $result->getSize());
     }
 
     public function testUpdateGroup()
@@ -1147,8 +1149,8 @@ EOD;
 
         $result = $this->_client->updateGroup('4cldmgEdAcBfcHW3', $group);
 
-        $this->assertEquals('4cldmgEdAcBfcHW3', $result->groupId);
-        $this->assertEquals(1004, $result->size);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $result->getGroupId());
+        $this->assertEquals(1004, $result->getSize());
     }
 
     public function testDeleteGroup()
@@ -1198,7 +1200,7 @@ EOD;
 
         $group = $this->_client->fetchGroup('4cldmgEdAcBfcHW3');
 
-        $this->assertEquals('4cldmgEdAcBfcHW3', $group->groupId);
+        $this->assertEquals('4cldmgEdAcBfcHW3', $group->getGroupId());
     }
 
     public function testFetchGroups()
@@ -1254,22 +1256,24 @@ EOD;
         $this->http->setUp();
 
         $filter = new X\GroupFilter();
-        $filter->pageSize = 10;
-        $filter->tags = ['tag1', 'tag2'];
+        $filter->setPageSize(10);
+        $filter->setTags(['tag1', 'tag2']);
 
         $pages = $this->_client->fetchGroups($filter);
 
         $page = $pages->get(0);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(1, $page->size);
-        $this->assertEquals(8, $page->totalSize);
-        $this->assertEquals('4cldmgEdAcBfcHW3', $page->content[0]->groupId);
+        $this->assertEquals(1, $page->getSize());
+        $this->assertEquals(8, $page->getTotalSize());
+        $this->assertEquals(
+            '4cldmgEdAcBfcHW3', $page->getContent()[0]->getGroupId()
+        );
 
         $page = $pages->get(1);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(0, $page->size);
-        $this->assertEquals(8, $page->totalSize);
-        $this->assertEquals([], $page->content);
+        $this->assertEquals(0, $page->getSize());
+        $this->assertEquals(8, $page->getTotalSize());
+        $this->assertEquals([], $page->getContent());
     }
 
     public function testFetchGroupTags()
@@ -1406,7 +1410,7 @@ EOD;
 
         $mo = $this->_client->fetchInbound('10101010101');
 
-        $this->assertEquals('987654321', $mo->sender);
+        $this->assertEquals('987654321', $mo->getSender());
     }
 
     public function testFetchInbounds()
@@ -1487,28 +1491,34 @@ EOD;
         $this->http->setUp();
 
         $filter = new X\InboundsFilter();
-        $filter->pageSize = 12;
-        $filter->recipients = ['23456', '8654'];
-        $filter->startDate = new \DateTime('2016-12-11');
-        $filter->endDate = new \DateTime('2016-12-12');
+        $filter->setPageSize(12);
+        $filter->setRecipients(['23456', '8654']);
+        $filter->setStartDate(new \DateTime('2016-12-11'));
+        $filter->setEndDate(new \DateTime('2016-12-12'));
 
         $pages = $this->_client->fetchInbounds($filter);
 
         $page = $pages->get(0);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(0, $page->page);
-        $this->assertEquals(3, $page->size);
-        $this->assertEquals(4, $page->totalSize);
-        $this->assertEquals('10101010101', $page->content[0]->messageId);
-        $this->assertEquals('20202020202', $page->content[1]->messageId);
-        $this->assertEquals('30303030303', $page->content[2]->messageId);
+        $this->assertEquals(0, $page->getPage());
+        $this->assertEquals(3, $page->getSize());
+        $this->assertEquals(4, $page->getTotalSize());
+        $this->assertEquals(
+            '10101010101', $page->getContent()[0]->getMessageId()
+        );
+        $this->assertEquals(
+            '20202020202', $page->getContent()[1]->getMessageId()
+        );
+        $this->assertEquals(
+            '30303030303', $page->getContent()[2]->getMessageId()
+        );
 
         $page = $pages->get(1);
         $this->assertInstanceOf(XA\Page::class, $page);
-        $this->assertEquals(1, $page->page);
-        $this->assertEquals(0, $page->size);
-        $this->assertEquals(4, $page->totalSize);
-        $this->assertEquals([], $page->content);
+        $this->assertEquals(1, $page->getPage());
+        $this->assertEquals(0, $page->getSize());
+        $this->assertEquals(4, $page->getTotalSize());
+        $this->assertEquals([], $page->getContent());
     }
 
 }

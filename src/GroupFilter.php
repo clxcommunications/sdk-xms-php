@@ -21,14 +21,60 @@ class GroupFilter
      *
      * @var int page size
      */
-    public $pageSize;
+    private $_pageSize;
 
     /**
      * Fetch only groups having or or more of these tags.
      *
      * @var string[] tags
      */
-    public $tags;
+    private $_tags;
+
+    /**
+     * Get the maximum number of groups to retrieve per page.
+     *
+     * @return int page size
+     */
+    public function getPageSize()
+    {
+        return $this->_pageSize;
+    }
+
+    /**
+     * Set the maximum number of groups to retrieve per page.
+     *
+     * @param int $pageSize page size
+     *
+     * @return void
+     */
+    public function setPageSize($pageSize)
+    {
+        $this->_pageSize = $pageSize;
+    }
+
+    /**
+     * Get tag filter.
+     *
+     * @return string[] tags
+     */
+    public function getTags()
+    {
+        return $this->_tags;
+    }
+
+    /**
+     * Set tag filter.
+     *
+     * Only groups having or or more of these tags will be fetched.
+     *
+     * @param string[] $tags tags
+     *
+     * @return void
+     */
+    public function setTags($tags)
+    {
+        $this->_tags = $tags;
+    }
 
 }
 

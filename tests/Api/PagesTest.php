@@ -17,17 +17,17 @@ class PagesTest extends PHPUnit\Framework\TestCase
             function ($pageno) use ($results) {
                 $page = new XA\Page();
 
-                $page->page = $pageno;
-                $page->content = $results[$pageno];
-                $page->size = count($results[$pageno]);
-                $page->totalSize = 3;
+                $page->setPage($pageno);
+                $page->setContent($results[$pageno]);
+                $page->setSize(count($results[$pageno]));
+                $page->setTotalSize(3);
 
                 return $page;
             }
         );
 
         foreach ($pages as $pageno => $page) {
-            $this->assertSame($results[$pageno], $page->content);
+            $this->assertSame($results[$pageno], $page->getContent());
 
             foreach ($page as $k => $v) {
                 $this->assertSame($results[$pageno][$k], $v);

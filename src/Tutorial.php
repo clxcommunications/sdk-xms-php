@@ -133,9 +133,9 @@ namespace Clx\Xms;
  *
  * ```php
  * $batchParams = new \Clx\Xms\Api\MtBatchTextSmsCreate()
- * $batchParams->sender = '12345';
- * $batchParams->recipients = ['987654321'];
- * $batchParams->body = 'Hello, World!';
+ * $batchParams->setSender('12345');
+ * $batchParams->setRecipients(['987654321']);
+ * $batchParams->setBody('Hello, World!');
  * $result = $client->createTextBatch($batchParams);
  * ```
  *
@@ -162,7 +162,7 @@ namespace Clx\Xms;
  * the batch identifier we could add the code
  *
  * ```php
- * echo("Batch id is $result->batchId\n");
+ * echo("Batch id is " . $result->getBatchId() ."\n");
  * ```
  *
  * It is not much harder to create a more complicated batch, for
@@ -171,15 +171,19 @@ namespace Clx\Xms;
  *
  * ```php
  * $batchParams = new \Clx\Xms\Api\MtBatchTextSmsCreate();
- * $batchParams->sender = '12345';
- * $batchParams->recipients = ['987654321', '123456789', '567894321'];
- * $batchParams->body = 'Hello, ${name}!';
- * $batchParams->parameters['name'] = [
- *     '987654321' => 'Mary',
- *     '123456789' => 'Joe',
- *     'default' => 'valued customer'
- * ];
- * $batchParams->sendAt = new DateTime('2016-12-20 10:00 UTC');
+ * $batchParams->setSender('12345');
+ * $batchParams->setRecipients(['987654321', '123456789', '567894321']);
+ * $batchParams->setBody('Hello, ${name}!');
+ * $batchParams->setParameters(
+ *     [
+ *         'name' => [
+ *             '987654321' => 'Mary',
+ *             '123456789' => 'Joe',
+ *             'default' => 'valued customer'
+ *         ]
+ *     ]
+ * );
+ * $batchParams->setSendAt(new DateTime('2016-12-20 10:00 UTC'));
  * $batch = $client->createTextBatch($batchParams);
  * ```
  *
@@ -195,7 +199,7 @@ namespace Clx\Xms;
  * ```php
  * $batchId = // …
  * $result = $client->fetchBatch($batchId);
- * echo("Batch id is $result->batchId\n");
+ * echo("Batch id is " . $result->getBatchId() . "\n");
  * ```
  *
  * Note, since {@link \Clx\Xms\Client::fetchBatch() fetchBatch} does
@@ -230,15 +234,15 @@ namespace Clx\Xms;
  *
  * ```php
  * $filter = new \Clx\Xms\BatchFilter()
- * $filter->addTag = 'signup_notification';
- * $filter->startDate = new DateTime('2016-12-01');
- * $filter->endDate = new DateTime('2016-12-02');
+ * $filter->setAddTag('signup_notification');
+ * $filter->setStartDate(new DateTime('2016-12-01'));
+ * $filter->setEndDate(new DateTime('2016-12-02'));
  *
  * $pages = $client->fetchBatches($filter);
  *
  * foreach ($pages as $page) {
  *     foreach ($page as $batch) {
- *         echo("Batch ID: $batch->batchId\n");
+ *         echo("Batch ID: " . $batch->getBatchId() . "\n");
  *     }
  * }
  * ```

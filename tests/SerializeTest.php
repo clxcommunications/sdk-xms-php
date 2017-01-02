@@ -17,18 +17,22 @@ class SerializeTest extends PHPUnit\Framework\TestCase
     public function testBatchCreateText()
     {
         $batch = new XA\MtBatchTextSmsCreate();
-        $batch->sender = '12345';
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->body = 'Hello, ${name}!';
-        $batch->parameters['name'] = [
-            '987654321' => 'Mary',
-            '123456789' => 'Joe',
-            'default' => 'you'
-        ];
-        $batch->deliveryReport = XA\ReportType::NONE;
-        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
-        $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
-        $batch->callbackUrl = "http://localhost/callback";
+        $batch->setSender('12345');
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setBody('Hello, ${name}!');
+        $batch->setParameters(
+            [
+                'name' => [
+                    '987654321' => 'Mary',
+                    '123456789' => 'Joe',
+                    'default' => 'you'
+                ]
+            ]
+        );
+        $batch->setDeliveryReport(XA\ReportType::NONE);
+        $batch->setSendAt(new \DateTime('2016-12-01T11:03:13.192Z'));
+        $batch->setExpireAt(new \DateTime('2016-12-04T11:03:13.192Z'));
+        $batch->setCallbackUrl("http://localhost/callback");
 
         $actual = X\Serialize::textBatch($batch);
 
@@ -61,13 +65,13 @@ EOD;
     public function testBatchCreateBinary()
     {
         $batch = new XA\MtBatchBinarySmsCreate();
-        $batch->sender = '12345';
-        $batch->recipients = ['987654321', '123456789'];
-        $batch->body = "\x00\x01\x02\x03";
-        $batch->udh = "\xff\xfe\xfd";
-        $batch->deliveryReport = XA\ReportType::SUMMARY;
-        $batch->expireAt = new \DateTime('2016-12-17T08:15:29.969Z');
-        $batch->tags = [ "tag1", "таг2" ];
+        $batch->setSender('12345');
+        $batch->setRecipients(['987654321', '123456789']);
+        $batch->setBody("\x00\x01\x02\x03");
+        $batch->setUdh("\xff\xfe\xfd");
+        $batch->setDeliveryReport(XA\ReportType::SUMMARY);
+        $batch->setExpireAt(new \DateTime('2016-12-17T08:15:29.969Z'));
+        $batch->setTags([ "tag1", "таг2" ]);
 
         $actual = X\Serialize::binaryBatch($batch);
 
@@ -93,19 +97,23 @@ EOD;
     public function testBatchUpdateTextSetAll()
     {
         $batch = new XA\MtBatchTextSmsUpdate();
-        $batch->sender = '12345';
-        $batch->recipientInsertions = ['987654321', '123456789'];
-        $batch->recipientRemovals = ['555555555'];
-        $batch->body = 'Hello, ${name}!';
-        $batch->parameters['name'] = [
-            '987654321' => 'Mary',
-            '123456789' => 'Joe',
-            'default' => 'you'
-        ];
-        $batch->deliveryReport = XA\ReportType::NONE;
-        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
-        $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
-        $batch->callbackUrl = "http://localhost/callback";
+        $batch->setSender('12345');
+        $batch->setRecipientInsertions(['987654321', '123456789']);
+        $batch->setRecipientRemovals(['555555555']);
+        $batch->setBody('Hello, ${name}!');
+        $batch->setParameters(
+            [
+                'name' => [
+                    '987654321' => 'Mary',
+                    '123456789' => 'Joe',
+                    'default' => 'you'
+                ]
+            ]
+        );
+        $batch->setDeliveryReport(XA\ReportType::NONE);
+        $batch->setSendAt(new \DateTime('2016-12-01T11:03:13.192Z'));
+        $batch->setExpireAt(new \DateTime('2016-12-04T11:03:13.192Z'));
+        $batch->setCallbackUrl("http://localhost/callback");
 
         $actual = X\Serialize::textBatchUpdate($batch);
 
@@ -150,12 +158,12 @@ EOD;
 
     public function testBatchUpdateTextResets()
     {
-        $update = (new XA\MtBatchTextSmsUpdate())
-                ->resetDeliveryReport()
-                ->resetSendAt()
-                ->resetExpireAt()
-                ->resetCallbackUrl()
-                ->resetParameters();
+        $update = new XA\MtBatchTextSmsUpdate();
+        $update->resetDeliveryReport();
+        $update->resetSendAt();
+        $update->resetExpireAt();
+        $update->resetCallbackUrl();
+        $update->resetParameters();
 
         $actual = X\Serialize::textBatchUpdate($update);
 
@@ -176,15 +184,15 @@ EOD;
     public function testBatchUpdateBinarySetAll()
     {
         $batch = new XA\MtBatchBinarySmsUpdate();
-        $batch->sender = '12345';
-        $batch->recipientInsertions = ['987654321', '123456789'];
-        $batch->recipientRemovals = ['555555555'];
-        $batch->body = "\x00\x01\x02\x03";
-        $batch->udh = "\xff\xfe\xfd";
-        $batch->deliveryReport = XA\ReportType::PER_RECIPIENT;
-        $batch->sendAt = new \DateTime('2016-12-01T11:03:13.192Z');
-        $batch->expireAt = new \DateTime('2016-12-04T11:03:13.192Z');
-        $batch->callbackUrl = "http://localhost/callback";
+        $batch->setSender('12345');
+        $batch->setRecipientInsertions(['987654321', '123456789']);
+        $batch->setRecipientRemovals(['555555555']);
+        $batch->setBody("\x00\x01\x02\x03");
+        $batch->setUdh("\xff\xfe\xfd");
+        $batch->setDeliveryReport(XA\ReportType::PER_RECIPIENT);
+        $batch->setSendAt(new \DateTime('2016-12-01T11:03:13.192Z'));
+        $batch->setExpireAt(new \DateTime('2016-12-04T11:03:13.192Z'));
+        $batch->setCallbackUrl("http://localhost/callback");
 
         $actual = X\Serialize::binaryBatchUpdate($batch);
 
@@ -223,11 +231,11 @@ EOD;
 
     public function testBatchUpdateBinaryResets()
     {
-        $update = (new XA\MtBatchBinarySmsUpdate())
-                ->resetDeliveryReport()
-                ->resetSendAt()
-                ->resetExpireAt()
-                ->resetCallbackUrl();
+        $update = new XA\MtBatchBinarySmsUpdate();
+        $update->resetDeliveryReport();
+        $update->resetSendAt();
+        $update->resetExpireAt();
+        $update->resetCallbackUrl();
 
         $actual = X\Serialize::binaryBatchUpdate($update);
 
@@ -247,13 +255,15 @@ EOD;
     public function testGroupCreate()
     {
         $group = new XA\GroupCreate();
-        $group->name = 'test name';
-        $group->members = ['123456789', '987654321'];
-        $group->childGroups = ['group1', 'group2'];
-        $group->autoUpdate = new XA\GroupAutoUpdate(
-            '12345', ['ADD', 'plz'], ['REMOVE', 'ME']
+        $group->setName('test name');
+        $group->setMembers(['123456789', '987654321']);
+        $group->setChildGroups(['group1', 'group2']);
+        $group->setAutoUpdate(
+            new XA\GroupAutoUpdate(
+                '12345', ['ADD', 'plz'], ['REMOVE', 'ME']
+            )
         );
-        $group->tags = ['tag1', 'tag2'];
+        $group->setTags(['tag1', 'tag2']);
 
         $actual = X\Serialize::group($group);
 
@@ -283,15 +293,17 @@ EOD;
     public function testGroupUpdateEverything()
     {
         $groupUpdate = new XA\GroupUpdate();
-        $groupUpdate->name = 'new name';
-        $groupUpdate->memberInsertions = ['123456789'];
-        $groupUpdate->memberRemovals = ['987654321', '4242424242'];
-        $groupUpdate->childGroupInsertions = ['groupId1', 'groupId2'];
-        $groupUpdate->childGroupRemovals = ['groupId3'];
-        $groupUpdate->addFromGroup = "group1";
-        $groupUpdate->removeFromGroup = "group2";
-        $groupUpdate->autoUpdate = new XA\GroupAutoUpdate(
-            '1111', ['kw0', 'kw1'], ['kw2', 'kw3']
+        $groupUpdate->setName('new name');
+        $groupUpdate->setMemberInsertions(['123456789']);
+        $groupUpdate->setMemberRemovals(['987654321', '4242424242']);
+        $groupUpdate->setChildGroupInsertions(['groupId1', 'groupId2']);
+        $groupUpdate->setChildGroupRemovals(['groupId3']);
+        $groupUpdate->setAddFromGroup("group1");
+        $groupUpdate->setRemoveFromGroup("group2");
+        $groupUpdate->setAutoUpdate(
+            new XA\GroupAutoUpdate(
+                '1111', ['kw0', 'kw1'], ['kw2', 'kw3']
+            )
         );
 
         $actual = X\Serialize::groupUpdate($groupUpdate);
@@ -328,9 +340,9 @@ EOD;
 
     public function testGroupUpdateResets()
     {
-        $groupUpdate = (new XA\GroupUpdate())
-                     ->resetName()
-                     ->resetAutoUpdate();
+        $groupUpdate = new XA\GroupUpdate();
+        $groupUpdate->resetName();
+        $groupUpdate->resetAutoUpdate();
 
         $actual = X\Serialize::groupUpdate($groupUpdate);
 
