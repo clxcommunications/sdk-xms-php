@@ -22,25 +22,80 @@ class MtBatchTextSmsUpdate extends MtBatchSmsUpdate
      *
      * @var string|null the batch message body
      */
-    public $body;
+    private $_body;
 
     /**
      * Description of how to update the batch parameters.
      *
      * @var []|null|Reset an update description
      */
-    public $parameters;
+    private $_parameters;
+
+    /**
+     * Get the updated batch message body or template.
+     *
+     * @return string|null the batch message body
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Set the updated batch message body or template.
+     *
+     * @param string|null $body the batch message body
+     *
+     * @return void
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+    }
+
+    /**
+     * Get description of how to update the batch parameters.
+     *
+     * If `null` then the parameters are kept as is, if
+     * `Reset::reset()` then the value is reset to XMS default,
+     * otherwise update the parameters.
+     *
+     * @see MtBatchTextSmsCreate::setParameters() For an in-depth
+     *     description.
+     *
+     * @return []|null|Reset an update description
+     */
+    public function getParameters()
+    {
+        return $this->_parameters;
+    }
 
     /**
      * Resets the parameters field to the XMS default value.
      *
-     * @return MtBatchTextSmsUpdate this object for use in a chained
-     *     invocation
+     * @return void
      */
     public function resetParameters()
     {
-        $this->parameters = Reset::reset();
-        return $this;
+        $this->_parameters = Reset::reset();
+    }
+
+    /**
+     * Set description of how to update the batch parameters.
+     *
+     * If `null` then the parameters are kept as is, otherwise update
+     * the parameters.
+     *
+     * @param []|null $parameters an update description
+     *
+     * @return void
+     *
+     * @see MtBatchTextSmsCreate::setParameters() For an in-depth
+     *     description.
+     */
+    public function setParameters(array $parameters)
+    {
+        $this->_parameters = $parameters;
     }
 
 }

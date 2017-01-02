@@ -24,17 +24,21 @@ namespace Clx\Xms;
  *
  * try {
  *     $batchParams = new Clx\Xms\Api\MtBatchTextSmsCreate();
- *     $batchParams->sender = '12345';
- *     $batchParams->recipients = ['987654321', '123456789', '567894321'];
- *     $batchParams->body = 'Hello, ${name}!';
- *     $batchParams->parameters['name'] = [
- *         '987654321' => 'Mary',
- *         '123456789' => 'Joe',
- *         'default' => 'valued customer'
- *     ];
+ *     $batchParams->setSender('12345');
+ *     $batchParams->setRecipients(['987654321', '123456789', '567894321']);
+ *     $batchParams->setBody('Hello, ${name}!');
+ *     $batchParams->setParameters(
+ *         [
+ *             'name' => [
+ *                 '987654321' => 'Mary',
+ *                 '123456789' => 'Joe',
+ *                 'default' => 'valued customer'
+ *             ]
+ *         ]
+ *     );
  *
  *     $batch = $client->createTextBatch($batchParams);
- *     echo('The batch was given ID ' . $batch->batchId . "\n");
+ *     echo('The batch was given ID ' . $batch->getBatchId() . "\n");
  * } catch (Exception $ex) {
  *     echo('Error creating batch: ' . $ex->getMessage() . "\n");
  * }
@@ -46,7 +50,7 @@ namespace Clx\Xms;
  * ```php
  * try {
  *     $batch = $client->fetchBatch('{a batch identifier}');
- *     echo('The batch was sent from ' . $batch->sender . "\n");
+ *     echo('The batch was sent from ' . $batch->getSender() . "\n");
  * } catch (Exception $ex) {
  *     echo('Error fetching batch: ' . $ex->getMessage() . "\n");
  * }
@@ -114,16 +118,16 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * This client is _not_ thread-safe.
      *
-     * @param string $service_plan_id the service plan identifier
-     * @param string $token           the authentication token
-     * @param string $endpoint        the XMS endpoint URL
+     * @param string $servicePlanId the service plan identifier
+     * @param string $token         the authentication token
+     * @param string $endpoint      the XMS endpoint URL
      */
     public function __construct(
-        $service_plan_id,
+        $servicePlanId,
         $token,
         $endpoint = Client::DEFAULT_ENDPOINT
     ) {
-        $this->_servicePlanId = $service_plan_id;
+        $this->_servicePlanId = $servicePlanId;
         $this->_token = $token;
         $this->_endpoint = $endpoint;
         $this->_userAgent = 'cURL/' . curl_version()['version']
@@ -165,13 +169,13 @@ class Client implements \Psr\Log\LoggerAwareInterface
     /**
      * Builds an endpoint URL for the given sub-path.
      *
-     * @param string $sub_path the sub-path
+     * @param string $subPath the sub-path
      *
      * @return string an URL
      */
-    private function _url($sub_path)
+    private function _url($subPath)
     {
-        return $this->_endpoint . '/v1/' . $this->_servicePlanId . $sub_path;
+        return $this->_endpoint . '/v1/' . $this->_servicePlanId . $subPath;
     }
 
     /**
@@ -181,11 +185,39 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string $subPath additional sub-path
      *
      * @return string a complete URL
+     *
+     * @throws \InvalidArgumentException if given an invalid batch ID
      */
     private function _batchUrl($batchId, $subPath = '')
     {
         $ebid = rawurlencode($batchId);
+
+        if (empty($ebid)) {
+            throw new \InvalidArgumentException("Empty batch ID given");
+        }
+
         return $this->_url('/batches/' . $ebid . $subPath);
+    }
+
+    /**
+     * Builds an endpoint URL for the given group and sub-path.
+     *
+     * @param string $groupId a group identifier
+     * @param string $subPath additional sub-path
+     *
+     * @return string a complete URL
+     *
+     * @throws \InvalidArgumentException if given an invalid group ID
+     */
+    private function _groupUrl($groupId, $subPath = '')
+    {
+        $egid = rawurlencode($groupId);
+
+        if (empty($egid)) {
+            throw new \InvalidArgumentException("Empty group ID given");
+        }
+
+        return $this->_url('/groups/' . $egid . $subPath);
     }
 
     /**
@@ -249,7 +281,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
         case 400:               // Bad Request
         case 403:               // Forbidden
             $e = Deserialize::error($result);
-            throw new ErrorResponseException($e->code, $e->text);
+            throw new ErrorResponseException($e->getCode(), $e->getText());
         case 404:               // Not Found
             throw new NotFoundException($url);
         case 401:               // Unauthorized
@@ -533,27 +565,29 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->senders)) {
-                        $val = urlencode(join(',', $filter->senders));
+                    if (null != $filter->getSenders()) {
+                        $val = urlencode(join(',', $filter->getSenders()));
                         array_push($params, 'from=' . $val);
                     }
 
-                    if (isset($filter->tags)) {
-                        $val = urlencode(join(',', $filter->tags));
+                    if (null != $filter->getTags()) {
+                        $val = urlencode(join(',', $filter->getTags()));
                         array_push($params, 'tags=' . $val);
                     }
 
-                    if (isset($filter->startDate)) {
-                        $val = $filter->startDate->format('Y-m-d');
+                    if (null != $filter->getStartDate()) {
+                        $val = $filter->getStartDate()->format('Y-m-d');
                         array_push($params, 'start_date=' . $val);
                     }
 
-                    if (isset($filter->endDate)) {
-                        $val = $filter->endDate->format('Y-m-d');
+                    if (null != $filter->getEndDate()) {
+                        $val = $filter->getEndDate()->format('Y-m-d');
                         array_push($params, 'end_date=' . $val);
                     }
                 }
@@ -684,7 +718,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function replaceGroupTags($groupId, array $tags)
     {
         $json = Serialize::tags($tags);
-        $result = $this->_put($this->_url("/groups/$groupId/tags"), $json);
+        $result = $this->_put($this->_groupUrl($groupId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -699,7 +733,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function replaceGroup($groupId, Api\GroupCreate $group)
     {
         $json = Serialize::group($group);
-        $result = $this->_put($this->_url("/groups/$groupId"), $json);
+        $result = $this->_put($this->_groupUrl($groupId), $json);
         return Deserialize::groupResponse($result);
     }
 
@@ -714,7 +748,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function updateGroup($groupId, Api\GroupUpdate $group)
     {
         $json = Serialize::groupUpdate($group);
-        $result = $this->_post($this->_url("/groups/$groupId"), $json);
+        $result = $this->_post($this->_groupUrl($groupId), $json);
         return Deserialize::groupResponse($result);
     }
 
@@ -731,7 +765,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
         $groupId, array $tagsToAdd, array $tagsToRemove
     ) {
         $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
-        $result = $this->_post($this->_url("/groups/$groupId/tags"), $json);
+        $result = $this->_post($this->_groupUrl($groupId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -744,7 +778,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function deleteGroup($groupId)
     {
-        $this->_delete($this->_url("/groups/$groupId"));
+        $this->_delete($this->_groupUrl($groupId));
     }
 
     /**
@@ -756,7 +790,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchGroup($groupId)
     {
-        $result = $this->_get($this->_url('/groups/' . $groupId));
+        $result = $this->_get($this->_groupUrl($groupId));
         return Deserialize::groupResponse($result);
     }
 
@@ -780,12 +814,14 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->tags)) {
-                        $val = urlencode(join(',', $filter->tags));
+                    if (null != $filter->getTags()) {
+                        $val = urlencode(join(',', $filter->getTags()));
                         array_push($params, 'tags=' . $val);
                     }
                 }
@@ -806,7 +842,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchGroupTags($groupId)
     {
-        $result = $this->_get($this->_url("/groups/$groupId/tags"));
+        $result = $this->_get($this->_groupUrl($groupId, '/tags'));
         return Deserialize::tags($result);
     }
 
@@ -823,7 +859,13 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchInbound($inboundId)
     {
-        $result = $this->_get($this->_url("/inbounds/$inboundId"));
+        $eiid = rawurlencode($inboundId);
+
+        if (empty($eiid)) {
+            throw new \InvalidArgumentException("Empty inbound ID given");
+        }
+
+        $result = $this->_get($this->_url("/inbounds/$eiid"));
         return Deserialize::moSms($result);
     }
 
@@ -847,22 +889,24 @@ class Client implements \Psr\Log\LoggerAwareInterface
                 $params = ["page=$page"];
 
                 if (!is_null($filter)) {
-                    if (isset($filter->pageSize)) {
-                        array_push($params, 'page_size=' . $filter->pageSize);
+                    if (null != $filter->getPageSize()) {
+                        array_push(
+                            $params, 'page_size=' . $filter->getPageSize()
+                        );
                     }
 
-                    if (isset($filter->recipients)) {
-                        $val = urlencode(join(',', $filter->recipients));
+                    if (null != $filter->getRecipients()) {
+                        $val = urlencode(join(',', $filter->getRecipients()));
                         array_push($params, 'to=' . $val);
                     }
 
-                    if (isset($filter->startDate)) {
-                        $val = $filter->startDate->format('Y-m-d');
+                    if (null != $filter->getStartDate()) {
+                        $val = $filter->getStartDate()->format('Y-m-d');
                         array_push($params, 'start_date=' . $val);
                     }
 
-                    if (isset($filter->endDate)) {
-                        $val = $filter->endDate->format('Y-m-d');
+                    if (null != $filter->getEndDate()) {
+                        $val = $filter->getEndDate()->format('Y-m-d');
                         array_push($params, 'end_date=' . $val);
                     }
                 }
@@ -877,4 +921,3 @@ class Client implements \Psr\Log\LoggerAwareInterface
 }
 
 ?>
-

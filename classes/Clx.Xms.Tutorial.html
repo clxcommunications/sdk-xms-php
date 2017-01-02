@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1446063315"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-80999426"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1446063315" class="accordion-body collapse in">
+            <div id="namespace-80999426" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-874602657"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-423532561"></a>
                                 <a href="../namespaces/Clx.html" style="margin-left: 30px; padding-left: 0">Clx</a>
             </div>
-            <div id="namespace-874602657" class="accordion-body collapse ">
+            <div id="namespace-423532561" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1198020139"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-824054046"></a>
                                 <a href="../namespaces/Clx.Xms.html" style="margin-left: 30px; padding-left: 0">Xms</a>
             </div>
-            <div id="namespace-1198020139" class="accordion-body collapse ">
+            <div id="namespace-824054046" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1196217011"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-357512362"></a>
                                 <a href="../namespaces/Clx.Xms.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
             </div>
-            <div id="namespace-1196217011" class="accordion-body collapse ">
+            <div id="namespace-357512362" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -354,9 +354,9 @@ code), one or more recipient addresses (typically MSISDNs), and the
 message body. Sending a simple hello world message to one recipient
 is then accomplished using</p>
 <pre><code class="language-php">$batchParams = new \Clx\Xms\Api\MtBatchTextSmsCreate()
-$batchParams-&gt;sender = '12345';
-$batchParams-&gt;recipients = ['987654321'];
-$batchParams-&gt;body = 'Hello, World!';
+$batchParams-&gt;setSender('12345');
+$batchParams-&gt;setRecipients(['987654321']);
+$batchParams-&gt;setBody('Hello, World!');
 $result = $client-&gt;createTextBatch($batchParams);</code></pre>
 <p>You will notice a few things with this code. We are using a
 <code>$client</code> variable that corresponds to an XMS client that we assume
@@ -377,20 +377,24 @@ object that contains not only the submitted batch information but
 also information included by XMS, such that the unique batch
 identifier, the creation time, etc. For example, to simply print
 the batch identifier we could add the code</p>
-<pre><code class="language-php">echo("Batch id is $result-&gt;batchId\n");</code></pre>
+<pre><code class="language-php">echo("Batch id is " . $result-&gt;getBatchId() ."\n");</code></pre>
 <p>It is not much harder to create a more complicated batch, for
 example, here we create a parameterized message with multiple
 recipients and a scheduled send time:</p>
 <pre><code class="language-php">$batchParams = new \Clx\Xms\Api\MtBatchTextSmsCreate();
-$batchParams-&gt;sender = '12345';
-$batchParams-&gt;recipients = ['987654321', '123456789', '567894321'];
-$batchParams-&gt;body = 'Hello, ${name}!';
-$batchParams-&gt;parameters['name'] = [
-    '987654321' =&gt; 'Mary',
-    '123456789' =&gt; 'Joe',
-    'default' =&gt; 'valued customer'
-];
-$batchParams-&gt;sendAt = new DateTime('2016-12-20 10:00 UTC');
+$batchParams-&gt;setSender('12345');
+$batchParams-&gt;setRecipients(['987654321', '123456789', '567894321']);
+$batchParams-&gt;setBody('Hello, ${name}!');
+$batchParams-&gt;setParameters(
+    [
+        'name' =&gt; [
+            '987654321' =&gt; 'Mary',
+            '123456789' =&gt; 'Joe',
+            'default' =&gt; 'valued customer'
+        ]
+    ]
+);
+$batchParams-&gt;setSendAt(new DateTime('2016-12-20 10:00 UTC'));
 $batch = $client-&gt;createTextBatch($batchParams);</code></pre>
 <h2>Fetching batches</h2>
 <p>If you have a batch identifier and would like to retrieve
@@ -400,7 +404,7 @@ batch identifier is available in the variable <code>$batchId</code> then one
 could write</p>
 <pre><code class="language-php">$batchId = // …
 $result = $client-&gt;fetchBatch($batchId);
-echo("Batch id is $result-&gt;batchId\n");</code></pre>
+echo("Batch id is " . $result-&gt;getBatchId() . "\n");</code></pre>
 <p>Note, since <a href="../classes/Clx.Xms.Client.html#method_fetchBatch">fetchBatch</a> does
 not know ahead of time whether the fetched batch is textual or
 binary it returns a value of the type
@@ -426,15 +430,15 @@ sender.</p>
 2016-12-01 and having the tag &quot;signup_notification&quot;, we may write
 something like the following.</p>
 <pre><code class="language-php">$filter = new \Clx\Xms\BatchFilter()
-$filter-&gt;addTag = 'signup_notification';
-$filter-&gt;startDate = new DateTime('2016-12-01');
-$filter-&gt;endDate = new DateTime('2016-12-02');
+$filter-&gt;setAddTag('signup_notification');
+$filter-&gt;setStartDate(new DateTime('2016-12-01'));
+$filter-&gt;setEndDate(new DateTime('2016-12-02'));
 
 $pages = $client-&gt;fetchBatches($filter);
 
 foreach ($pages as $page) {
     foreach ($page as $batch) {
-        echo("Batch ID: $batch-&gt;batchId\n");
+        echo("Batch ID: " . $batch-&gt;getBatchId() . "\n");
     }
 }</code></pre>
 <h2>Other XMS requests</h2>
@@ -606,7 +610,7 @@ SDK is surrounded by a try-catch statement such as</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on December 23rd, 2016 at 13:32.
+                    on January 3rd, 2017 at 16:07.
                 </section>
             </section>
         </section>

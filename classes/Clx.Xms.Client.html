@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1941976858"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-298333280"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1941976858" class="accordion-body collapse in">
+            <div id="namespace-298333280" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2813385"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-318774480"></a>
                                 <a href="../namespaces/Clx.html" style="margin-left: 30px; padding-left: 0">Clx</a>
             </div>
-            <div id="namespace-2813385" class="accordion-body collapse ">
+            <div id="namespace-318774480" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1753670900"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1432786098"></a>
                                 <a href="../namespaces/Clx.Xms.html" style="margin-left: 30px; padding-left: 0">Xms</a>
             </div>
-            <div id="namespace-1753670900" class="accordion-body collapse ">
+            <div id="namespace-1432786098" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1209790348"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-564146622"></a>
                                 <a href="../namespaces/Clx.Xms.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
             </div>
-            <div id="namespace-1209790348" class="accordion-body collapse ">
+            <div id="namespace-564146622" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -274,17 +274,21 @@ recipients we may use code such as</p>
 
 try {
     $batchParams = new Clx\Xms\Api\MtBatchTextSmsCreate();
-    $batchParams-&gt;sender = '12345';
-    $batchParams-&gt;recipients = ['987654321', '123456789', '567894321'];
-    $batchParams-&gt;body = 'Hello, ${name}!';
-    $batchParams-&gt;parameters['name'] = [
-        '987654321' =&gt; 'Mary',
-        '123456789' =&gt; 'Joe',
-        'default' =&gt; 'valued customer'
-    ];
+    $batchParams-&gt;setSender('12345');
+    $batchParams-&gt;setRecipients(['987654321', '123456789', '567894321']);
+    $batchParams-&gt;setBody('Hello, ${name}!');
+    $batchParams-&gt;setParameters(
+        [
+            'name' =&gt; [
+                '987654321' =&gt; 'Mary',
+                '123456789' =&gt; 'Joe',
+                'default' =&gt; 'valued customer'
+            ]
+        ]
+    );
 
     $batch = $client-&gt;createTextBatch($batchParams);
-    echo('The batch was given ID ' . $batch-&gt;batchId . "\n");
+    echo('The batch was given ID ' . $batch-&gt;getBatchId() . "\n");
 } catch (Exception $ex) {
     echo('Error creating batch: ' . $ex-&gt;getMessage() . "\n");
 }</code></pre>
@@ -292,7 +296,7 @@ try {
 same variable as above)</p>
 <pre><code class="language-php">try {
     $batch = $client-&gt;fetchBatch('{a batch identifier}');
-    echo('The batch was sent from ' . $batch-&gt;sender . "\n");
+    echo('The batch was sent from ' . $batch-&gt;getSender() . "\n");
 } catch (Exception $ex) {
     echo('Error fetching batch: ' . $ex-&gt;getMessage() . "\n");
 }</code></pre>
@@ -447,7 +451,7 @@ requests at the debug level if given a logger through the
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$service_plan_id</span>, string  <span class="argument">$token</span>, string  <span class="argument">$endpoint = \Clx\Xms\Client::DEFAULT_ENDPOINT</span>) </pre>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$servicePlanId</span>, string  <span class="argument">$token</span>, string  <span class="argument">$endpoint = \Clx\Xms\Client::DEFAULT_ENDPOINT</span>) </pre>
                 <p><em>Constructs a new XMS client.</em></p>
                 <p>The constructed client will communicate with the given endpoint
 using the given credentials. A default endpoint at CLX
@@ -458,7 +462,7 @@ Communications is used if no endpoint is explicitly provided.</p>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>string</td>
-                                <td>$service_plan_id </td>
+                                <td>$servicePlanId </td>
                                 <td><p>the service plan identifier</p></td>
                             </tr>
                                                     <tr>
@@ -1677,7 +1681,7 @@ pages as needed.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on December 23rd, 2016 at 13:32.
+                    on January 3rd, 2017 at 16:07.
                 </section>
             </section>
         </section>

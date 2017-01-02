@@ -21,10 +21,52 @@ class MtBatchTextSmsCreate extends MtBatchSmsCreate
      *
      * @var string the textual batch message.
      */
-    public $body;
+    private $_body;
 
     /**
      * The template parameters.
+     *
+     * @var [] the template parameter definition
+     */
+    private $_parameters;
+
+    /**
+     * Get the message body or template.
+     *
+     * @return string the textual batch message
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Set the message body or template.
+     *
+     * @param string $body the textual batch message
+     *
+     * @return void
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+    }
+
+    /**
+     * Get the template parameters.
+     *
+     * @return [] template parameters
+     *
+     * @see MtBatchTextSmsCreate::setParameters() For an in-depth
+     *     description.
+     */
+    public function getParameters()
+    {
+        return $this->_parameters;
+    }
+
+    /**
+     * Set the template parameters.
      *
      * This property is only relevant is the `$body` property is a
      * template. This is expected to be an associative array mapping
@@ -52,9 +94,14 @@ class MtBatchTextSmsCreate extends MtBatchSmsCreate
      * "555555555" would receive the message "Hello, valued
      * customer!".
      *
-     * @var [] the template parameter definition
+     * @param [] $parameters the template parameter definition
+     *
+     * @return void
      */
-    public $parameters;
+    public function setParameters($parameters)
+    {
+        $this->_parameters = $parameters;
+    }
 
 }
 

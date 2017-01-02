@@ -22,9 +22,9 @@ class MtBatchTextSmsResult extends MtBatchSmsResult
     /**
      * The message body or template.
      *
-     * @var string the textual batch message.
+     * @var string the textual batch message
      */
-    public $body;
+    private $_body;
 
     /**
      * The template parameters.
@@ -34,7 +34,57 @@ class MtBatchTextSmsResult extends MtBatchSmsResult
      *
      * @var [] the template parameter definition
      */
-    public $parameters;
+    private $_parameters;
+
+    /**
+     * Get the message body or template.
+     *
+     * @return string the textual batch message
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Set the message body or template.
+     *
+     * @param string $body the textual batch message
+     *
+     * @return void
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+    }
+
+    /**
+     * Get the template parameters.
+     *
+     * @see MtBatchTextSmsCreate::setParameters() For an in-depth
+     *     description.
+     *
+     * @return [] the template parameter definition
+     */
+    public function getParameters()
+    {
+        return $this->_parameters;
+    }
+
+    /**
+     * Set the template parameters.
+     *
+     * @param [] $parameters the template parameter definition
+     *
+     * @return void
+     *
+     * @see MtBatchTextSmsCreate::setParameters() For an in-depth
+     *     description.
+     */
+    public function setParameters($parameters)
+    {
+        $this->_parameters = $parameters;
+    }
 
 }
 

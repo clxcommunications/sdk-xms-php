@@ -21,14 +21,14 @@ class BatchDeliveryReport
      *
      * @var string batch identifier
      */
-    public $batchId;
+    private $_batchId;
 
     /**
      * The total number of messages sent as part of this batch.
      *
      * @var int number of sent messages in the batch
      */
-    public $totalMessageCount;
+    private $_totalMessageCount;
 
     /**
      * The batch status buckets.
@@ -39,7 +39,81 @@ class BatchDeliveryReport
      *
      * @var BatchDeliveryReportStatus[] status buckets
      */
-    public $statuses;
+    private $_statuses;
+
+    /**
+     * Get identifier of the batch that this report covers.
+     *
+     * @return string batch identifier
+     */
+    public function getBatchId()
+    {
+        return $this->_batchId;
+    }
+
+    /**
+     * Set identifier of the batch that this report covers.
+     *
+     * @param string $batchId batch identifier
+     *
+     * @return void
+     */
+    public function setBatchId($batchId)
+    {
+        $this->_batchId = $batchId;
+    }
+
+    /**
+     * Get the total number of messages sent as part of this batch.
+     *
+     * @return int number of sent messages in the batch
+     */
+    public function getTotalMessageCount()
+    {
+        return $this->_totalMessageCount;
+    }
+
+    /**
+     * Set the total number of messages sent as part of this batch.
+     *
+     * @param int $totalMessageCount number of sent messages in the batch
+     *
+     * @return void
+     */
+    public function setTotalMessageCount($totalMessageCount)
+    {
+        $this->_totalMessageCount = $totalMessageCount;
+    }
+
+    /**
+     * Get the batch status buckets.
+     *
+     * The returned array describes the aggregated status for the
+     * batch where each array element contains information about
+     * messages having a certain delivery status and delivery code.
+     *
+     * @return BatchDeliveryReportStatus[] status buckets
+     */
+    public function getStatuses()
+    {
+        return $this->_statuses;
+    }
+
+    /**
+     * Set the batch status buckets.
+     *
+     * The array describes the aggregated status for the
+     * batch where each array element contains information about
+     * messages having a certain delivery status and delivery code.
+     *
+     * @param BatchDeliveryReportStatus[] $statuses status buckets
+     *
+     * @return void
+     */
+    public function setStatuses($statuses)
+    {
+        $this->_statuses = $statuses;
+    }
 
 }
 

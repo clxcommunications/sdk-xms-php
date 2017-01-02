@@ -78,39 +78,41 @@ class Deserialize
     private static function _batchResponseHelper(
         &$json, \stdClass &$fields, Api\MtBatchSmsResult &$object
     ) {
-        $object->batchId = $fields->id;
-        $object->recipients = $fields->to;
-        $object->sender = $fields->from;
-        $object->canceled = $fields->canceled;
+        $object->setBatchId($fields->id);
+        $object->setRecipients($fields->to);
+        $object->setSender($fields->from);
+        $object->setCanceled($fields->canceled);
 
         if (isset($fields->delivery_report)) {
-            $object->deliveryReport = $fields->delivery_report;
+            $object->setDeliveryReport($fields->delivery_report);
         }
 
         if (isset($fields->send_at)) {
-            $object->sendAt = Deserialize::_dateTime($json, $fields->send_at);
+            $object->setSendAt(
+                Deserialize::_dateTime($json, $fields->send_at)
+            );
         }
 
         if (isset($fields->expire_at)) {
-            $object->expireAt = Deserialize::_dateTime(
-                $json, $fields->expire_at
+            $object->setExpireAt(
+                Deserialize::_dateTime($json, $fields->expire_at)
             );
         }
 
         if (isset($fields->created_at)) {
-            $object->createdAt = Deserialize::_dateTime(
-                $json, $fields->created_at
+            $object->setCreatedAt(
+                Deserialize::_dateTime($json, $fields->created_at)
             );
         }
 
         if (isset($fields->modified_at)) {
-            $object->modifiedAt = Deserialize::_dateTime(
-                $json, $fields->modified_at
+            $object->setModifiedAt(
+                Deserialize::_dateTime($json, $fields->modified_at)
             );
         }
 
         if (isset($fields->callback_url)) {
-            $object->callbackUrl = $fields->callback_url;
+            $object->setCallbackUrl($fields->callback_url);
         }
     }
 
@@ -157,17 +159,17 @@ class Deserialize
     {
         if ($fields->type == 'mt_text') {
             $result = new Api\MtBatchTextSmsResult();
-            $result->body = $fields->body;
+            $result->setBody($fields->body);
 
             if (isset($fields->parameters)) {
-                $result->parameters = Deserialize::_convertParameters(
-                    $fields->parameters
+                $result->setParameters(
+                    Deserialize::_convertParameters($fields->parameters)
                 );
             }
         } else if ($fields->type == 'mt_binary') {
             $result = new Api\MtBatchBinarySmsResult();
-            $result->udh = hex2bin($fields->udh);
-            $result->body = base64_decode($fields->body);
+            $result->setUdh(hex2bin($fields->udh));
+            $result->setBody(base64_decode($fields->body));
         } else {
             throw new UnexpectedResponseException(
                 "Received unexpected batch type " . $fields->type,
@@ -217,14 +219,16 @@ class Deserialize
         $fields = Deserialize::_fromJson($json);
 
         $result = new Api\Page();
-        $result->page = $fields->page;
-        $result->size = $fields->page_size;
-        $result->totalSize = $fields->count;
-        $result->content = array_map(
-            function ($s) use ($json) {
-                return Deserialize::_batchResponseFromFields($json, $s);
-            },
-            $fields->batches
+        $result->setPage($fields->page);
+        $result->setSize($fields->page_size);
+        $result->setTotalSize($fields->count);
+        $result->setContent(
+            array_map(
+                function ($s) use ($json) {
+                    return Deserialize::_batchResponseFromFields($json, $s);
+                },
+                $fields->batches
+            )
         );
 
         return $result;
@@ -242,20 +246,22 @@ class Deserialize
         $fields = Deserialize::_fromJson($json);
 
         $result = new Api\MtBatchDryRunResult();
-        $result->numberOfRecipients = $fields->number_of_recipients;
-        $result->numberOfMessages = $fields->number_of_messages;
+        $result->setNumberOfRecipients($fields->number_of_recipients);
+        $result->setNumberOfMessages($fields->number_of_messages);
 
         if (isset($fields->per_recipient)) {
-            $result->perRecipient = array_map(
-                function ($s) {
-                    $pr = new Api\DryRunPerRecipient();
-                    $pr->recipient = $s->recipient;
-                    $pr->numberOfParts = $s->number_of_parts;
-                    $pr->body = $s->body;
-                    $pr->encoding = $s->encoding;
-                    return $pr;
-                },
-                $fields->per_recipient
+            $result->setPerRecipient(
+                array_map(
+                    function ($s) {
+                        $pr = new Api\DryRunPerRecipient();
+                        $pr->setRecipient($s->recipient);
+                        $pr->setNumberOfParts($s->number_of_parts);
+                        $pr->setBody($s->body);
+                        $pr->setEncoding($s->encoding);
+                        return $pr;
+                    },
+                    $fields->per_recipient
+                )
             );
         }
 
@@ -283,20 +289,22 @@ class Deserialize
         }
 
         $result = new Api\BatchDeliveryReport();
-        $result->batchId = $fields->batch_id;
-        $result->totalMessageCount = $fields->total_message_count;
-        $result->statuses = array_map(
-            function ($s) {
-                $r = new Api\BatchDeliveryReportStatus();
-                $r->code = $s->code;
-                $r->status = $s->status;
-                $r->count = $s->count;
-                if (isset($s->recipients)) {
-                    $r->recipients = $s->recipients;
-                }
-                return $r;
-            },
-            $fields->statuses
+        $result->setBatchId($fields->batch_id);
+        $result->setTotalMessageCount($fields->total_message_count);
+        $result->setStatuses(
+            array_map(
+                function ($s) {
+                    $r = new Api\BatchDeliveryReportStatus();
+                    $r->setCode($s->code);
+                    $r->setStatus($s->status);
+                    $r->setCount($s->count);
+                    if (isset($s->recipients)) {
+                        $r->setRecipients($s->recipients);
+                    }
+                    return $r;
+                },
+                $fields->statuses
+            )
         );
 
         return $result;
@@ -327,23 +335,25 @@ class Deserialize
 
         $result = new Api\BatchRecipientDeliveryReport();
 
-        $result->batchId = $fields->batch_id;
-        $result->recipient = $fields->recipient;
-        $result->code = $fields->code;
-        $result->status = $fields->status;
-        $result->statusAt = Deserialize::_dateTime($json, $fields->at);
+        $result->setBatchId($fields->batch_id);
+        $result->setRecipient($fields->recipient);
+        $result->setCode($fields->code);
+        $result->setStatus($fields->status);
+        $result->setStatusAt(Deserialize::_dateTime($json, $fields->at));
 
         if (isset($fields->status_message)) {
-            $result->statusMessage = $fields->status_message;
+            $result->setStatusMessage($fields->status_message);
         }
 
         if (isset($fields->operator)) {
-            $result->operator = $fields->operator;
+            $result->setOperator($fields->operator);
         }
 
         if (isset($fields->operator_status_at)) {
-            $result->operatorStatusAt = Deserialize::_dateTime(
-                $json, $fields->operator_status_at
+            $result->setOperatorStatusAt(
+                Deserialize::_dateTime(
+                    $json, $fields->operator_status_at
+                )
             );
         }
 
@@ -360,25 +370,28 @@ class Deserialize
      */
     private static function _autoUpdateFromFields(&$fields)
     {
-        $result = new Api\GroupAutoUpdate($fields->to);
+        $addKeywords = [null, null];
+        $removeKeywords = [null, null];
 
         if (isset($fields->add) && isset($fields->add->first_word)) {
-            $result->addFirstWord = $fields->add->first_word;
+            $addKeywords[0] = $fields->add->first_word;
         }
 
         if (isset($fields->add) && isset($fields->add->second_word)) {
-            $result->addSecondWord = $fields->add->second_word;
+            $addKeywords[1] = $fields->add->second_word;
         }
 
         if (isset($fields->remove) && isset($fields->remove->first_word)) {
-            $result->removeFirstWord = $fields->remove->first_word;
+            $removeKeywords[0] = $fields->remove->first_word;
         }
 
         if (isset($fields->remove) && isset($fields->remove->second_word)) {
-            $result->removeSecondWord = $fields->remove->second_word;
+            $removeKeywords[1] = $fields->remove->second_word;
         }
 
-        return $result;
+        return new Api\GroupAutoUpdate(
+            $fields->to, $addKeywords, $removeKeywords
+        );
     }
 
     /**
@@ -393,23 +406,23 @@ class Deserialize
     private static function _groupResponseFromFields(&$json, &$fields)
     {
         $result = new Api\GroupResult();
-        $result->childGroups = $fields->child_groups;
-        $result->groupId = $fields->id;
-        $result->size = $fields->size;
-        $result->createdAt = Deserialize::_dateTime(
-            $json, $fields->created_at
+        $result->setChildGroups($fields->child_groups);
+        $result->setGroupId($fields->id);
+        $result->setSize($fields->size);
+        $result->setCreatedAt(
+            Deserialize::_dateTime($json, $fields->created_at)
         );
-        $result->modifiedAt = Deserialize::_dateTime(
-            $json, $fields->modified_at
+        $result->setModifiedAt(
+            Deserialize::_dateTime($json, $fields->modified_at)
         );
 
         if (isset($fields->name)) {
-            $result->name = $fields->name;
+            $result->setName($fields->name);
         }
 
         if (isset($fields->auto_update)) {
-            $result->autoUpdate = Deserialize::_autoUpdateFromFields(
-                $fields->auto_update
+            $result->setAutoUpdate(
+                Deserialize::_autoUpdateFromFields($fields->auto_update)
             );
         }
 
@@ -441,14 +454,16 @@ class Deserialize
         $fields = Deserialize::_fromJson($json);
 
         $result = new Api\Page();
-        $result->page = $fields->page;
-        $result->size = $fields->page_size;
-        $result->totalSize = $fields->count;
-        $result->content = array_map(
-            function ($s) use ($json) {
-                return Deserialize::_groupResponseFromFields($json, $s);
-            },
-            $fields->groups
+        $result->setPage($fields->page);
+        $result->setSize($fields->page_size);
+        $result->setTotalSize($fields->count);
+        $result->setContent(
+            array_map(
+                function ($s) use ($json) {
+                    return Deserialize::_groupResponseFromFields($json, $s);
+                },
+                $fields->groups
+            )
         );
 
         return $result;
@@ -479,8 +494,8 @@ class Deserialize
         $fields = Deserialize::_fromJson($json);
 
         $result = new Api\Error();
-        $result->code = $fields->code;
-        $result->text = $fields->text;
+        $result->setCode($fields->code);
+        $result->setText($fields->text);
 
         return $result;
     }
@@ -500,15 +515,15 @@ class Deserialize
     {
         if ($fields->type === 'mo_text') {
             $result = new Api\MoTextSms();
-            $result->body = $fields->body;
+            $result->setBody($fields->body);
 
             if (isset($fields->keyword)) {
-                $result->keyword = $fields->keyword;
+                $result->setKeyword($fields->keyword);
             }
         } else if ($fields->type === 'mo_binary') {
             $result = new Api\MoBinarySms();
-            $result->body = base64_decode($fields->body);
-            $result->udh = hex2bin($fields->udh);
+            $result->setBody(base64_decode($fields->body));
+            $result->setUdh(hex2bin($fields->udh));
         } else {
             throw new UnexpectedResponseException(
                 "Received unexpected inbound type " . $fields->type,
@@ -516,21 +531,23 @@ class Deserialize
             );
         }
 
-        $result->messageId = $fields->id;
-        $result->sender = $fields->from;
-        $result->recipient = $fields->to;
+        $result->setMessageId($fields->id);
+        $result->setSender($fields->from);
+        $result->setRecipient($fields->to);
 
         if (isset($fields->operator)) {
-            $result->operator = $fields->operator;
+            $result->setOperator($fields->operator);
         }
 
         if (isset($fields->sent_at)) {
-            $result->sentAt = Deserialize::_dateTime($json, $fields->sent_at);
+            $result->setSentAt(
+                Deserialize::_dateTime($json, $fields->sent_at)
+            );
         }
 
         if (isset($fields->received_at)) {
-            $result->receivedAt = Deserialize::_dateTime(
-                $json, $fields->received_at
+            $result->setReceivedAt(
+                Deserialize::_dateTime($json, $fields->received_at)
             );
         }
 
@@ -568,14 +585,16 @@ class Deserialize
         $fields = Deserialize::_fromJson($json);
 
         $result = new Api\Page();
-        $result->page = $fields->page;
-        $result->size = $fields->page_size;
-        $result->totalSize = $fields->count;
-        $result->content = array_map(
-            function ($s) {
-                return Deserialize::_moSmsFromFields($json, $s);
-            },
-            $fields->inbounds
+        $result->setPage($fields->page);
+        $result->setSize($fields->page_size);
+        $result->setTotalSize($fields->count);
+        $result->setContent(
+            array_map(
+                function ($s) {
+                    return Deserialize::_moSmsFromFields($json, $s);
+                },
+                $fields->inbounds
+            )
         );
 
         return $result;

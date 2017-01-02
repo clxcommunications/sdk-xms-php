@@ -54,28 +54,28 @@ class Serialize
     private static function _createBatchHelper(Api\MtBatchSmsCreate &$batch)
     {
         $fields = [
-            'from' => $batch->sender,
-            'to' => $batch->recipients
+            'from' => $batch->getSender(),
+            'to' => $batch->getRecipients()
         ];
 
-        if (isset($batch->deliveryReport)) {
-            $fields['delivery_report'] = $batch->deliveryReport;
+        if (null != $batch->getDeliveryReport()) {
+            $fields['delivery_report'] = $batch->getDeliveryReport();
         }
 
-        if (isset($batch->sendAt)) {
-            $fields['send_at'] = Serialize::_dateTime($batch->sendAt);
+        if (null != $batch->getSendAt()) {
+            $fields['send_at'] = Serialize::_dateTime($batch->getSendAt());
         }
 
-        if (isset($batch->expireAt)) {
-            $fields['expire_at'] = Serialize::_dateTime($batch->expireAt);
+        if (null != $batch->getExpireAt()) {
+            $fields['expire_at'] = Serialize::_dateTime($batch->getExpireAt());
         }
 
-        if (isset($batch->tags)) {
-            $fields['tags'] = $batch->tags;
+        if (null != $batch->getTags()) {
+            $fields['tags'] = $batch->getTags();
         }
 
-        if (isset($batch->callbackUrl)) {
-            $fields['callback_url'] = $batch->callbackUrl;
+        if (null != $batch->getCallbackUrl()) {
+            $fields['callback_url'] = $batch->getCallbackUrl();
         }
 
         return $fields;
@@ -93,10 +93,10 @@ class Serialize
         $fields = Serialize::_createBatchHelper($batch);
 
         $fields['type'] = 'mt_text';
-        $fields['body'] = $batch->body;
+        $fields['body'] = $batch->getBody();
 
-        if (!empty($batch->parameters)) {
-            $fields['parameters'] = $batch->parameters;
+        if (!empty($batch->getParameters())) {
+            $fields['parameters'] = $batch->getParameters();
         }
 
         return Serialize::_toJson($fields);
@@ -114,8 +114,8 @@ class Serialize
         $fields = Serialize::_createBatchHelper($batch);
 
         $fields['type'] = 'mt_binary';
-        $fields['body'] = base64_encode($batch->body);
-        $fields['udh'] = bin2hex($batch->udh);
+        $fields['body'] = base64_encode($batch->getBody());
+        $fields['udh'] = bin2hex($batch->getUdh());
 
         return Serialize::_toJson($fields);
     }
@@ -131,47 +131,48 @@ class Serialize
     {
         $fields = [];
 
-        if (isset($batch->recipientInsertions)) {
-            $fields['to_add'] = $batch->recipientInsertions;
+        if (!empty($batch->getRecipientInsertions())) {
+            $fields['to_add'] = $batch->getRecipientInsertions();
         }
 
-        if (isset($batch->recipientRemovals)) {
-            $fields['to_remove'] = $batch->recipientRemovals;
+        if (!empty($batch->getRecipientRemovals())) {
+            $fields['to_remove'] = $batch->getRecipientRemovals();
         }
 
-        if (isset($batch->sender)) {
-            $fields['from'] = $batch->sender;
+        if (null != $batch->getSender()) {
+            $fields['from'] = $batch->getSender();
         }
 
-        if (isset($batch->deliveryReport)) {
-            if ($batch->deliveryReport === Api\Reset::reset()) {
+        if (null != $batch->getDeliveryReport()) {
+            if ($batch->getDeliveryReport() === Api\Reset::reset()) {
                 $fields['delivery_report'] = null;
             } else {
-                $fields['delivery_report'] = $batch->deliveryReport;
+                $fields['delivery_report'] = $batch->getDeliveryReport();
             }
         }
 
-        if (isset($batch->sendAt)) {
-            if ($batch->sendAt === Api\Reset::reset()) {
+        if (null != $batch->getSendAt()) {
+            if ($batch->getSendAt() === Api\Reset::reset()) {
                 $fields['send_at'] = null;
             } else {
-                $fields['send_at'] = Serialize::_dateTime($batch->sendAt);
+                $fields['send_at'] = Serialize::_dateTime($batch->getSendAt());
             }
         }
 
-        if (isset($batch->expireAt)) {
-            if ($batch->expireAt === Api\Reset::reset()) {
+        if (null != $batch->getExpireAt()) {
+            if ($batch->getExpireAt() === Api\Reset::reset()) {
                 $fields['expire_at'] = null;
             } else {
-                $fields['expire_at'] = Serialize::_dateTime($batch->expireAt);
+                $fields['expire_at']
+                    = Serialize::_dateTime($batch->getExpireAt());
             }
         }
 
-        if (isset($batch->callbackUrl)) {
-            if ($batch->callbackUrl === Api\Reset::reset()) {
+        if (null != $batch->getCallbackUrl()) {
+            if ($batch->getCallbackUrl() === Api\Reset::reset()) {
                 $fields['callback_url'] = null;
             } else {
-                $fields['callback_url'] = $batch->callbackUrl;
+                $fields['callback_url'] = $batch->getCallbackUrl();
             }
         }
 
@@ -191,15 +192,15 @@ class Serialize
 
         $fields['type'] = 'mt_text';
 
-        if (isset($batch->body)) {
-            $fields['body'] = $batch->body;
+        if (null != $batch->getBody()) {
+            $fields['body'] = $batch->getBody();
         }
 
-        if (isset($batch->parameters)) {
-            if ($batch->parameters === Api\Reset::reset()) {
+        if (null != $batch->getParameters()) {
+            if ($batch->getParameters() === Api\Reset::reset()) {
                 $fields['parameters'] = null;
             } else {
-                $fields['parameters'] = $batch->parameters;
+                $fields['parameters'] = $batch->getParameters();
             }
         }
 
@@ -219,12 +220,12 @@ class Serialize
 
         $fields['type'] = 'mt_binary';
 
-        if (isset($batch->body)) {
-            $fields['body'] = base64_encode($batch->body);
+        if (null != $batch->getBody()) {
+            $fields['body'] = base64_encode($batch->getBody());
         }
 
-        if (isset($batch->udh)) {
-            $fields['udh'] = bin2hex($batch->udh);
+        if (null != $batch->getUdh()) {
+            $fields['udh'] = bin2hex($batch->getUdh());
         }
 
         return Serialize::_toJson($fields);
@@ -239,24 +240,24 @@ class Serialize
      * @return [] associative array suitable for JSON serialization
      */
     public static function _groupAutoUpdateHelper(
-        Api\GroupAutoUpdate &$autoUpdate
+        Api\GroupAutoUpdate $autoUpdate
     ) {
-        $fields = [ 'to' => $autoUpdate->recipient ];
+        $fields = [ 'to' => $autoUpdate->getRecipient() ];
 
-        if (isset($autoUpdate->addFirstWord)) {
-            $fields['add']['first_word'] = $autoUpdate->addFirstWord;
+        if (null != $autoUpdate->getAddFirstWord()) {
+            $fields['add']['first_word'] = $autoUpdate->getAddFirstWord();
         }
 
-        if (isset($autoUpdate->addSecondWord)) {
-            $fields['add']['second_word'] = $autoUpdate->addSecondWord;
+        if (null != $autoUpdate->getAddSecondWord()) {
+            $fields['add']['second_word'] = $autoUpdate->getAddSecondWord();
         }
 
-        if (isset($autoUpdate->removeFirstWord)) {
-            $fields['remove']['first_word'] = $autoUpdate->removeFirstWord;
+        if (null != $autoUpdate->getRemoveFirstWord()) {
+            $fields['remove']['first_word'] = $autoUpdate->getRemoveFirstWord();
         }
 
-        if (isset($autoUpdate->removeSecondWord)) {
-            $fields['remove']['second_word'] = $autoUpdate->removeSecondWord;
+        if (null != $autoUpdate->getRemoveSecondWord()) {
+            $fields['remove']['second_word'] = $autoUpdate->getRemoveSecondWord();
         }
 
         return $fields;
@@ -273,26 +274,26 @@ class Serialize
     {
         $fields = [];
 
-        if (isset($group->name)) {
-            $fields['name'] = $group->name;
+        if ($group->getName() != null) {
+            $fields['name'] = $group->getName();
         }
 
-        if (isset($group->members)) {
-            $fields['members'] = $group->members;
+        if (!empty($group->getMembers())) {
+            $fields['members'] = $group->getMembers();
         }
 
-        if (isset($group->childGroups)) {
-            $fields['child_groups'] = $group->childGroups;
+        if (!empty($group->getChildGroups())) {
+            $fields['child_groups'] = $group->getChildGroups();
         }
 
-        if (isset($group->autoUpdate)) {
+        if ($group->getAutoUpdate() != null) {
             $fields['auto_update'] = Serialize::_groupAutoUpdateHelper(
-                $group->autoUpdate
+                $group->getAutoUpdate()
             );
         }
 
-        if (isset($group->tags)) {
-            $fields['tags'] = $group->tags;
+        if (!empty($group->getTags())) {
+            $fields['tags'] = $group->getTags();
         }
 
         return Serialize::_toJson($fields);
@@ -309,42 +310,44 @@ class Serialize
     {
         $fields = [];
 
-        if (isset($groupUpdate->name)) {
-            $fields['name'] = $groupUpdate->name === Api\Reset::reset()
+        if (null != $groupUpdate->getName()) {
+            $fields['name'] = $groupUpdate->getName() === Api\Reset::reset()
                             ? null
-                            : $groupUpdate->name;
+                            : $groupUpdate->getName();
         }
 
-        if (isset($groupUpdate->memberInsertions)) {
-            $fields['add'] = $groupUpdate->memberInsertions;
+        if (!empty($groupUpdate->getMemberInsertions())) {
+            $fields['add'] = $groupUpdate->getMemberInsertions();
         }
 
-        if (isset($groupUpdate->memberRemovals)) {
-            $fields['remove'] = $groupUpdate->memberRemovals;
+        if (!empty($groupUpdate->getMemberRemovals())) {
+            $fields['remove'] = $groupUpdate->getMemberRemovals();
         }
 
-        if (isset($groupUpdate->childGroupInsertions)) {
-            $fields['child_groups_add'] = $groupUpdate->childGroupInsertions;
+        if (!empty($groupUpdate->getChildGroupInsertions())) {
+            $fields['child_groups_add']
+                = $groupUpdate->getChildGroupInsertions();
         }
 
-        if (isset($groupUpdate->childGroupRemovals)) {
-            $fields['child_groups_remove'] = $groupUpdate->childGroupRemovals;
+        if (!empty($groupUpdate->getChildGroupRemovals())) {
+            $fields['child_groups_remove']
+                = $groupUpdate->getChildGroupRemovals();
         }
 
-        if (isset($groupUpdate->addFromGroup)) {
-            $fields['add_from_group'] = $groupUpdate->addFromGroup;
+        if (null != $groupUpdate->getAddFromGroup()) {
+            $fields['add_from_group'] = $groupUpdate->getAddFromGroup();
         }
 
-        if (isset($groupUpdate->removeFromGroup)) {
-            $fields['remove_from_group'] = $groupUpdate->removeFromGroup;
+        if (null != $groupUpdate->getRemoveFromGroup()) {
+            $fields['remove_from_group'] = $groupUpdate->getRemoveFromGroup();
         }
 
-        if (isset($groupUpdate->autoUpdate)) {
-            if ($groupUpdate->autoUpdate === Api\Reset::reset()) {
+        if (null != $groupUpdate->getAutoUpdate()) {
+            if ($groupUpdate->getAutoUpdate() === Api\Reset::reset()) {
                 $fields['auto_update'] = null;
             } else {
                 $fields['auto_update'] = Serialize::_groupAutoUpdateHelper(
-                    $groupUpdate->autoUpdate
+                    $groupUpdate->getAutoUpdate()
                 );
             }
         }

@@ -18,11 +18,11 @@ namespace Clx\Xms\Api;
  */
 class PagesIterator implements \Iterator
 {
-    private $_pages;
+    private $__pages;
 
-    private $_curPage = null;
+    private $__curPage = null;
 
-    private $_position = 0;
+    private $__position = 0;
 
     /**
      * Creates a new pages iterator for the given object.
@@ -52,7 +52,9 @@ class PagesIterator implements \Iterator
      */
     function current()
     {
-        if (!isset($this->_curPage) || $this->_curPage->page != $this->_position) {
+        if (!isset($this->_curPage)
+            || $this->_curPage->getPage() != $this->_position
+        ) {
             $this->_curPage = $this->_pages->get($this->_position);
         }
         return $this->_curPage;
@@ -85,7 +87,7 @@ class PagesIterator implements \Iterator
      */
     function valid()
     {
-        return $this->_position == 0 || $this->_curPage->size > 0;
+        return $this->_position == 0 || $this->_curPage->getSize() > 0;
     }
 
 }

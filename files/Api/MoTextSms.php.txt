@@ -21,14 +21,58 @@ class MoTextSms extends MoSms
      *
      * @var string message body
      */
-    public $body;
+    private $_body;
 
     /**
      * The message keyword, if available.
      *
      * @var string|null message keyword
      */
-    public $keyword;
+    private $_keyword;
+
+    /**
+     * Get the message body.
+     *
+     * @return string message body
+     */
+    public function getBody()
+    {
+        return $this->_body;
+    }
+
+    /**
+     * Set the message body.
+     *
+     * @param string $body message body
+     *
+     * @return void
+     */
+    public function setBody($body)
+    {
+        $this->_body = $body;
+    }
+
+    /**
+     * Get the message keyword, if available.
+     *
+     * @return string|null message keyword
+     */
+    public function getKeyword()
+    {
+        return $this->_keyword;
+    }
+
+    /**
+     * Set the message keyword.
+     *
+     * @param string|null $keyword message keyword
+     *
+     * @return void
+     */
+    public function setKeyword($keyword)
+    {
+        $this->_keyword = $keyword;
+    }
 
 }
 

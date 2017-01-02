@@ -27,7 +27,7 @@ class GroupAutoUpdate
      *
      * @var string a short code or long number
      */
-    public $recipient;
+    private $_recipient;
 
     /**
      * Add the sender to the group.
@@ -36,7 +36,7 @@ class GroupAutoUpdate
      *
      * @var string|null a keyword
      */
-    public $addFirstWord;
+    private $_addFirstWord;
 
     /**
      * Add the sender to the group.
@@ -45,7 +45,7 @@ class GroupAutoUpdate
      *
      * @var string|null a keyword
      */
-    public $addSecondWord;
+    private $_addSecondWord;
 
     /**
      * Remove the sender from the group.
@@ -54,7 +54,7 @@ class GroupAutoUpdate
      *
      * @var string|null a keyword
      */
-    public $removeFirstWord;
+    private $_removeFirstWord;
 
     /**
      * Remove the sender from the group.
@@ -63,7 +63,7 @@ class GroupAutoUpdate
      *
      * @var string|null a keyword
      */
-    public $removeSecondWord;
+    private $_removeSecondWord;
 
     /**
      * Creates a new group auto update rule.
@@ -100,31 +100,87 @@ class GroupAutoUpdate
      * @param string   $recipient      recipient that triggers this rule
      * @param string[] $addWordPair    pair containing the `add` keywords
      * @param string[] $removeWordPair pair containing the `remove` keywords
-     *
-     * @throws \DomainException if recipient is `null`
      */
     public function __construct(
         $recipient,
         array $addWordPair = [null, null],
         array $removeWordPair = [null, null]
     ) {
-        $this->recipient = $recipient;
+        $this->_recipient = $recipient;
 
-        $this->addFirstWord = isset($addWordPair[0])
+        $this->_addFirstWord = isset($addWordPair[0])
                             ? $addWordPair[0]
                             : null;
 
-        $this->addSecondWord = isset($addWordPair[1])
+        $this->_addSecondWord = isset($addWordPair[1])
                              ? $addWordPair[1]
                              : null;
 
-        $this->removeFirstWord = isset($removeWordPair[0])
+        $this->_removeFirstWord = isset($removeWordPair[0])
                                ? $removeWordPair[0]
                                : null;
 
-        $this->removeSecondWord = isset($removeWordPair[1])
+        $this->_removeSecondWord = isset($removeWordPair[1])
                                 ? $removeWordPair[1]
                                 : null;
+    }
+
+    /**
+     * Get the recipient of the mobile originated message.
+     *
+     * @return string a short code or long number
+     */
+    public function getRecipient()
+    {
+        return $this->_recipient;
+    }
+
+    /**
+     * Get first keyword that will trigger adding the sender to the group.
+     *
+     * A `null` value indicates that this keyword is not used.
+     *
+     * @return string|null a keyword
+     */
+    public function getAddFirstWord()
+    {
+        return $this->_addFirstWord;
+    }
+
+    /**
+     * Get second keyword that will trigger adding the sender to the group.
+     *
+     * A `null` value indicates that this keyword is not used.
+     *
+     * @return string|null a keyword
+     */
+    public function getAddSecondWord()
+    {
+        return $this->_addSecondWord;
+    }
+
+    /**
+     * Get first keyword that will trigger removing the sender from the group.
+     *
+     * A `null` value indicates that this keyword is not used.
+     *
+     * @return string|null a keyword
+     */
+    public function getRemoveFirstWord()
+    {
+        return $this->_removeFirstWord;
+    }
+
+    /**
+     * Get second keyword that will trigger removing the sender from the group.
+     *
+     * A `null` value indicates that this keyword is not used.
+     *
+     * @return string|null a keyword
+     */
+    public function getRemoveSecondWord()
+    {
+        return $this->_removeSecondWord;
     }
 
 }
