@@ -11,7 +11,6 @@
     },
     "require": {
         "php": "^5.6 || ^7.0",
-        "sebastian/version": "^2.0",
         "psr/log": "^1.0"
     },
     "require-dev": {
