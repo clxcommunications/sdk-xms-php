@@ -31,8 +31,10 @@ The following steps are necessary to perform a release of the SDK:
 
 3. Commit the changes and add a release tag.
 
-4. Prepare `src/Version.php` and `CHANGELOG.md` for next development cycle.
+4. Generate PHP docs and commit to `gh-pages` branch.
 
-5. Commit again.
+5. Prepare `src/Version.php` and `CHANGELOG.md` for next development cycle.
 
-6. Push it all to GitHub.
+6. Commit again.
+
+7. Push it all to GitHub.
