@@ -114,16 +114,16 @@ class Client implements \Psr\Log\LoggerAwareInterface
      *
      * This client is _not_ thread-safe.
      *
-     * @param string $service_plan_id the service plan identifier
-     * @param string $token           the authentication token
-     * @param string $endpoint        the XMS endpoint URL
+     * @param string $servicePlanId the service plan identifier
+     * @param string $token         the authentication token
+     * @param string $endpoint      the XMS endpoint URL
      */
     public function __construct(
-        $service_plan_id,
+        $servicePlanId,
         $token,
         $endpoint = Client::DEFAULT_ENDPOINT
     ) {
-        $this->_servicePlanId = $service_plan_id;
+        $this->_servicePlanId = $servicePlanId;
         $this->_token = $token;
         $this->_endpoint = $endpoint;
         $this->_userAgent = 'cURL/' . curl_version()['version']
@@ -165,13 +165,13 @@ class Client implements \Psr\Log\LoggerAwareInterface
     /**
      * Builds an endpoint URL for the given sub-path.
      *
-     * @param string $sub_path the sub-path
+     * @param string $subPath the sub-path
      *
      * @return string an URL
      */
-    private function _url($sub_path)
+    private function _url($subPath)
     {
-        return $this->_endpoint . '/v1/' . $this->_servicePlanId . $sub_path;
+        return $this->_endpoint . '/v1/' . $this->_servicePlanId . $subPath;
     }
 
     /**

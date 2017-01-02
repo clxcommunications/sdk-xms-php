@@ -19,7 +19,7 @@ class BatchRecipientDeliveryReport
     /**
      * @var string the batch identifier
      */
-    public $batch_id;
+    public $batchId;
 
     /**
      * @var string the recipient
@@ -54,7 +54,7 @@ class BatchRecipientDeliveryReport
     /**
      * @var \DateTime|null the time of delivery as reported by operator
      */
-    public $operator_status_at;
+    public $operatorStatusAt;
 
 }
 
