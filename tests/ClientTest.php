@@ -653,6 +653,13 @@ EOD;
         $this->assertEquals('!-@#$%^&*', $result->getBatchId());
     }
 
+    public function testFetchBatchEmptyId()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->_client->fetchBatch('');
+    }
+
     public function testFetchBinaryBatch()
     {
         $responseBody = <<<'EOD'
@@ -1203,6 +1210,13 @@ EOD;
         $this->assertEquals('4cldmgEdAcBfcHW3', $group->getGroupId());
     }
 
+    public function testFetchGroupEmptyId()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->_client->fetchGroup('');
+    }
+
     public function testFetchGroups()
     {
         $responseBody1 = <<<'EOD'
@@ -1411,6 +1425,13 @@ EOD;
         $mo = $this->_client->fetchInbound('10101010101');
 
         $this->assertEquals('987654321', $mo->getSender());
+    }
+
+    public function testFetchInboundEmptyId()
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->_client->fetchInbound('');
     }
 
     public function testFetchInbounds()

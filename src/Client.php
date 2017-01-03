@@ -185,11 +185,39 @@ class Client implements \Psr\Log\LoggerAwareInterface
      * @param string $subPath additional sub-path
      *
      * @return string a complete URL
+     *
+     * @throws \InvalidArgumentException if given an invalid batch ID
      */
     private function _batchUrl($batchId, $subPath = '')
     {
         $ebid = rawurlencode($batchId);
+
+        if (empty($ebid)) {
+            throw new \InvalidArgumentException("Empty batch ID given");
+        }
+
         return $this->_url('/batches/' . $ebid . $subPath);
+    }
+
+    /**
+     * Builds an endpoint URL for the given group and sub-path.
+     *
+     * @param string $groupId a group identifier
+     * @param string $subPath additional sub-path
+     *
+     * @return string a complete URL
+     *
+     * @throws \InvalidArgumentException if given an invalid group ID
+     */
+    private function _groupUrl($groupId, $subPath = '')
+    {
+        $egid = rawurlencode($groupId);
+
+        if (empty($egid)) {
+            throw new \InvalidArgumentException("Empty group ID given");
+        }
+
+        return $this->_url('/groups/' . $egid . $subPath);
     }
 
     /**
@@ -690,7 +718,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function replaceGroupTags($groupId, array $tags)
     {
         $json = Serialize::tags($tags);
-        $result = $this->_put($this->_url("/groups/$groupId/tags"), $json);
+        $result = $this->_put($this->_groupUrl($groupId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -705,7 +733,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function replaceGroup($groupId, Api\GroupCreate $group)
     {
         $json = Serialize::group($group);
-        $result = $this->_put($this->_url("/groups/$groupId"), $json);
+        $result = $this->_put($this->_groupUrl($groupId), $json);
         return Deserialize::groupResponse($result);
     }
 
@@ -720,7 +748,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     public function updateGroup($groupId, Api\GroupUpdate $group)
     {
         $json = Serialize::groupUpdate($group);
-        $result = $this->_post($this->_url("/groups/$groupId"), $json);
+        $result = $this->_post($this->_groupUrl($groupId), $json);
         return Deserialize::groupResponse($result);
     }
 
@@ -737,7 +765,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
         $groupId, array $tagsToAdd, array $tagsToRemove
     ) {
         $json = Serialize::tagsUpdate($tagsToAdd, $tagsToRemove);
-        $result = $this->_post($this->_url("/groups/$groupId/tags"), $json);
+        $result = $this->_post($this->_groupUrl($groupId, '/tags'), $json);
         return Deserialize::tags($result);
     }
 
@@ -750,7 +778,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function deleteGroup($groupId)
     {
-        $this->_delete($this->_url("/groups/$groupId"));
+        $this->_delete($this->_groupUrl($groupId));
     }
 
     /**
@@ -762,7 +790,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchGroup($groupId)
     {
-        $result = $this->_get($this->_url('/groups/' . $groupId));
+        $result = $this->_get($this->_groupUrl($groupId));
         return Deserialize::groupResponse($result);
     }
 
@@ -814,7 +842,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchGroupTags($groupId)
     {
-        $result = $this->_get($this->_url("/groups/$groupId/tags"));
+        $result = $this->_get($this->_groupUrl($groupId, '/tags'));
         return Deserialize::tags($result);
     }
 
@@ -831,7 +859,13 @@ class Client implements \Psr\Log\LoggerAwareInterface
      */
     public function fetchInbound($inboundId)
     {
-        $result = $this->_get($this->_url("/inbounds/$inboundId"));
+        $eiid = rawurlencode($inboundId);
+
+        if (empty($eiid)) {
+            throw new \InvalidArgumentException("Empty inbound ID given");
+        }
+
+        $result = $this->_get($this->_url("/inbounds/$eiid"));
         return Deserialize::moSms($result);
     }
 
