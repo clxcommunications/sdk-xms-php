@@ -25,230 +25,230 @@
 <path fill="none" stroke="gray" d="M44,-1086C44,-1086 772.873,-1086 772.873,-1086 778.873,-1086 784.873,-1092 784.873,-1098 784.873,-1098 784.873,-2388 784.873,-2388 784.873,-2394 778.873,-2400 772.873,-2400 772.873,-2400 44,-2400 44,-2400 38,-2400 32,-2394 32,-2388 32,-2388 32,-1098 32,-1098 32,-1092 38,-1086 44,-1086"/>
 <text text-anchor="middle" x="408.437" y="-2387.2" font-family="Times,serif" font-size="11.00" fill="gray">Api</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\DeliveryStatus -->
-<g id="node1" class="node"><title>\\Clx\\Xms\\Api\\DeliveryStatus</title>
-<polygon fill="none" stroke="black" points="729.373,-2372 618.373,-2372 618.373,-2336 729.373,-2336 729.373,-2372"/>
-<text text-anchor="middle" x="673.873" y="-2351.2" font-family="Courier,monospace" font-size="11.00">DeliveryStatus</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\ReportType -->
-<g id="node2" class="node"><title>\\Clx\\Xms\\Api\\ReportType</title>
-<polygon fill="none" stroke="black" points="715.873,-2318 631.873,-2318 631.873,-2282 715.873,-2282 715.873,-2318"/>
-<text text-anchor="middle" x="673.873" y="-2297.2" font-family="Courier,monospace" font-size="11.00">ReportType</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\Reset -->
-<g id="node3" class="node"><title>\\Clx\\Xms\\Api\\Reset</title>
-<polygon fill="none" stroke="black" points="700.873,-2264 646.873,-2264 646.873,-2228 700.873,-2228 700.873,-2264"/>
-<text text-anchor="middle" x="673.873" y="-2243.2" font-family="Courier,monospace" font-size="11.00">Reset</text>
+<!-- \\Clx\\Xms\\Api\\MoSms -->
+<g id="node1" class="node"><title>\\Clx\\Xms\\Api\\MoSms</title>
+<polygon fill="none" stroke="black" points="389.437,-2264 305.437,-2264 305.437,-2228 389.437,-2228 389.437,-2264"/>
+<text text-anchor="start" x="313.437" y="-2249.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="330.437" y="-2237.2" font-family="Courier,monospace" font-size="11.00">MoSms</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\BatchDeliveryReport -->
-<g id="node4" class="node"><title>\\Clx\\Xms\\Api\\BatchDeliveryReport</title>
-<polygon fill="none" stroke="black" points="746.373,-2210 601.373,-2210 601.373,-2174 746.373,-2174 746.373,-2210"/>
-<text text-anchor="middle" x="673.873" y="-2189.2" font-family="Courier,monospace" font-size="11.00">BatchDeliveryReport</text>
+<g id="node2" class="node"><title>\\Clx\\Xms\\Api\\BatchDeliveryReport</title>
+<polygon fill="none" stroke="black" points="746.373,-2372 601.373,-2372 601.373,-2336 746.373,-2336 746.373,-2372"/>
+<text text-anchor="middle" x="673.873" y="-2351.2" font-family="Courier,monospace" font-size="11.00">BatchDeliveryReport</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\BatchDeliveryReportStatus -->
-<g id="node5" class="node"><title>\\Clx\\Xms\\Api\\BatchDeliveryReportStatus</title>
-<polygon fill="none" stroke="black" points="766.373,-2156 581.373,-2156 581.373,-2120 766.373,-2120 766.373,-2156"/>
-<text text-anchor="middle" x="673.873" y="-2135.2" font-family="Courier,monospace" font-size="11.00">BatchDeliveryReportStatus</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsUpdate -->
+<g id="node3" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsUpdate</title>
+<polygon fill="none" stroke="black" points="749.873,-1616 597.873,-1616 597.873,-1580 749.873,-1580 749.873,-1616"/>
+<text text-anchor="middle" x="673.873" y="-1595.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsUpdate</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\BatchRecipientDeliveryReport -->
-<g id="node6" class="node"><title>\\Clx\\Xms\\Api\\BatchRecipientDeliveryReport</title>
-<polygon fill="none" stroke="black" points="776.873,-2102 570.873,-2102 570.873,-2066 776.873,-2066 776.873,-2102"/>
-<text text-anchor="middle" x="673.873" y="-2081.2" font-family="Courier,monospace" font-size="11.00">BatchRecipientDeliveryReport</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
+<g id="node22" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
+<polygon fill="none" stroke="black" points="409.937,-1535 284.937,-1535 284.937,-1499 409.937,-1499 409.937,-1535"/>
+<text text-anchor="start" x="313.437" y="-1520.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="292.937" y="-1508.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsUpdate</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\DryRunPerRecipient -->
-<g id="node7" class="node"><title>\\Clx\\Xms\\Api\\DryRunPerRecipient</title>
-<polygon fill="none" stroke="black" points="742.873,-2048 604.873,-2048 604.873,-2012 742.873,-2012 742.873,-2048"/>
-<text text-anchor="middle" x="673.873" y="-2027.2" font-family="Courier,monospace" font-size="11.00">DryRunPerRecipient</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
+<g id="edge3" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
+<path fill="none" stroke="black" d="M600.467,-1579.92C546.58,-1566.47 473.386,-1548.2 419.76,-1534.81"/>
+<polygon fill="none" stroke="black" points="420.534,-1531.39 409.984,-1532.37 418.839,-1538.18 420.534,-1531.39"/>
+</g>
+<!-- \\Clx\\Xms\\Api\\ReportType -->
+<g id="node4" class="node"><title>\\Clx\\Xms\\Api\\ReportType</title>
+<polygon fill="none" stroke="black" points="715.873,-2264 631.873,-2264 631.873,-2228 715.873,-2228 715.873,-2264"/>
+<text text-anchor="middle" x="673.873" y="-2243.2" font-family="Courier,monospace" font-size="11.00">ReportType</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsResult -->
+<g id="node5" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsResult</title>
+<polygon fill="none" stroke="black" points="756.373,-2102 591.373,-2102 591.373,-2066 756.373,-2066 756.373,-2102"/>
+<text text-anchor="middle" x="673.873" y="-2081.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsResult</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchSmsResult -->
+<g id="node23" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
+<polygon fill="none" stroke="black" points="409.937,-1724 284.937,-1724 284.937,-1688 409.937,-1688 409.937,-1724"/>
+<text text-anchor="start" x="313.437" y="-1709.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="292.937" y="-1697.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsResult</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult -->
+<g id="edge6" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
+<path fill="none" stroke="black" d="M591.219,-2068.47C583.994,-2065.33 577.079,-2061.55 570.873,-2057 452.939,-1970.59 382.329,-1801.02 358.023,-1734.11"/>
+<polygon fill="none" stroke="black" points="361.174,-1732.53 354.52,-1724.28 354.581,-1734.88 361.174,-1732.53"/>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchDryRunResult -->
+<g id="node6" class="node"><title>\\Clx\\Xms\\Api\\MtBatchDryRunResult</title>
+<polygon fill="none" stroke="black" points="746.373,-2156 601.373,-2156 601.373,-2120 746.373,-2120 746.373,-2156"/>
+<text text-anchor="middle" x="673.873" y="-2135.2" font-family="Courier,monospace" font-size="11.00">MtBatchDryRunResult</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MoTextSms -->
+<g id="node7" class="node"><title>\\Clx\\Xms\\Api\\MoTextSms</title>
+<polygon fill="none" stroke="black" points="712.373,-2318 635.373,-2318 635.373,-2282 712.373,-2282 712.373,-2318"/>
+<text text-anchor="middle" x="673.873" y="-2297.2" font-family="Courier,monospace" font-size="11.00">MoTextSms</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MoTextSms&#45;&gt;\\Clx\\Xms\\Api\\MoSms -->
+<g id="edge7" class="edge"><title>\\Clx\\Xms\\Api\\MoTextSms&#45;&gt;\\Clx\\Xms\\Api\\MoSms</title>
+<path fill="none" stroke="black" d="M635.339,-2293.75C577.153,-2284.07 465.073,-2265.41 399.548,-2254.51"/>
+<polygon fill="none" stroke="black" points="399.886,-2251.02 389.447,-2252.83 398.736,-2257.92 399.886,-2251.02"/>
+</g>
+<!-- \\Clx\\Xms\\Api\\GroupUpdate -->
+<g id="node8" class="node"><title>\\Clx\\Xms\\Api\\GroupUpdate</title>
+<polygon fill="none" stroke="black" points="719.373,-2048 628.373,-2048 628.373,-2012 719.373,-2012 719.373,-2048"/>
+<text text-anchor="middle" x="673.873" y="-2027.2" font-family="Courier,monospace" font-size="11.00">GroupUpdate</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\Error -->
-<g id="node8" class="node"><title>\\Clx\\Xms\\Api\\Error</title>
+<g id="node9" class="node"><title>\\Clx\\Xms\\Api\\Error</title>
 <polygon fill="none" stroke="black" points="700.873,-1994 646.873,-1994 646.873,-1958 700.873,-1958 700.873,-1994"/>
 <text text-anchor="middle" x="673.873" y="-1973.2" font-family="Courier,monospace" font-size="11.00">Error</text>
 </g>
+<!-- \\Clx\\Xms\\Api\\MtBatchSms -->
+<g id="node10" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSms</title>
+<polygon fill="none" stroke="black" points="124,-1562 40,-1562 40,-1526 124,-1526 124,-1562"/>
+<text text-anchor="start" x="48" y="-1547.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="48" y="-1535.2" font-family="Courier,monospace" font-size="11.00">MtBatchSms</text>
+</g>
 <!-- \\Clx\\Xms\\Api\\GroupAutoUpdate -->
-<g id="node9" class="node"><title>\\Clx\\Xms\\Api\\GroupAutoUpdate</title>
+<g id="node11" class="node"><title>\\Clx\\Xms\\Api\\GroupAutoUpdate</title>
 <polygon fill="none" stroke="black" points="732.873,-1940 614.873,-1940 614.873,-1904 732.873,-1904 732.873,-1940"/>
 <text text-anchor="middle" x="673.873" y="-1919.2" font-family="Courier,monospace" font-size="11.00">GroupAutoUpdate</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\GroupCreate -->
-<g id="node10" class="node"><title>\\Clx\\Xms\\Api\\GroupCreate</title>
-<polygon fill="none" stroke="black" points="719.373,-1886 628.373,-1886 628.373,-1850 719.373,-1850 719.373,-1886"/>
-<text text-anchor="middle" x="673.873" y="-1865.2" font-family="Courier,monospace" font-size="11.00">GroupCreate</text>
+<!-- \\Clx\\Xms\\Api\\BatchDeliveryReportStatus -->
+<g id="node12" class="node"><title>\\Clx\\Xms\\Api\\BatchDeliveryReportStatus</title>
+<polygon fill="none" stroke="black" points="766.373,-1886 581.373,-1886 581.373,-1850 766.373,-1850 766.373,-1886"/>
+<text text-anchor="middle" x="673.873" y="-1865.2" font-family="Courier,monospace" font-size="11.00">BatchDeliveryReportStatus</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\GroupResult -->
-<g id="node11" class="node"><title>\\Clx\\Xms\\Api\\GroupResult</title>
-<polygon fill="none" stroke="black" points="719.373,-1832 628.373,-1832 628.373,-1796 719.373,-1796 719.373,-1832"/>
-<text text-anchor="middle" x="673.873" y="-1811.2" font-family="Courier,monospace" font-size="11.00">GroupResult</text>
+<!-- \\Clx\\Xms\\Api\\DeliveryStatus -->
+<g id="node13" class="node"><title>\\Clx\\Xms\\Api\\DeliveryStatus</title>
+<polygon fill="none" stroke="black" points="729.373,-1832 618.373,-1832 618.373,-1796 729.373,-1796 729.373,-1832"/>
+<text text-anchor="middle" x="673.873" y="-1811.2" font-family="Courier,monospace" font-size="11.00">DeliveryStatus</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\GroupUpdate -->
-<g id="node12" class="node"><title>\\Clx\\Xms\\Api\\GroupUpdate</title>
-<polygon fill="none" stroke="black" points="719.373,-1778 628.373,-1778 628.373,-1742 719.373,-1742 719.373,-1778"/>
-<text text-anchor="middle" x="673.873" y="-1757.2" font-family="Courier,monospace" font-size="11.00">GroupUpdate</text>
+<!-- \\Clx\\Xms\\Api\\Reset -->
+<g id="node14" class="node"><title>\\Clx\\Xms\\Api\\Reset</title>
+<polygon fill="none" stroke="black" points="700.873,-1778 646.873,-1778 646.873,-1742 700.873,-1742 700.873,-1778"/>
+<text text-anchor="middle" x="673.873" y="-1757.2" font-family="Courier,monospace" font-size="11.00">Reset</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\PagesIterator -->
+<g id="node15" class="node"><title>\\Clx\\Xms\\Api\\PagesIterator</title>
+<polygon fill="none" stroke="black" points="725.873,-1238 621.873,-1238 621.873,-1202 725.873,-1202 725.873,-1238"/>
+<text text-anchor="middle" x="673.873" y="-1217.2" font-family="Courier,monospace" font-size="11.00">PagesIterator</text>
+</g>
+<!-- \\Iterator -->
+<g id="node47" class="node"><title>\\Iterator</title>
+<ellipse fill="none" stroke="black" cx="347.437" cy="-288" rx="50.0912" ry="18"/>
+<text text-anchor="middle" x="347.437" y="-284.3" font-family="Times,serif" font-size="14.00" fill="gray">\Iterator</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\PagesIterator&#45;&gt;\\Iterator -->
+<g id="edge10" class="edge"><title>\\Clx\\Xms\\Api\\PagesIterator&#45;&gt;\\Iterator</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M621.699,-1218.38C602.975,-1215.07 583.344,-1207.88 570.873,-1193 446.706,-1044.81 623.88,-473.478 498.873,-326 476.712,-299.855 439.421,-290.312 407.512,-287.326"/>
+<polygon fill="none" stroke="black" points="407.599,-283.823 397.367,-286.575 407.081,-290.804 407.599,-283.823"/>
+</g>
+<!-- \\Clx\\Xms\\Api\\DryRunPerRecipient -->
+<g id="node16" class="node"><title>\\Clx\\Xms\\Api\\DryRunPerRecipient</title>
+<polygon fill="none" stroke="black" points="742.873,-1670 604.873,-1670 604.873,-1634 742.873,-1634 742.873,-1670"/>
+<text text-anchor="middle" x="673.873" y="-1649.2" font-family="Courier,monospace" font-size="11.00">DryRunPerRecipient</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\MoBinarySms -->
-<g id="node13" class="node"><title>\\Clx\\Xms\\Api\\MoBinarySms</title>
-<polygon fill="none" stroke="black" points="719.373,-1724 628.373,-1724 628.373,-1688 719.373,-1688 719.373,-1724"/>
-<text text-anchor="middle" x="673.873" y="-1703.2" font-family="Courier,monospace" font-size="11.00">MoBinarySms</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MoSms -->
-<g id="node14" class="node"><title>\\Clx\\Xms\\Api\\MoSms</title>
-<polygon fill="none" stroke="black" points="389.437,-1697 305.437,-1697 305.437,-1661 389.437,-1661 389.437,-1697"/>
-<text text-anchor="start" x="313.437" y="-1682.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="330.437" y="-1670.2" font-family="Courier,monospace" font-size="11.00">MoSms</text>
+<g id="node17" class="node"><title>\\Clx\\Xms\\Api\\MoBinarySms</title>
+<polygon fill="none" stroke="black" points="719.373,-2210 628.373,-2210 628.373,-2174 719.373,-2174 719.373,-2210"/>
+<text text-anchor="middle" x="673.873" y="-2189.2" font-family="Courier,monospace" font-size="11.00">MoBinarySms</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\MoBinarySms&#45;&gt;\\Clx\\Xms\\Api\\MoSms -->
-<g id="edge1" class="edge"><title>\\Clx\\Xms\\Api\\MoBinarySms&#45;&gt;\\Clx\\Xms\\Api\\MoSms</title>
-<path fill="none" stroke="black" d="M628.102,-1702.27C568.329,-1697.3 462.702,-1688.51 399.772,-1683.27"/>
-<polygon fill="none" stroke="black" points="399.93,-1679.77 389.674,-1682.43 399.349,-1686.75 399.93,-1679.77"/>
+<g id="edge11" class="edge"><title>\\Clx\\Xms\\Api\\MoBinarySms&#45;&gt;\\Clx\\Xms\\Api\\MoSms</title>
+<path fill="none" stroke="black" d="M628.102,-2199.45C568.329,-2209.4 462.702,-2226.98 399.772,-2237.46"/>
+<polygon fill="none" stroke="black" points="398.964,-2234.04 389.674,-2239.14 400.113,-2240.95 398.964,-2234.04"/>
 </g>
-<!-- \\Clx\\Xms\\Api\\MoTextSms -->
-<g id="node15" class="node"><title>\\Clx\\Xms\\Api\\MoTextSms</title>
-<polygon fill="none" stroke="black" points="712.373,-1670 635.373,-1670 635.373,-1634 712.373,-1634 712.373,-1670"/>
-<text text-anchor="middle" x="673.873" y="-1649.2" font-family="Courier,monospace" font-size="11.00">MoTextSms</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MoTextSms&#45;&gt;\\Clx\\Xms\\Api\\MoSms -->
-<g id="edge2" class="edge"><title>\\Clx\\Xms\\Api\\MoTextSms&#45;&gt;\\Clx\\Xms\\Api\\MoSms</title>
-<path fill="none" stroke="black" d="M635.339,-1655.12C577.153,-1659.97 465.073,-1669.29 399.548,-1674.75"/>
-<polygon fill="none" stroke="black" points="399.122,-1671.27 389.447,-1675.59 399.703,-1678.25 399.122,-1671.27"/>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsCreate -->
-<g id="node16" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsCreate</title>
-<polygon fill="none" stroke="black" points="756.373,-1616 591.373,-1616 591.373,-1580 756.373,-1580 756.373,-1616"/>
-<text text-anchor="middle" x="673.873" y="-1595.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsCreate</text>
+<!-- \\Clx\\Xms\\Api\\GroupCreate -->
+<g id="node18" class="node"><title>\\Clx\\Xms\\Api\\GroupCreate</title>
+<polygon fill="none" stroke="black" points="719.373,-1562 628.373,-1562 628.373,-1526 719.373,-1526 719.373,-1562"/>
+<text text-anchor="middle" x="673.873" y="-1541.2" font-family="Courier,monospace" font-size="11.00">GroupCreate</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\MtBatchSmsCreate -->
-<g id="node21" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
-<polygon fill="none" stroke="black" points="409.937,-1562 284.937,-1562 284.937,-1526 409.937,-1526 409.937,-1562"/>
-<text text-anchor="start" x="313.437" y="-1547.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="292.937" y="-1535.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsCreate</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate -->
-<g id="edge3" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
-<path fill="none" stroke="black" d="M591.004,-1584.37C538.296,-1575.6 470.448,-1564.31 419.917,-1555.9"/>
-<polygon fill="none" stroke="black" points="420.49,-1552.44 410.051,-1554.26 419.341,-1559.35 420.49,-1552.44"/>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsResult -->
-<g id="node17" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsResult</title>
-<polygon fill="none" stroke="black" points="756.373,-1400 591.373,-1400 591.373,-1364 756.373,-1364 756.373,-1400"/>
-<text text-anchor="middle" x="673.873" y="-1379.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsResult</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchSmsResult -->
-<g id="node22" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
-<polygon fill="none" stroke="black" points="409.937,-1508 284.937,-1508 284.937,-1472 409.937,-1472 409.937,-1508"/>
-<text text-anchor="start" x="313.437" y="-1493.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="292.937" y="-1481.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsResult</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult -->
-<g id="edge4" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
-<path fill="none" stroke="black" d="M601.302,-1400.07C591.047,-1402.91 580.661,-1405.93 570.873,-1409 513.333,-1427.05 448.677,-1451.02 403.966,-1468.19"/>
-<polygon fill="none" stroke="black" points="402.529,-1465 394.457,-1471.86 405.046,-1471.53 402.529,-1465"/>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate -->
-<g id="node18" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate</title>
-<polygon fill="none" stroke="black" points="756.373,-1346 591.373,-1346 591.373,-1310 756.373,-1310 756.373,-1346"/>
-<text text-anchor="middle" x="673.873" y="-1325.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsUpdate</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
-<g id="node23" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
-<polygon fill="none" stroke="black" points="409.937,-1319 284.937,-1319 284.937,-1283 409.937,-1283 409.937,-1319"/>
-<text text-anchor="start" x="313.437" y="-1304.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="292.937" y="-1292.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsUpdate</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
-<g id="edge5" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
-<path fill="none" stroke="black" d="M591.004,-1321.19C538.406,-1316.81 470.731,-1311.18 420.233,-1306.97"/>
-<polygon fill="none" stroke="black" points="420.307,-1303.47 410.051,-1306.13 419.726,-1310.45 420.307,-1303.47"/>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchDryRunResult -->
-<g id="node19" class="node"><title>\\Clx\\Xms\\Api\\MtBatchDryRunResult</title>
-<polygon fill="none" stroke="black" points="746.373,-1454 601.373,-1454 601.373,-1418 746.373,-1418 746.373,-1454"/>
-<text text-anchor="middle" x="673.873" y="-1433.2" font-family="Courier,monospace" font-size="11.00">MtBatchDryRunResult</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchSms -->
-<g id="node20" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSms</title>
-<polygon fill="none" stroke="black" points="124,-1535 40,-1535 40,-1499 124,-1499 124,-1535"/>
-<text text-anchor="start" x="48" y="-1520.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="48" y="-1508.2" font-family="Courier,monospace" font-size="11.00">MtBatchSms</text>
+<g id="node19" class="node"><title>\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
+<polygon fill="none" stroke="black" points="409.937,-1400 284.937,-1400 284.937,-1364 409.937,-1364 409.937,-1400"/>
+<text text-anchor="start" x="313.437" y="-1385.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="292.937" y="-1373.2" font-family="Courier,monospace" font-size="11.00">MtBatchSmsCreate</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\MtBatchSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms -->
-<g id="edge6" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms</title>
-<path fill="none" stroke="black" d="M284.672,-1537.67C238.915,-1532.98 177.292,-1526.66 134.252,-1522.25"/>
-<polygon fill="none" stroke="black" points="134.581,-1518.77 124.276,-1521.23 133.867,-1525.73 134.581,-1518.77"/>
+<g id="edge14" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms</title>
+<path fill="none" stroke="black" d="M316.984,-1400.11C269.135,-1429.54 174.532,-1487.71 121.446,-1520.36"/>
+<polygon fill="none" stroke="black" points="119.351,-1517.54 112.666,-1525.76 123.018,-1523.5 119.351,-1517.54"/>
+</g>
+<!-- \\Clx\\Xms\\Api\\BatchRecipientDeliveryReport -->
+<g id="node20" class="node"><title>\\Clx\\Xms\\Api\\BatchRecipientDeliveryReport</title>
+<polygon fill="none" stroke="black" points="776.873,-1508 570.873,-1508 570.873,-1472 776.873,-1472 776.873,-1508"/>
+<text text-anchor="middle" x="673.873" y="-1487.2" font-family="Courier,monospace" font-size="11.00">BatchRecipientDeliveryReport</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsCreate -->
+<g id="node21" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsCreate</title>
+<polygon fill="none" stroke="black" points="756.373,-1346 591.373,-1346 591.373,-1310 756.373,-1310 756.373,-1346"/>
+<text text-anchor="middle" x="673.873" y="-1325.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsCreate</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate -->
+<g id="edge15" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
+<path fill="none" stroke="black" d="M591.104,-1343.68C562.026,-1349.08 529.027,-1355.02 498.873,-1360 473.237,-1364.23 445.073,-1368.46 420.116,-1372.06"/>
+<polygon fill="none" stroke="black" points="419.399,-1368.63 409.998,-1373.52 420.394,-1375.56 419.399,-1368.63"/>
 </g>
 <!-- \\Clx\\Xms\\Api\\MtBatchSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms -->
-<g id="edge7" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms</title>
-<path fill="none" stroke="black" d="M284.672,-1496.33C238.915,-1501.02 177.292,-1507.34 134.252,-1511.75"/>
-<polygon fill="none" stroke="black" points="133.867,-1508.27 124.276,-1512.77 134.581,-1515.23 133.867,-1508.27"/>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsCreate -->
-<g id="node24" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsCreate</title>
-<polygon fill="none" stroke="black" points="749.873,-1562 597.873,-1562 597.873,-1526 749.873,-1526 749.873,-1562"/>
-<text text-anchor="middle" x="673.873" y="-1541.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsCreate</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate -->
-<g id="edge8" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
-<path fill="none" stroke="black" d="M597.625,-1544C544.188,-1544 472.874,-1544 420.23,-1544"/>
-<polygon fill="none" stroke="black" points="419.961,-1540.5 409.961,-1544 419.961,-1547.5 419.961,-1540.5"/>
+<g id="edge16" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSms</title>
+<path fill="none" stroke="black" d="M316.984,-1687.89C269.135,-1658.46 174.532,-1600.29 121.446,-1567.64"/>
+<polygon fill="none" stroke="black" points="123.018,-1564.5 112.666,-1562.24 119.351,-1570.46 123.018,-1564.5"/>
 </g>
 <!-- \\Clx\\Xms\\Api\\MtBatchTextSmsResult -->
-<g id="node25" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsResult</title>
-<polygon fill="none" stroke="black" points="749.873,-1508 597.873,-1508 597.873,-1472 749.873,-1472 749.873,-1508"/>
-<text text-anchor="middle" x="673.873" y="-1487.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsResult</text>
+<g id="node24" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsResult</title>
+<polygon fill="none" stroke="black" points="749.873,-1724 597.873,-1724 597.873,-1688 749.873,-1688 749.873,-1724"/>
+<text text-anchor="middle" x="673.873" y="-1703.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsResult</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\MtBatchTextSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult -->
-<g id="edge9" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
-<path fill="none" stroke="black" d="M597.625,-1490C544.188,-1490 472.874,-1490 420.23,-1490"/>
-<polygon fill="none" stroke="black" points="419.961,-1486.5 409.961,-1490 419.961,-1493.5 419.961,-1486.5"/>
+<g id="edge17" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsResult&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsResult</title>
+<path fill="none" stroke="black" d="M597.625,-1706C544.188,-1706 472.874,-1706 420.23,-1706"/>
+<polygon fill="none" stroke="black" points="419.961,-1702.5 409.961,-1706 419.961,-1709.5 419.961,-1702.5"/>
 </g>
-<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsUpdate -->
-<g id="node26" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsUpdate</title>
-<polygon fill="none" stroke="black" points="749.873,-1292 597.873,-1292 597.873,-1256 749.873,-1256 749.873,-1292"/>
-<text text-anchor="middle" x="673.873" y="-1271.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsUpdate</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsCreate -->
+<g id="node25" class="node"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsCreate</title>
+<polygon fill="none" stroke="black" points="749.873,-1400 597.873,-1400 597.873,-1364 749.873,-1364 749.873,-1400"/>
+<text text-anchor="middle" x="673.873" y="-1379.2" font-family="Courier,monospace" font-size="11.00">MtBatchTextSmsCreate</text>
 </g>
-<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
-<g id="edge10" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
-<path fill="none" stroke="black" d="M597.625,-1280.26C544.188,-1284.71 472.874,-1290.64 420.23,-1295.03"/>
-<polygon fill="none" stroke="black" points="419.637,-1291.56 409.961,-1295.88 420.217,-1298.54 419.637,-1291.56"/>
+<!-- \\Clx\\Xms\\Api\\MtBatchTextSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate -->
+<g id="edge18" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchTextSmsCreate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsCreate</title>
+<path fill="none" stroke="black" d="M597.625,-1382C544.188,-1382 472.874,-1382 420.23,-1382"/>
+<polygon fill="none" stroke="black" points="419.961,-1378.5 409.961,-1382 419.961,-1385.5 419.961,-1378.5"/>
 </g>
-<!-- \\Clx\\Xms\\Api\\Page -->
-<g id="node27" class="node"><title>\\Clx\\Xms\\Api\\Page</title>
-<polygon fill="none" stroke="black" points="700.873,-1238 646.873,-1238 646.873,-1202 700.873,-1202 700.873,-1238"/>
-<text text-anchor="middle" x="673.873" y="-1217.2" font-family="Courier,monospace" font-size="11.00">Page</text>
-</g>
-<!-- \\IteratorAggregate -->
-<g id="node45" class="node"><title>\\IteratorAggregate</title>
-<ellipse fill="none" stroke="black" cx="347.437" cy="-288" rx="98.5829" ry="18"/>
-<text text-anchor="middle" x="347.437" y="-284.3" font-family="Times,serif" font-size="14.00" fill="gray">\IteratorAggregate</text>
-</g>
-<!-- \\Clx\\Xms\\Api\\Page&#45;&gt;\\IteratorAggregate -->
-<g id="edge11" class="edge"><title>\\Clx\\Xms\\Api\\Page&#45;&gt;\\IteratorAggregate</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M646.742,-1220.89C623.088,-1220.14 589.227,-1214.9 570.873,-1193 446.706,-1044.81 623.88,-473.478 498.873,-326 486.749,-311.696 470.095,-302.361 452.272,-296.351"/>
-<polygon fill="none" stroke="black" points="452.855,-292.872 442.271,-293.343 450.839,-299.575 452.855,-292.872"/>
+<!-- \\Clx\\Xms\\Api\\GroupResult -->
+<g id="node26" class="node"><title>\\Clx\\Xms\\Api\\GroupResult</title>
+<polygon fill="none" stroke="black" points="719.373,-1292 628.373,-1292 628.373,-1256 719.373,-1256 719.373,-1292"/>
+<text text-anchor="middle" x="673.873" y="-1271.2" font-family="Courier,monospace" font-size="11.00">GroupResult</text>
 </g>
 <!-- \\Clx\\Xms\\Api\\Pages -->
-<g id="node28" class="node"><title>\\Clx\\Xms\\Api\\Pages</title>
+<g id="node27" class="node"><title>\\Clx\\Xms\\Api\\Pages</title>
 <polygon fill="none" stroke="black" points="700.873,-1184 646.873,-1184 646.873,-1148 700.873,-1148 700.873,-1184"/>
 <text text-anchor="middle" x="673.873" y="-1163.2" font-family="Courier,monospace" font-size="11.00">Pages</text>
 </g>
+<!-- \\IteratorAggregate -->
+<g id="node50" class="node"><title>\\IteratorAggregate</title>
+<ellipse fill="none" stroke="black" cx="347.437" cy="-234" rx="98.5829" ry="18"/>
+<text text-anchor="middle" x="347.437" y="-230.3" font-family="Times,serif" font-size="14.00" fill="gray">\IteratorAggregate</text>
+</g>
 <!-- \\Clx\\Xms\\Api\\Pages&#45;&gt;\\IteratorAggregate -->
-<g id="edge12" class="edge"><title>\\Clx\\Xms\\Api\\Pages&#45;&gt;\\IteratorAggregate</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M646.77,-1166.86C623.135,-1166.1 589.286,-1160.85 570.873,-1139 454.004,-1000.3 616.527,-464.036 498.873,-326 486.71,-311.729 470.038,-302.41 452.21,-296.404"/>
-<polygon fill="none" stroke="black" points="452.791,-292.924 442.207,-293.398 450.777,-299.628 452.791,-292.924"/>
+<g id="edge20" class="edge"><title>\\Clx\\Xms\\Api\\Pages&#45;&gt;\\IteratorAggregate</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M646.737,-1166.89C623.079,-1166.15 589.215,-1160.91 570.873,-1139 445.218,-988.883 630.516,-405.895 498.873,-261 487.388,-248.359 472.168,-240.367 455.817,-235.487"/>
+<polygon fill="none" stroke="black" points="456.637,-232.084 446.079,-232.961 454.88,-238.86 456.637,-232.084"/>
 </g>
-<!-- \\Clx\\Xms\\Api\\PagesIterator -->
-<g id="node29" class="node"><title>\\Clx\\Xms\\Api\\PagesIterator</title>
-<polygon fill="none" stroke="black" points="725.873,-1130 621.873,-1130 621.873,-1094 725.873,-1094 725.873,-1130"/>
-<text text-anchor="middle" x="673.873" y="-1109.2" font-family="Courier,monospace" font-size="11.00">PagesIterator</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate -->
+<g id="node28" class="node"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate</title>
+<polygon fill="none" stroke="black" points="756.373,-1454 591.373,-1454 591.373,-1418 756.373,-1418 756.373,-1454"/>
+<text text-anchor="middle" x="673.873" y="-1433.2" font-family="Courier,monospace" font-size="11.00">MtBatchBinarySmsUpdate</text>
 </g>
-<!-- \\Iterator -->
-<g id="node46" class="node"><title>\\Iterator</title>
-<ellipse fill="none" stroke="black" cx="347.437" cy="-234" rx="50.0912" ry="18"/>
-<text text-anchor="middle" x="347.437" y="-230.3" font-family="Times,serif" font-size="14.00" fill="gray">\Iterator</text>
+<!-- \\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate -->
+<g id="edge21" class="edge"><title>\\Clx\\Xms\\Api\\MtBatchBinarySmsUpdate&#45;&gt;\\Clx\\Xms\\Api\\MtBatchSmsUpdate</title>
+<path fill="none" stroke="black" d="M600.467,-1454.08C546.58,-1467.53 473.386,-1485.8 419.76,-1499.19"/>
+<polygon fill="none" stroke="black" points="418.839,-1495.82 409.984,-1501.63 420.534,-1502.61 418.839,-1495.82"/>
 </g>
-<!-- \\Clx\\Xms\\Api\\PagesIterator&#45;&gt;\\Iterator -->
-<g id="edge13" class="edge"><title>\\Clx\\Xms\\Api\\PagesIterator&#45;&gt;\\Iterator</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M621.668,-1112.99C603.056,-1110.59 583.511,-1104.34 570.873,-1090 448.595,-951.284 623.549,-397.564 498.873,-261 475.788,-235.714 437.755,-229.059 405.707,-228.677"/>
-<polygon fill="none" stroke="black" points="405.511,-225.178 395.539,-228.758 405.567,-232.178 405.511,-225.178"/>
+<!-- \\Clx\\Xms\\Api\\Page -->
+<g id="node29" class="node"><title>\\Clx\\Xms\\Api\\Page</title>
+<polygon fill="none" stroke="black" points="700.873,-1130 646.873,-1130 646.873,-1094 700.873,-1094 700.873,-1130"/>
+<text text-anchor="middle" x="673.873" y="-1109.2" font-family="Courier,monospace" font-size="11.00">Page</text>
+</g>
+<!-- \\Clx\\Xms\\Api\\Page&#45;&gt;\\IteratorAggregate -->
+<g id="edge24" class="edge"><title>\\Clx\\Xms\\Api\\Page&#45;&gt;\\IteratorAggregate</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M646.441,-1114.26C622.917,-1114.69 589.441,-1111.06 570.873,-1090 448.595,-951.284 623.549,-397.564 498.873,-261 487.539,-248.585 472.602,-240.662 456.539,-235.766"/>
+<polygon fill="none" stroke="black" points="456.976,-232.262 446.414,-233.097 455.192,-239.031 456.976,-232.262"/>
 </g>
 <!-- \\Clx\\Xms\\HttpCallException -->
 <g id="node30" class="node"><title>\\Clx\\Xms\\HttpCallException</title>
@@ -257,48 +257,33 @@
 </g>
 <!-- \\Clx\\Xms\\ApiException -->
 <g id="node44" class="node"><title>\\Clx\\Xms\\ApiException</title>
-<polygon fill="none" stroke="black" points="396.437,-914 298.437,-914 298.437,-878 396.437,-878 396.437,-914"/>
-<text text-anchor="middle" x="347.437" y="-893.2" font-family="Courier,monospace" font-size="11.00">ApiException</text>
+<polygon fill="none" stroke="black" points="396.437,-806 298.437,-806 298.437,-770 396.437,-770 396.437,-806"/>
+<text text-anchor="middle" x="347.437" y="-785.2" font-family="Courier,monospace" font-size="11.00">ApiException</text>
 </g>
 <!-- \\Clx\\Xms\\HttpCallException&#45;&gt;\\Clx\\Xms\\ApiException -->
-<g id="edge15" class="edge"><title>\\Clx\\Xms\\HttpCallException&#45;&gt;\\Clx\\Xms\\ApiException</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M608.269,-1043.9C595.646,-1040.31 582.673,-1036.02 570.873,-1031 499.12,-1000.48 423.003,-949.745 381.027,-919.928"/>
-<polygon fill="none" stroke="black" points="383.019,-917.05 372.85,-914.077 378.946,-922.742 383.019,-917.05"/>
+<g id="edge2" class="edge"><title>\\Clx\\Xms\\HttpCallException&#45;&gt;\\Clx\\Xms\\ApiException</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M608.296,-1046.87C595.343,-1043.02 582.236,-1037.88 570.873,-1031 476.669,-973.997 398.356,-865.304 365.309,-814.902"/>
+<polygon fill="none" stroke="black" points="368.044,-812.687 359.672,-806.195 362.168,-816.491 368.044,-812.687"/>
 </g>
 <!-- \\RuntimeException -->
-<g id="node47" class="node"><title>\\RuntimeException</title>
+<g id="node45" class="node"><title>\\RuntimeException</title>
 <ellipse fill="none" stroke="black" cx="347.437" cy="-180" rx="100.182" ry="18"/>
 <text text-anchor="middle" x="347.437" y="-176.3" font-family="Times,serif" font-size="14.00" fill="gray">\RuntimeException</text>
 </g>
 <!-- \\Clx\\Xms\\HttpCallException&#45;&gt;\\RuntimeException -->
-<g id="edge14" class="edge"><title>\\Clx\\Xms\\HttpCallException&#45;&gt;\\RuntimeException</title>
+<g id="edge1" class="edge"><title>\\Clx\\Xms\\HttpCallException&#45;&gt;\\RuntimeException</title>
 <path fill="none" stroke="black" d="M608.175,-1053.24C593.978,-1049.14 580.368,-1042.28 570.873,-1031 452.518,-890.367 622.838,-342.714 498.873,-207 487.758,-194.832 473.182,-186.978 457.477,-182.063"/>
 <polygon fill="none" stroke="black" points="458.142,-178.617 447.574,-179.369 456.305,-185.371 458.142,-178.617"/>
 </g>
-<!-- \\Clx\\Xms\\DeliveryReportType -->
-<g id="node31" class="node"><title>\\Clx\\Xms\\DeliveryReportType</title>
-<polygon fill="none" stroke="black" points="742.873,-1022 604.873,-1022 604.873,-986 742.873,-986 742.873,-1022"/>
-<text text-anchor="middle" x="673.873" y="-1001.2" font-family="Courier,monospace" font-size="11.00">DeliveryReportType</text>
+<!-- \\Clx\\Xms\\Deserialize -->
+<g id="node31" class="node"><title>\\Clx\\Xms\\Deserialize</title>
+<polygon fill="none" stroke="black" points="719.373,-1022 628.373,-1022 628.373,-986 719.373,-986 719.373,-1022"/>
+<text text-anchor="middle" x="673.873" y="-1001.2" font-family="Courier,monospace" font-size="11.00">Deserialize</text>
 </g>
-<!-- \\Clx\\Xms\\NotFoundException -->
-<g id="node32" class="node"><title>\\Clx\\Xms\\NotFoundException</title>
-<polygon fill="none" stroke="black" points="739.373,-968 608.373,-968 608.373,-932 739.373,-932 739.373,-968"/>
-<text text-anchor="middle" x="673.873" y="-947.2" font-family="Courier,monospace" font-size="11.00">NotFoundException</text>
-</g>
-<!-- \\Clx\\Xms\\NotFoundException&#45;&gt;\\Clx\\Xms\\ApiException -->
-<g id="edge17" class="edge"><title>\\Clx\\Xms\\NotFoundException&#45;&gt;\\Clx\\Xms\\ApiException</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M607.998,-939.202C549.21,-929.417 463.355,-915.127 406.712,-905.699"/>
-<polygon fill="none" stroke="black" points="407.276,-902.245 396.837,-904.056 406.126,-909.15 407.276,-902.245"/>
-</g>
-<!-- \\Exception -->
-<g id="node48" class="node"><title>\\Exception</title>
-<ellipse fill="none" stroke="black" cx="347.437" cy="-126" rx="50.8918" ry="18"/>
-<text text-anchor="middle" x="347.437" y="-122.3" font-family="Times,serif" font-size="14.00" fill="gray">xception</text>
-</g>
-<!-- \\Clx\\Xms\\NotFoundException&#45;&gt;\\Exception -->
-<g id="edge16" class="edge"><title>\\Clx\\Xms\\NotFoundException&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M608.223,-945.197C594.025,-941.099 580.403,-934.253 570.873,-923 459.814,-791.848 615.163,-279.537 498.873,-153 475.867,-127.966 438.203,-121.228 406.319,-120.743"/>
-<polygon fill="none" stroke="black" points="406.179,-117.243 396.196,-120.789 406.212,-124.243 406.179,-117.243"/>
+<!-- \\Clx\\Xms\\Version -->
+<g id="node32" class="node"><title>\\Clx\\Xms\\Version</title>
+<polygon fill="none" stroke="black" points="705.873,-968 641.873,-968 641.873,-932 705.873,-932 705.873,-968"/>
+<text text-anchor="middle" x="673.873" y="-947.2" font-family="Courier,monospace" font-size="11.00">Version</text>
 </g>
 <!-- \\Clx\\Xms\\UnauthorizedException -->
 <g id="node33" class="node"><title>\\Clx\\Xms\\UnauthorizedException</title>
@@ -306,99 +291,114 @@
 <text text-anchor="middle" x="673.873" y="-893.2" font-family="Courier,monospace" font-size="11.00">UnauthorizedException</text>
 </g>
 <!-- \\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Clx\\Xms\\ApiException -->
-<g id="edge19" class="edge"><title>\\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Clx\\Xms\\ApiException</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M594.75,-896C536.917,-896 459.375,-896 406.857,-896"/>
-<polygon fill="none" stroke="black" points="406.701,-892.5 396.701,-896 406.701,-899.5 406.701,-892.5"/>
+<g id="edge5" class="edge"><title>\\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Clx\\Xms\\ApiException</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M601.302,-877.933C591.047,-875.09 580.661,-872.071 570.873,-869 513.333,-850.949 448.677,-826.979 403.966,-809.807"/>
+<polygon fill="none" stroke="black" points="405.046,-806.472 394.457,-806.141 402.529,-813.004 405.046,-806.472"/>
+</g>
+<!-- \\Exception -->
+<g id="node46" class="node"><title>\\Exception</title>
+<ellipse fill="none" stroke="black" cx="347.437" cy="-126" rx="50.8918" ry="18"/>
+<text text-anchor="middle" x="347.437" y="-122.3" font-family="Times,serif" font-size="14.00" fill="gray">xception</text>
 </g>
 <!-- \\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Exception -->
-<g id="edge18" class="edge"><title>\\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Exception</title>
+<g id="edge4" class="edge"><title>\\Clx\\Xms\\UnauthorizedException&#45;&gt;\\Exception</title>
 <path fill="none" stroke="black" d="M594.814,-886.269C585.694,-882.182 577.351,-876.596 570.873,-869 467.107,-747.325 607.492,-270.364 498.873,-153 475.779,-128.047 438.116,-121.309 406.253,-120.803"/>
 <polygon fill="none" stroke="black" points="406.124,-117.303 396.138,-120.842 406.152,-124.303 406.124,-117.303"/>
 </g>
+<!-- \\Clx\\Xms\\GroupFilter -->
+<g id="node34" class="node"><title>\\Clx\\Xms\\GroupFilter</title>
+<polygon fill="none" stroke="black" points="719.373,-860 628.373,-860 628.373,-824 719.373,-824 719.373,-860"/>
+<text text-anchor="middle" x="673.873" y="-839.2" font-family="Courier,monospace" font-size="11.00">GroupFilter</text>
+</g>
+<!-- \\Clx\\Xms\\ErrorResponseException -->
+<g id="node35" class="node"><title>\\Clx\\Xms\\ErrorResponseException</title>
+<polygon fill="none" stroke="black" points="756.373,-806 591.373,-806 591.373,-770 756.373,-770 756.373,-806"/>
+<text text-anchor="middle" x="673.873" y="-785.2" font-family="Courier,monospace" font-size="11.00">ErrorResponseException</text>
+</g>
+<!-- \\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Clx\\Xms\\ApiException -->
+<g id="edge9" class="edge"><title>\\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Clx\\Xms\\ApiException</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M591.004,-788C533.577,-788 458.176,-788 406.782,-788"/>
+<polygon fill="none" stroke="black" points="406.516,-784.5 396.516,-788 406.516,-791.5 406.516,-784.5"/>
+</g>
+<!-- \\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Exception -->
+<g id="edge8" class="edge"><title>\\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M591.211,-776.396C583.527,-772.526 576.517,-767.501 570.873,-761 392.483,-555.522 685.454,-351.069 498.873,-153 475.642,-128.339 438.162,-121.561 406.425,-120.962"/>
+<polygon fill="none" stroke="black" points="406.346,-117.462 396.349,-120.97 406.351,-124.462 406.346,-117.462"/>
+</g>
+<!-- \\Clx\\Xms\\InboundsFilter -->
+<g id="node36" class="node"><title>\\Clx\\Xms\\InboundsFilter</title>
+<polygon fill="none" stroke="black" points="729.373,-752 618.373,-752 618.373,-716 729.373,-716 729.373,-752"/>
+<text text-anchor="middle" x="673.873" y="-731.2" font-family="Courier,monospace" font-size="11.00">InboundsFilter</text>
+</g>
+<!-- \\Clx\\Xms\\Tutorial -->
+<g id="node37" class="node"><title>\\Clx\\Xms\\Tutorial</title>
+<polygon fill="none" stroke="black" points="709.373,-698 638.373,-698 638.373,-662 709.373,-662 709.373,-698"/>
+<text text-anchor="middle" x="673.873" y="-677.2" font-family="Courier,monospace" font-size="11.00">Tutorial</text>
+</g>
 <!-- \\Clx\\Xms\\UnexpectedResponseException -->
-<g id="node34" class="node"><title>\\Clx\\Xms\\UnexpectedResponseException</title>
-<polygon fill="none" stroke="black" points="773.373,-806 574.373,-806 574.373,-770 773.373,-770 773.373,-806"/>
-<text text-anchor="middle" x="673.873" y="-785.2" font-family="Courier,monospace" font-size="11.00">UnexpectedResponseException</text>
+<g id="node38" class="node"><title>\\Clx\\Xms\\UnexpectedResponseException</title>
+<polygon fill="none" stroke="black" points="773.373,-482 574.373,-482 574.373,-446 773.373,-446 773.373,-482"/>
+<text text-anchor="middle" x="673.873" y="-461.2" font-family="Courier,monospace" font-size="11.00">UnexpectedResponseException</text>
 </g>
 <!-- \\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\Clx\\Xms\\ApiException -->
-<g id="edge21" class="edge"><title>\\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\Clx\\Xms\\ApiException</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M601.302,-806.067C591.047,-808.91 580.661,-811.929 570.873,-815 513.333,-833.051 448.677,-857.021 403.966,-874.193"/>
-<polygon fill="none" stroke="black" points="402.529,-870.996 394.457,-877.859 405.046,-877.528 402.529,-870.996"/>
+<g id="edge13" class="edge"><title>\\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\Clx\\Xms\\ApiException</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M586.93,-482.075C581.299,-484.663 575.885,-487.62 570.873,-491 464.883,-562.485 389.549,-701.619 361.036,-760.56"/>
+<polygon fill="none" stroke="black" points="357.855,-759.099 356.712,-769.632 364.174,-762.111 357.855,-759.099"/>
 </g>
 <!-- \\UnexpectedValueException -->
-<g id="node49" class="node"><title>\\UnexpectedValueException</title>
+<g id="node48" class="node"><title>\\UnexpectedValueException</title>
 <ellipse fill="none" stroke="black" cx="347.437" cy="-72" rx="141.875" ry="18"/>
 <text text-anchor="middle" x="347.437" y="-68.3" font-family="Times,serif" font-size="14.00" fill="gray">\UnexpectedValueException</text>
 </g>
 <!-- \\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\UnexpectedValueException -->
-<g id="edge20" class="edge"><title>\\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\UnexpectedValueException</title>
-<path fill="none" stroke="black" d="M580.457,-769.881C576.965,-767.279 573.739,-764.334 570.873,-761 377.918,-536.592 700.776,-315.393 498.873,-99 493.947,-93.7207 488.369,-89.2587 482.333,-85.4999"/>
-<polygon fill="none" stroke="black" points="483.635,-82.2221 473.183,-80.4825 480.269,-88.3598 483.635,-82.2221"/>
+<g id="edge12" class="edge"><title>\\Clx\\Xms\\UnexpectedResponseException&#45;&gt;\\UnexpectedValueException</title>
+<path fill="none" stroke="black" d="M581.316,-445.823C577.545,-443.243 574.031,-440.316 570.873,-437 464.954,-325.771 609.219,-205.839 498.873,-99 493.369,-93.6704 487.192,-89.1996 480.565,-85.4616"/>
+<polygon fill="none" stroke="black" points="481.778,-82.1549 471.269,-80.8068 478.644,-88.414 481.778,-82.1549"/>
 </g>
-<!-- \\Clx\\Xms\\ErrorResponseException -->
-<g id="node35" class="node"><title>\\Clx\\Xms\\ErrorResponseException</title>
-<polygon fill="none" stroke="black" points="756.373,-860 591.373,-860 591.373,-824 756.373,-824 756.373,-860"/>
-<text text-anchor="middle" x="673.873" y="-839.2" font-family="Courier,monospace" font-size="11.00">ErrorResponseException</text>
-</g>
-<!-- \\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Clx\\Xms\\ApiException -->
-<g id="edge23" class="edge"><title>\\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Clx\\Xms\\ApiException</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M591.004,-855.626C533.457,-865.205 457.861,-877.787 406.461,-886.342"/>
-<polygon fill="none" stroke="black" points="405.805,-882.903 396.516,-887.998 406.955,-889.808 405.805,-882.903"/>
-</g>
-<!-- \\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Exception -->
-<g id="edge22" class="edge"><title>\\Clx\\Xms\\ErrorResponseException&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M591.149,-830.449C583.476,-826.569 576.486,-821.528 570.873,-815 377.918,-590.592 700.776,-369.393 498.873,-153 475.678,-128.141 438.015,-121.402 406.178,-120.873"/>
-<polygon fill="none" stroke="black" points="406.06,-117.373 396.071,-120.904 406.082,-124.373 406.06,-117.373"/>
-</g>
-<!-- \\Clx\\Xms\\Version -->
-<g id="node36" class="node"><title>\\Clx\\Xms\\Version</title>
-<polygon fill="none" stroke="black" points="705.873,-752 641.873,-752 641.873,-716 705.873,-716 705.873,-752"/>
-<text text-anchor="middle" x="673.873" y="-731.2" font-family="Courier,monospace" font-size="11.00">Version</text>
+<!-- \\Clx\\Xms\\DeliveryReportType -->
+<g id="node39" class="node"><title>\\Clx\\Xms\\DeliveryReportType</title>
+<polygon fill="none" stroke="black" points="742.873,-590 604.873,-590 604.873,-554 742.873,-554 742.873,-590"/>
+<text text-anchor="middle" x="673.873" y="-569.2" font-family="Courier,monospace" font-size="11.00">DeliveryReportType</text>
 </g>
 <!-- \\Clx\\Xms\\BatchFilter -->
-<g id="node37" class="node"><title>\\Clx\\Xms\\BatchFilter</title>
-<polygon fill="none" stroke="black" points="719.373,-698 628.373,-698 628.373,-662 719.373,-662 719.373,-698"/>
-<text text-anchor="middle" x="673.873" y="-677.2" font-family="Courier,monospace" font-size="11.00">BatchFilter</text>
-</g>
-<!-- \\Clx\\Xms\\Deserialize -->
-<g id="node38" class="node"><title>\\Clx\\Xms\\Deserialize</title>
-<polygon fill="none" stroke="black" points="719.373,-644 628.373,-644 628.373,-608 719.373,-608 719.373,-644"/>
-<text text-anchor="middle" x="673.873" y="-623.2" font-family="Courier,monospace" font-size="11.00">Deserialize</text>
-</g>
-<!-- \\Clx\\Xms\\GroupFilter -->
-<g id="node39" class="node"><title>\\Clx\\Xms\\GroupFilter</title>
-<polygon fill="none" stroke="black" points="719.373,-590 628.373,-590 628.373,-554 719.373,-554 719.373,-590"/>
-<text text-anchor="middle" x="673.873" y="-569.2" font-family="Courier,monospace" font-size="11.00">GroupFilter</text>
-</g>
-<!-- \\Clx\\Xms\\InboundsFilter -->
-<g id="node40" class="node"><title>\\Clx\\Xms\\InboundsFilter</title>
-<polygon fill="none" stroke="black" points="729.373,-536 618.373,-536 618.373,-500 729.373,-500 729.373,-536"/>
-<text text-anchor="middle" x="673.873" y="-515.2" font-family="Courier,monospace" font-size="11.00">InboundsFilter</text>
-</g>
-<!-- \\Clx\\Xms\\Serialize -->
-<g id="node41" class="node"><title>\\Clx\\Xms\\Serialize</title>
-<polygon fill="none" stroke="black" points="712.373,-482 635.373,-482 635.373,-446 712.373,-446 712.373,-482"/>
-<text text-anchor="middle" x="673.873" y="-461.2" font-family="Courier,monospace" font-size="11.00">Serialize</text>
-</g>
-<!-- \\Clx\\Xms\\Tutorial -->
-<g id="node42" class="node"><title>\\Clx\\Xms\\Tutorial</title>
-<polygon fill="none" stroke="black" points="709.373,-428 638.373,-428 638.373,-392 709.373,-392 709.373,-428"/>
-<text text-anchor="middle" x="673.873" y="-407.2" font-family="Courier,monospace" font-size="11.00">Tutorial</text>
+<g id="node40" class="node"><title>\\Clx\\Xms\\BatchFilter</title>
+<polygon fill="none" stroke="black" points="719.373,-536 628.373,-536 628.373,-500 719.373,-500 719.373,-536"/>
+<text text-anchor="middle" x="673.873" y="-515.2" font-family="Courier,monospace" font-size="11.00">BatchFilter</text>
 </g>
 <!-- \\Clx\\Xms\\Client -->
-<g id="node43" class="node"><title>\\Clx\\Xms\\Client</title>
-<polygon fill="none" stroke="black" points="702.373,-374 645.373,-374 645.373,-338 702.373,-338 702.373,-374"/>
-<text text-anchor="middle" x="673.873" y="-353.2" font-family="Courier,monospace" font-size="11.00">Client</text>
+<g id="node41" class="node"><title>\\Clx\\Xms\\Client</title>
+<polygon fill="none" stroke="black" points="702.373,-428 645.373,-428 645.373,-392 702.373,-392 702.373,-428"/>
+<text text-anchor="middle" x="673.873" y="-407.2" font-family="Courier,monospace" font-size="11.00">Client</text>
 </g>
 <!-- \\Psr\\Log\\LoggerAwareInterface -->
-<g id="node50" class="node"><title>\\Psr\\Log\\LoggerAwareInterface</title>
+<g id="node49" class="node"><title>\\Psr\\Log\\LoggerAwareInterface</title>
 <ellipse fill="none" stroke="black" cx="347.437" cy="-18" rx="151.373" ry="18"/>
 <text text-anchor="middle" x="347.437" y="-14.3" font-family="Times,serif" font-size="14.00" fill="gray">\PsrLogLoggerAwareInterface</text>
 </g>
 <!-- \\Clx\\Xms\\Client&#45;&gt;\\Psr\\Log\\LoggerAwareInterface -->
-<g id="edge24" class="edge"><title>\\Clx\\Xms\\Client&#45;&gt;\\Psr\\Log\\LoggerAwareInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M668.588,-337.959C654.686,-283.677 605.437,-120.939 498.873,-45 492.19,-40.2377 484.927,-36.232 477.32,-32.8695"/>
-<polygon fill="none" stroke="black" points="478.472,-29.5603 467.888,-29.0795 475.862,-36.0556 478.472,-29.5603"/>
+<g id="edge19" class="edge"><title>\\Clx\\Xms\\Client&#45;&gt;\\Psr\\Log\\LoggerAwareInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M645.098,-410.209C622.008,-408.826 589.948,-403.031 570.873,-383 464.954,-271.771 609.219,-151.839 498.873,-45 494.057,-40.3366 488.726,-36.3307 483.028,-32.8979"/>
+<polygon fill="none" stroke="black" points="484.265,-29.5902 473.796,-27.9633 480.965,-35.7638 484.265,-29.5902"/>
+</g>
+<!-- \\Clx\\Xms\\NotFoundException -->
+<g id="node42" class="node"><title>\\Clx\\Xms\\NotFoundException</title>
+<polygon fill="none" stroke="black" points="739.373,-644 608.373,-644 608.373,-608 739.373,-608 739.373,-644"/>
+<text text-anchor="middle" x="673.873" y="-623.2" font-family="Courier,monospace" font-size="11.00">NotFoundException</text>
+</g>
+<!-- \\Clx\\Xms\\NotFoundException&#45;&gt;\\Clx\\Xms\\ApiException -->
+<g id="edge23" class="edge"><title>\\Clx\\Xms\\NotFoundException&#45;&gt;\\Clx\\Xms\\ApiException</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M608.269,-640.1C595.646,-643.689 582.673,-647.981 570.873,-653 499.12,-683.517 423.003,-734.255 381.027,-764.072"/>
+<polygon fill="none" stroke="black" points="378.946,-761.258 372.85,-769.923 383.019,-766.95 378.946,-761.258"/>
+</g>
+<!-- \\Clx\\Xms\\NotFoundException&#45;&gt;\\Exception -->
+<g id="edge22" class="edge"><title>\\Clx\\Xms\\NotFoundException&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M608.216,-620.586C594.191,-616.487 580.65,-609.793 570.873,-599 436.072,-450.189 639.602,-296.218 498.873,-153 475.397,-129.109 438.496,-122.214 407.117,-121.363"/>
+<polygon fill="none" stroke="black" points="406.739,-117.86 396.715,-121.29 406.69,-124.86 406.739,-117.86"/>
+</g>
+<!-- \\Clx\\Xms\\Serialize -->
+<g id="node43" class="node"><title>\\Clx\\Xms\\Serialize</title>
+<polygon fill="none" stroke="black" points="712.373,-374 635.373,-374 635.373,-338 712.373,-338 712.373,-374"/>
+<text text-anchor="middle" x="673.873" y="-353.2" font-family="Courier,monospace" font-size="11.00">Serialize</text>
 </g>
 </g>
 </svg>
