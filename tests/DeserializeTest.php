@@ -317,9 +317,7 @@ EOD;
 
         $expected = new XA\BatchRecipientDeliveryReport();
         $expected->setBatchId('3-mbA7z9wDKY76ag');
-        $expected->setOperatorStatusAt(
-            new \DateTime('2016-12-05T16:24:00.000Z')
-        );
+        $expected->setOperatorStatusAt(new \DateTime('2016-12-05T16:24:00.000Z'));
         $expected->setStatusAt(new \DateTime('2016-12-05T16:24:23.318Z'));
         $expected->setStatus(XA\DeliveryStatus::FAILED);
         $expected->setCode(11);
@@ -327,7 +325,20 @@ EOD;
         $expected->setStatusMessage('mystatusmessage');
         $expected->setOperator('31101');
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected->getBatchId(), $result->getBatchId());
+        $this->assertEquals(
+            $expected->getOperatorStatusAt(), $result->getOperatorStatusAt()
+        );
+        $this->assertEquals($expected->getStatusAt(), $result->getStatusAt());
+        $this->assertEquals($expected->getStatus(), $result->getStatus());
+        $this->assertEquals($expected->getCode(), $result->getCode());
+        $this->assertEquals(
+            $expected->getRecipient(), $result->getRecipient()
+        );
+        $this->assertEquals(
+            $expected->getStatusMessage(), $result->getStatusMessage()
+        );
+        $this->assertEquals($expected->getOperator(), $result->getOperator());
     }
 
     public function testReadRecipientDeliveryReportUnknownType()
@@ -507,7 +518,8 @@ EOD;
   "sent_at": "2016-12-03T16:24:23.318Z",
   "received_at": "2016-12-05T16:24:23.318Z",
   "body": "AwE=",
-  "udh": "00010203"
+  "udh": "00010203",
+  "operator": "48271"
 }
 EOD;
 
@@ -529,6 +541,7 @@ EOD;
             new \DateTime('2016-12-05T16:24:23.318Z'),
             $result->getReceivedAt()
         );
+        $this->assertEquals('48271', $result->getOperator());
     }
 
     public function testMoTextSms()
