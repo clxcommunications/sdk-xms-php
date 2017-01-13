@@ -1078,8 +1078,6 @@ EOD;
             ->pathIs('/xms/v1/foo/groups/helloworld')
             ->then()
             ->statusCode(Response::HTTP_OK)
-            // ->header('content-type', 'application/json')
-            // ->body($responseBody2)
             ->end();
         $this->http->setUp();
 
