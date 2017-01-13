@@ -448,6 +448,15 @@ EOD;
         );
     }
 
+    public function testReadGroupMembers()
+    {
+        $json = '["123456789", "987654321"]';
+
+        $result = X\Deserialize::groupMembers($json);
+
+        $this->assertEquals(['123456789', '987654321'], $result);
+    }
+
     public function testReadTags()
     {
         $json = '{ "tags": ["tag1", "таг2"] }';

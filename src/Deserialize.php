@@ -470,6 +470,19 @@ class Deserialize
     }
 
     /**
+     * Reads a JSON blob containing a set of group members.
+     *
+     * @param string $json JSON formatted text
+     *
+     * @return string[] a list of MSISDNs
+     */
+    public static function groupMembers($json)
+    {
+        $fields = Deserialize::_fromJson($json);
+        return (array) $fields;
+    }
+
+    /**
      * Reads a JSON blob containing a list of tags.
      *
      * @param string $json a JSON formatted text

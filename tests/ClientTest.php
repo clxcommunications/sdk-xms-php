@@ -1288,6 +1288,24 @@ EOD;
         $this->assertEquals([], $page->getContent());
     }
 
+    public function testFetchGroupMembers()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/xms/v1/foo/groups/123/members')
+            ->then()
+            ->statusCode(Response::HTTP_OK)
+            ->header('content-type', 'application/json')
+            ->body('["123456789", "987654321", "555555555"]')
+            ->end();
+        $this->http->setUp();
+
+        $members = $this->_client->fetchGroupMembers('123');
+
+        $this->assertEquals(['123456789', '987654321', '555555555'], $members);
+    }
+
     public function testFetchGroupTags()
     {
         $this->http->mock

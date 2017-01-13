@@ -834,6 +834,18 @@ class Client implements \Psr\Log\LoggerAwareInterface
     }
 
     /**
+     * Fetches the that belong to the given group.
+     *
+     * @param string $groupId the group identifier
+     * @return string[] a list of MSISDNs
+     */
+    public function fetchGroupMembers($groupId)
+    {
+        $result = $this->_get($this->_groupUrl($groupId, '/members'));
+        return Deserialize::groupMembers($result);
+    }
+
+    /**
      * Fetches the tags associated with the given group.
      *
      * @param string $groupId the group identifier
