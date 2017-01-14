@@ -100,8 +100,8 @@ namespace Clx\Xms;
  * $client = \Clx\Xms\Client('myserviceplan', 'mytoken');
  * ```
  *
- * Once created the client can be used to interact with with XMS in
- * the ways described in the following sections of this tutorial.
+ * Once created the client can be used to interact with XMS in the
+ * ways described in the following sections of this tutorial.
  *
  * By default the connection will use
  * `https://api.clxcommunications.com/xms` as XMS endpoint. This can
