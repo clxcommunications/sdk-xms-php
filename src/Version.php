@@ -24,7 +24,7 @@ class Version
     public static function version()
     {
         // Note! Need to bump this value after tagging a release.
-        return "1.1.0";
+        return "1.1.1-dev";
     }
 
 }
