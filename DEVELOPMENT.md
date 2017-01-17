@@ -19,3 +19,5 @@ The following steps are necessary to perform a release of the SDK:
 6. Commit again.
 
 7. Push it all to GitHub.
+
+8. Log in to Packagist and press "Update" on the sdk-xms package.
