@@ -834,7 +834,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
     }
 
     /**
-     * Fetches the that belong to the given group.
+     * Fetches the members that belong to the given group.
      *
      * @param string $groupId the group identifier
      * @return string[] a list of MSISDNs
