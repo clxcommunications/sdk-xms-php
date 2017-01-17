@@ -14,8 +14,8 @@ namespace Clx\Xms\Api;
  * Describes parameters available during batch creation.
  *
  * We can create two kinds of batches, textual and binary, described
- * in the child classes `MtBatchSmsTextCreate` and
- * `MtBatchTextSmsCreate`, respectively.
+ * in the child classes `MtBatchTextSmsCreate` and
+ * `MtBatchBinarySmsCreate`, respectively.
  */
 abstract class MtBatchSmsCreate extends MtBatchSms
 {

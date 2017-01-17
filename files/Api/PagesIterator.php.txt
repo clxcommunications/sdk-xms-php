@@ -18,11 +18,11 @@ namespace Clx\Xms\Api;
  */
 class PagesIterator implements \Iterator
 {
-    private $__pages;
+    private $_pages;
 
-    private $__curPage = null;
+    private $_curPage = null;
 
-    private $__position = 0;
+    private $_position = 0;
 
     /**
      * Creates a new pages iterator for the given object.

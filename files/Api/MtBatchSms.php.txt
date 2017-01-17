@@ -37,7 +37,7 @@ abstract class MtBatchSms
     /**
      * The type of delivery report to use for this batch.
      *
-     * @var ReportType the report type
+     * @var string the report type
      */
     private $_deliveryReport;
 

@@ -68,7 +68,7 @@ class MtBatchTextSmsCreate extends MtBatchSmsCreate
     /**
      * Set the template parameters.
      *
-     * This property is only relevant is the `$body` property is a
+     * This property is only relevant if the message body is a
      * template. This is expected to be an associative array mapping
      * parameter keys to associative arrays themselves mapping
      * recipient numbers to substitution strings.

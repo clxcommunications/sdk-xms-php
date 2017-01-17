@@ -19,7 +19,7 @@ namespace Clx\Xms\Api;
 class Pages implements \IteratorAggregate
 {
 
-    private $__worker;
+    private $_worker;
 
     /**
      * Creates a new pages object with the given page fetcher.
