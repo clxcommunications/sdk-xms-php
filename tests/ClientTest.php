@@ -71,6 +71,7 @@ class ClientTest extends PHPUnit\Framework\TestCase
             $this->assertTrue(false, 'expected exception');
         } catch (X\HttpCallException $ex) {
             // This is good.
+            $this->assertEquals('<url> malformed', $ex->getMessage());
         }
     }
 
@@ -135,6 +136,10 @@ class ClientTest extends PHPUnit\Framework\TestCase
             $this->assertEquals(
                 'http://localhost:26542/xms/v1/foo/batches/batchid',
                 $ex->getUrl()
+            );
+            $this->assertEquals(
+                'No resource found at \'http://localhost:26542/xms/v1/foo/batches/batchid\'',
+                $ex->getMessage()
             );
         }
     }
