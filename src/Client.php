@@ -131,7 +131,8 @@ class Client implements \Psr\Log\LoggerAwareInterface
         $this->_token = $token;
         $this->_endpoint = $endpoint;
         $this->_userAgent = 'cURL/' . curl_version()['version']
-                          . ' PHP/' . PHP_VERSION;
+                          . ' PHP/' . PHP_VERSION
+                          . ' CLX-SDK/' . Version::version();
 
         if (!($this->_curlHandle = curl_init())) {
             throw new HttpCallException("failed to initialize cURL");
@@ -234,8 +235,7 @@ class Client implements \Psr\Log\LoggerAwareInterface
             'Accept: application/json',
             'Accept-Encoding: gzip, deflate',
             'Connection: keep-alive',
-            'Authorization: Bearer ' . $this->_token,
-            'X-CLX-SDK-Version: ' . Version::version()
+            'Authorization: Bearer ' . $this->_token
         ];
 
         /*

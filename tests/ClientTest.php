@@ -252,6 +252,16 @@ EOD;
             $expectedRequestBody,
             (string) $this->http->requests->latest()->getBody()
         );
+
+        $this->assertTrue(
+            $this->http->requests->latest()->hasHeader('user-agent'),
+            'Misses user-agent header'
+        );
+
+        $this->assertContains(
+            'CLX-SDK/1',
+            (string) $this->http->requests->latest()->getHeader('user-agent')
+        );
     }
 
     public function testCreateBinaryBatch()
