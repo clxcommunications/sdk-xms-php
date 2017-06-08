@@ -157,6 +157,10 @@ class ClientTest extends PHPUnit\Framework\TestCase
         } catch (X\UnauthorizedException $ex) {
             $this->assertEquals('foo', $ex->getServicePlanId());
             $this->assertEquals('bar', $ex->getToken());
+            $this->assertEquals(
+                'Unauthorized access to service plan \'foo\'',
+                $ex->getMessage()
+            );
         }
     }
 

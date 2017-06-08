@@ -29,6 +29,9 @@ class UnauthorizedException extends \Exception implements ApiException
      */
     public function __construct($servicePlanId, $token)
     {
+        parent::__construct(
+                "Unauthorized access to service plan '$servicePlanId'");
+
         $this->_servicePlanId = $servicePlanId;
         $this->_token = $token;
     }
