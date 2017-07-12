@@ -1,5 +1,7 @@
 # Change Log
 
+## Unreleased
+
 ## 1.1.1 (2017-07-12)
 
 - Add exception message to `Clx\Xms\UnauthorizedException`.
