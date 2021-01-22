@@ -10,6 +10,7 @@
         "psr-4": {"Clx\\Xms\\": "src/"}
     },
     "require": {
+        "ext-curl": "*",
         "php": "^5.6 || ^7.0",
         "psr/log": "^1.0"
     },
